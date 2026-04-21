@@ -1,4 +1,4 @@
-export default function Toggle({ on, onChange, label }) {
+export default function Toggle({ on, onChange, label = null }) {
   return (
     <div className="toggle-row">
       <button type="button" className={`toggle ${on ? "on" : ""}`} onClick={() => onChange(!on)} aria-pressed={on} />
