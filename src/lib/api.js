@@ -308,6 +308,19 @@ export const SEED_EXPERIENCE = [
   },
 ];
 
+export const SEED_EDUCATION = [
+  {
+    id: "edu1",
+    company: "FAST-NUCES",
+    role: "BS Computer Science",
+    location: "Islamabad",
+    start_date: "Aug 2022",
+    end_date: "Jun 2026",
+    bullets: [],
+    sort_order: 0,
+  },
+];
+
 export const SEED_CERTS = [
   {
     id: "c1",
@@ -403,6 +416,7 @@ export const getProjects = () => request("/api/projects").catch(() => SEED_PROJE
 export const getProject = (slug) =>
   request(`/api/projects/${slug}`).catch(() => SEED_PROJECTS.find((p) => p.slug === slug) || null);
 export const getExperience = () => request("/api/experience").catch(() => SEED_EXPERIENCE);
+export const getEducation = () => request("/api/education").catch(() => SEED_EDUCATION);
 export const getCertifications = () => request("/api/certifications").catch(() => SEED_CERTS);
 export const getSite = () => request("/api/site").catch(() => SEED_SITE);
 export const getSkills = () =>
@@ -417,6 +431,8 @@ export const getCertificationsForAdmin = () =>
   request("/api/admin/certifications", { auth: true }).catch(() => []);
 export const getExperienceForAdmin = () =>
   request("/api/admin/experience", { auth: true }).catch(() => []);
+export const getEducationForAdmin = () =>
+  request("/api/admin/education", { auth: true }).catch(() => []);
 export const getSkillsForAdmin = () => request("/api/admin/skills", { auth: true }).catch(() => []);
 export const sendContact = (data) =>
   request("/api/contact", { method: "POST", body: JSON.stringify(data) });
@@ -453,6 +469,12 @@ export const updateExp = (id, data) =>
   request(`/api/admin/experience/${id}`, { method: "PUT", auth: true, body: JSON.stringify(data) });
 export const deleteExp = (id) =>
   request(`/api/admin/experience/${id}`, { method: "DELETE", auth: true });
+export const createEdu = (data) =>
+  request("/api/admin/education", { method: "POST", auth: true, body: JSON.stringify(data) });
+export const updateEdu = (id, data) =>
+  request(`/api/admin/education/${id}`, { method: "PUT", auth: true, body: JSON.stringify(data) });
+export const deleteEdu = (id) =>
+  request(`/api/admin/education/${id}`, { method: "DELETE", auth: true });
 export const createSkill = (data) =>
   request("/api/admin/skills", { method: "POST", auth: true, body: JSON.stringify(data) });
 export const updateSkill = (id, data) =>
@@ -467,7 +489,11 @@ export const uploadResume = async (file) => {
   const headers = {};
   const t = getToken();
   if (t) headers["Authorization"] = `Bearer ${t}`;
-  const res = await fetch(`${API}/api/admin/upload/resume`, { method: "POST", headers, body: fd });
+  let res = await fetch(`${API_BASE}/api/admin/upload/resume`, { method: "POST", headers, body: fd });
+  if (res.status === 404) {
+    // Backward-compatible fallback for alt route deployments.
+    res = await fetch(`${API_BASE}/api/admin/site/upload/resume`, { method: "POST", headers, body: fd });
+  }
   if (!res.ok) {
     let msg = `HTTP ${res.status}`;
     try {
