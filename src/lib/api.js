@@ -2,7 +2,7 @@
 // FastAPI base URL. Override with VITE_API_URL if needed.
 export const API =
   (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_URL) ||
-  "https://portfolio-backend-tw0g.onrender.com";
+  "http://localhost:8000";
 
 const TOKEN_KEY = "admin_jwt";
 export const getToken = () =>
