@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 import { sendContact } from "../../lib/api";
 import { MailIcon, PhoneIcon, LinkedinIcon, GithubIcon, CodeIcon, ArrowRightIcon } from "../icons/Icons";
 
-export default function Contact() {
+export default function Contact({ site }) {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState({});
   const [sending, setSending] = useState(false);
@@ -38,14 +38,16 @@ export default function Contact() {
     <section className="section contact" id="contact">
       <div className="container">
         <Reveal>
-          <h2>Let's build something.</h2>
-          <p className="contact-sub">Open to AI engineering roles, internships, and interesting problems.</p>
+          <h2>{site?.contact_heading || "Let's build something."}</h2>
+          <p className="contact-sub">{site?.contact_sub || ""}</p>
           <div className="contact-row">
-            <a href="mailto:inam@example.com"><MailIcon size={16}/> inam@example.com</a>
-            <a href="tel:+923000000000"><PhoneIcon size={16}/> +92 300 0000000</a>
-            <a href="https://linkedin.com/in/inamshz" target="_blank" rel="noreferrer"><LinkedinIcon size={16}/> LinkedIn</a>
-            <a href="https://github.com/inamshz" target="_blank" rel="noreferrer"><GithubIcon size={16}/> GitHub</a>
-            <a href="https://leetcode.com/inamshz" target="_blank" rel="noreferrer"><CodeIcon size={16}/> LeetCode</a>
+            {site?.email ? <a href={`mailto:${site.email}`}><MailIcon size={16}/> {site.email}</a> : null}
+            {site?.phone_tel && site?.phone_display ? (
+              <a href={`tel:${site.phone_tel}`}><PhoneIcon size={16}/> {site.phone_display}</a>
+            ) : null}
+            {site?.linkedin_url ? <a href={site.linkedin_url} target="_blank" rel="noreferrer"><LinkedinIcon size={16}/> LinkedIn</a> : null}
+            {site?.github_url ? <a href={site.github_url} target="_blank" rel="noreferrer"><GithubIcon size={16}/> GitHub</a> : null}
+            {site?.leetcode_url ? <a href={site.leetcode_url} target="_blank" rel="noreferrer"><CodeIcon size={16}/> LeetCode</a> : null}
           </div>
           <form className="contact-form" onSubmit={submit} noValidate>
             <div className={`field ${errors.name ? "error" : ""}`}>

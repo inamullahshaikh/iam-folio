@@ -4,9 +4,12 @@ import { getToken, clearToken } from "../../lib/api";
 
 const NAV = [
   { to: "/admin/dashboard", label: "Dashboard" },
+  { to: "/admin/site", label: "Site & resume" },
+  { to: "/admin/messages", label: "Messages" },
   { to: "/admin/projects", label: "Projects" },
   { to: "/admin/certifications", label: "Certifications" },
   { to: "/admin/experience", label: "Experience" },
+  { to: "/admin/skills", label: "Skills" },
 ];
 
 export default function AdminLayout({ children }) {

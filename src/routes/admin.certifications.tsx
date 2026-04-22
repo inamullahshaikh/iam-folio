@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import AdminLayout from "../components/admin/AdminLayout";
 import Drawer from "../components/admin/Drawer";
 import Toggle from "../components/admin/Toggle";
-import { getCertifications, createCert, updateCert, deleteCert } from "../lib/api";
+import { getCertificationsForAdmin, createCert, updateCert, deleteCert } from "../lib/api";
 import { PlusIcon, EditIcon, TrashIcon } from "../components/icons/Icons";
 
 export const Route = createFileRoute("/admin/certifications")({
@@ -19,7 +19,7 @@ function AdminCerts() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<any>(blank());
   const [editingId, setEditingId] = useState<string | null>(null);
-  const reload = () => { setLoading(true); getCertifications().then(d => { setItems(d); setLoading(false); }); };
+  const reload = () => { setLoading(true); getCertificationsForAdmin().then(d => { setItems(d); setLoading(false); }); };
   useEffect(reload, []);
   const openNew = () => { setForm(blank()); setEditingId(null); setOpen(true); };
   const openEdit = (c: any) => { setForm({ ...blank(), ...c }); setEditingId(c.id); setOpen(true); };

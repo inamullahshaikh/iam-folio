@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import AdminLayout from "../components/admin/AdminLayout";
 import Drawer from "../components/admin/Drawer";
 import ListBuilder from "../components/admin/ListBuilder";
-import { getExperience, createExp, updateExp, deleteExp } from "../lib/api";
+import { getExperienceForAdmin, createExp, updateExp, deleteExp } from "../lib/api";
 import { PlusIcon, EditIcon, TrashIcon } from "../components/icons/Icons";
 
 export const Route = createFileRoute("/admin/experience")({
@@ -19,7 +19,7 @@ function AdminExp() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<any>(blank());
   const [editingId, setEditingId] = useState<string | null>(null);
-  const reload = () => { setLoading(true); getExperience().then(d => { setItems(d); setLoading(false); }); };
+  const reload = () => { setLoading(true); getExperienceForAdmin().then(d => { setItems(d); setLoading(false); }); };
   useEffect(reload, []);
   const openNew = () => { setForm(blank()); setEditingId(null); setOpen(true); };
   const openEdit = (x: any) => { setForm({ ...blank(), ...x }); setEditingId(x.id); setOpen(true); };

@@ -52,11 +52,55 @@ export const SEED_CERTS = [
   { id: "c3", name: "Kubernetes for Developers (CKAD)", issuer: "CNCF / Linux Foundation", year: "2025", url: "https://www.cncf.io/certification/ckad/", in_progress: true },
 ];
 
+export const SEED_SITE = {
+  hero_title: "AI Engineer.",
+  hero_subtitle: "RAG pipelines, computer vision APIs, and the cloud infra that makes them real.",
+  hero_stack_tags: ["Python", "FastAPI", "RAG", "YOLOv8", "AWS", "Kubernetes", "React"],
+  resume_url: "",
+  github_url: "https://github.com/inamshz",
+  linkedin_url: "https://linkedin.com/in/inamshz",
+  leetcode_url: "https://leetcode.com/inamshz",
+  email: "inam@example.com",
+  phone_tel: "+923000000000",
+  phone_display: "+92 300 0000000",
+  contact_heading: "Let's build something.",
+  contact_sub: "Open to AI engineering roles, internships, and interesting problems.",
+  footer_text: "Inam Ullah Shaikh · 2025",
+  about_bio:
+    "Final-year CS student at FAST-NUCES, Islamabad. I've built RAG systems, real-time CV APIs, and cloud microservices end-to-end. Currently AI Intern at Komatsu Pakistan Soft. I care about systems that work in production, not just notebooks.",
+  about_facts: [
+    { k: "University", v: "FAST-NUCES" },
+    { k: "Location", v: "Islamabad, PK" },
+    { k: "Current role", v: "AI Intern @ Komatsu" },
+    { k: "Open to", v: "AI / ML roles" },
+  ],
+};
+
+export const SEED_SKILLS = [
+  { id: "seed-1", category: "AI/ML", tags: ["LLMs", "RAG", "YOLOv8", "ANNs", "NLP", "Prompt Engineering"], sort_order: 0 },
+  { id: "seed-2", category: "GenAI", tags: ["OpenAI API", "LangChain", "Vector Search", "Document Ingestion"], sort_order: 1 },
+  { id: "seed-3", category: "Backend", tags: ["FastAPI", "Python", "Celery", "REST APIs", "Async", "Microservices"], sort_order: 2 },
+  { id: "seed-4", category: "DevOps", tags: ["AWS", "Docker", "Kubernetes", "Terraform", "Ansible", "CI/CD"], sort_order: 3 },
+  { id: "seed-5", category: "Frontend", tags: ["React", "HTML", "CSS", "JavaScript"], sort_order: 4 },
+  { id: "seed-6", category: "Languages", tags: ["Python", "C++", "Java", "C#", "MASM"], sort_order: 5 },
+];
+
 // ===== PUBLIC =====
 export const getProjects = () => request("/api/projects").catch(() => SEED_PROJECTS);
 export const getProject = (slug) => request(`/api/projects/${slug}`).catch(() => SEED_PROJECTS.find(p => p.slug === slug) || null);
 export const getExperience = () => request("/api/experience").catch(() => SEED_EXPERIENCE);
 export const getCertifications = () => request("/api/certifications").catch(() => SEED_CERTS);
+export const getSite = () => request("/api/site").catch(() => SEED_SITE);
+export const getSkills = () =>
+  request("/api/skills")
+    .then((rows) => (Array.isArray(rows) && rows.length ? rows : SEED_SKILLS))
+    .catch(() => SEED_SKILLS);
+
+/** Admin list only — no seed fallback (empty DB shows empty). */
+export const getProjectsForAdmin = () => request("/api/admin/projects", { auth: true }).catch(() => []);
+export const getCertificationsForAdmin = () => request("/api/admin/certifications", { auth: true }).catch(() => []);
+export const getExperienceForAdmin = () => request("/api/admin/experience", { auth: true }).catch(() => []);
+export const getSkillsForAdmin = () => request("/api/admin/skills", { auth: true }).catch(() => []);
 export const sendContact = (data) => request("/api/contact", { method: "POST", body: JSON.stringify(data) });
 
 // ===== ADMIN =====
@@ -65,9 +109,42 @@ export const getMessages = () => request("/api/admin/messages", { auth: true }).
 export const createProject = (data) => request("/api/admin/projects", { method: "POST", auth: true, body: JSON.stringify(data) });
 export const updateProject = (id, data) => request(`/api/admin/projects/${id}`, { method: "PUT", auth: true, body: JSON.stringify(data) });
 export const deleteProject = (id) => request(`/api/admin/projects/${id}`, { method: "DELETE", auth: true });
+export const bulkUpsertProjects = (projects, clearExisting = false) =>
+  request("/api/admin/projects/bulk-upsert", {
+    method: "POST",
+    auth: true,
+    body: JSON.stringify({ projects, clear_existing: clearExisting }),
+  });
 export const createCert = (data) => request("/api/admin/certifications", { method: "POST", auth: true, body: JSON.stringify(data) });
 export const updateCert = (id, data) => request(`/api/admin/certifications/${id}`, { method: "PUT", auth: true, body: JSON.stringify(data) });
 export const deleteCert = (id) => request(`/api/admin/certifications/${id}`, { method: "DELETE", auth: true });
 export const createExp = (data) => request("/api/admin/experience", { method: "POST", auth: true, body: JSON.stringify(data) });
 export const updateExp = (id, data) => request(`/api/admin/experience/${id}`, { method: "PUT", auth: true, body: JSON.stringify(data) });
 export const deleteExp = (id) => request(`/api/admin/experience/${id}`, { method: "DELETE", auth: true });
+export const createSkill = (data) => request("/api/admin/skills", { method: "POST", auth: true, body: JSON.stringify(data) });
+export const updateSkill = (id, data) => request(`/api/admin/skills/${id}`, { method: "PUT", auth: true, body: JSON.stringify(data) });
+export const deleteSkill = (id) => request(`/api/admin/skills/${id}`, { method: "DELETE", auth: true });
+export const updateSite = (data) => request("/api/admin/site", { method: "PUT", auth: true, body: JSON.stringify(data) });
+export const uploadResume = async (file) => {
+  const fd = new FormData();
+  fd.append("file", file);
+  const headers = {};
+  const t = getToken();
+  if (t) headers["Authorization"] = `Bearer ${t}`;
+  const res = await fetch(`${API}/api/admin/upload/resume`, { method: "POST", headers, body: fd });
+  if (!res.ok) {
+    let msg = `HTTP ${res.status}`;
+    try {
+      const j = await res.json();
+      msg = j.detail || j.message || msg;
+    } catch {}
+    throw new Error(msg);
+  }
+  return res.json();
+};
+export const replyToMessage = (messageId, body, subject) =>
+  request(`/api/admin/messages/${messageId}/reply`, {
+    method: "POST",
+    auth: true,
+    body: JSON.stringify({ body, subject: subject || null }),
+  });

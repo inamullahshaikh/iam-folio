@@ -1,21 +1,21 @@
 import Reveal from "./Reveal";
-export default function About() {
+
+export default function About({ site }) {
+  const facts = site?.about_facts?.length ? site.about_facts : [];
   return (
     <section className="section" id="about">
       <div className="container">
         <Reveal>
           <div className="section-label">About</div>
           <div className="about-grid">
-            <p className="about-bio">
-              Final-year CS student at FAST-NUCES, Islamabad. I've built RAG systems, real-time CV APIs,
-              and cloud microservices end-to-end. Currently AI Intern at Komatsu Pakistan Soft. I care
-              about systems that work in production, not just notebooks.
-            </p>
+            <p className="about-bio">{site?.about_bio || ""}</p>
             <div className="about-facts">
-              <div className="fact-row"><span className="k">University</span><span className="v">FAST-NUCES</span></div>
-              <div className="fact-row"><span className="k">Location</span><span className="v">Islamabad, PK</span></div>
-              <div className="fact-row"><span className="k">Current role</span><span className="v">AI Intern @ Komatsu</span></div>
-              <div className="fact-row"><span className="k">Open to</span><span className="v">AI / ML roles</span></div>
+              {facts.map((row, i) => (
+                <div className="fact-row" key={`${row.k}-${i}`}>
+                  <span className="k">{row.k}</span>
+                  <span className="v">{row.v}</span>
+                </div>
+              ))}
             </div>
           </div>
         </Reveal>

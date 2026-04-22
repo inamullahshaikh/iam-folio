@@ -6,7 +6,7 @@ import Drawer from "../components/admin/Drawer";
 import TagInput from "../components/admin/TagInput";
 import KVBuilder from "../components/admin/KVBuilder";
 import Toggle from "../components/admin/Toggle";
-import { getProjects, createProject, updateProject, deleteProject } from "../lib/api";
+import { getProjectsForAdmin, createProject, updateProject, deleteProject, bulkUpsertProjects } from "../lib/api";
 import { PlusIcon, EditIcon, TrashIcon } from "../components/icons/Icons";
 
 export const Route = createFileRoute("/admin/projects")({
@@ -15,7 +15,7 @@ export const Route = createFileRoute("/admin/projects")({
 
 const CATS = ["AI & RAG SYSTEMS","COMPUTER VISION & ML","DEVOPS & INFRA","WEB & SOFTWARE","ACADEMIC"];
 const slugify = (s: string) => s.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-const blank = () => ({ id: "", name: "", slug: "", category: CATS[0], short_description: "", long_description: "", what_it_does: "", tech_breakdown: {}, challenges: "", stack_tags: [], github_url: "", live_url: "", start_date: "", end_date: "", screenshots: [], featured: false, published: true });
+const blank = () => ({ id: "", name: "", slug: "", category: CATS[0], short_description: "", long_description: "", what_it_does: "", tech_breakdown: {}, challenges: "", stack_tags: [], github_url: "", live_url: "", start_date: "", end_date: "", screenshots: [], sort_order: 0, featured: false, published: true });
 
 function AdminProjects() {
   const [items, setItems] = useState<any[]>([]);
@@ -24,12 +24,22 @@ function AdminProjects() {
   const [form, setForm] = useState<any>(blank());
   const [editingId, setEditingId] = useState<string | null>(null);
   const [errors, setErrors] = useState<any>({});
+  const [bulkOpen, setBulkOpen] = useState(false);
+  const [bulkJson, setBulkJson] = useState("");
+  const [bulkClearExisting, setBulkClearExisting] = useState(false);
+  const [bulkSaving, setBulkSaving] = useState(false);
 
-  const reload = () => { setLoading(true); getProjects().then(d => { setItems(d); setLoading(false); }); };
+  const reload = () => { setLoading(true); getProjectsForAdmin().then(d => { setItems(d); setLoading(false); }); };
   useEffect(reload, []);
 
   const openNew = () => { setForm(blank()); setEditingId(null); setErrors({}); setOpen(true); };
   const openEdit = (p: any) => { setForm({ ...blank(), ...p }); setEditingId(p.id); setErrors({}); setOpen(true); };
+  const openBulk = () => {
+    const template = JSON.stringify(items.map((p: any, i: number) => ({ ...p, sort_order: i, id: undefined })), null, 2);
+    setBulkJson(template === "[]" ? "" : template);
+    setBulkClearExisting(false);
+    setBulkOpen(true);
+  };
 
   const set = (k: string, v: any) => setForm((f: any) => {
     const n = { ...f, [k]: v };
@@ -57,11 +67,40 @@ function AdminProjects() {
     catch (err: any) { toast.error(err.message || "Delete failed"); }
   };
 
+  const importBulk = async () => {
+    let parsed: any;
+    try {
+      parsed = JSON.parse(bulkJson);
+    } catch {
+      toast.error("Invalid JSON");
+      return;
+    }
+    const projects = Array.isArray(parsed) ? parsed : parsed?.projects;
+    if (!Array.isArray(projects) || projects.length === 0) {
+      toast.error("Provide a JSON array of projects (or { projects: [...] })");
+      return;
+    }
+    setBulkSaving(true);
+    try {
+      await bulkUpsertProjects(projects, bulkClearExisting);
+      toast.success(`Imported ${projects.length} project(s)`);
+      setBulkOpen(false);
+      reload();
+    } catch (err: any) {
+      toast.error(err.message || "Bulk import failed");
+    } finally {
+      setBulkSaving(false);
+    }
+  };
+
   return (
     <AdminLayout>
       <div className="admin-head">
         <h1>Projects</h1>
-        <button className="btn btn-primary" onClick={openNew}><PlusIcon size={16}/> Add Project</button>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button className="btn btn-outline" onClick={openBulk}>Bulk JSON import</button>
+          <button className="btn btn-primary" onClick={openNew}><PlusIcon size={16}/> Add Project</button>
+        </div>
       </div>
       {loading ? <div className="sk" style={{ height: 200 }} /> : items.length === 0 ? (
         <div className="empty">
@@ -70,10 +109,11 @@ function AdminProjects() {
         </div>
       ) : (
         <table className="table">
-          <thead><tr><th>Name</th><th>Category</th><th>Stack</th><th>Date</th><th>Actions</th></tr></thead>
+          <thead><tr><th>Order</th><th>Name</th><th>Category</th><th>Stack</th><th>Date</th><th>Actions</th></tr></thead>
           <tbody>
             {items.map((p: any) => (
               <tr key={p.id}>
+                <td style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}>{p.sort_order ?? 0}</td>
                 <td><strong>{p.name}</strong></td>
                 <td style={{ color: "var(--muted)", fontFamily: "var(--font-mono)", fontSize: 12 }}>{p.category}</td>
                 <td><div style={{ display:"flex", gap: 4, flexWrap:"wrap" }}>{(p.stack_tags || []).slice(0,3).map((t: string) => <span key={t} className="tag">{t}</span>)}</div></td>
@@ -112,8 +152,35 @@ function AdminProjects() {
         <div className="form-field"><label>Screenshots (URLs)</label>
           <TagInput value={form.screenshots} onChange={(v: any) => set("screenshots", v)} placeholder="Paste image URL + Enter" />
         </div>
+        <div className="form-field"><label>Sort order</label><input type="number" value={form.sort_order} onChange={e => set("sort_order", Number(e.target.value || 0))} /></div>
         <div className="form-field"><label>Featured</label><Toggle on={form.featured} onChange={(v: boolean) => set("featured", v)} /></div>
         <div className="form-field"><label>Published</label><Toggle on={form.published} onChange={(v: boolean) => set("published", v)} /></div>
+      </Drawer>
+      <Drawer
+        open={bulkOpen}
+        onClose={() => setBulkOpen(false)}
+        title="Bulk import projects JSON"
+        footer={
+          <>
+            <button className="btn btn-ghost" onClick={() => setBulkOpen(false)} disabled={bulkSaving}>Cancel</button>
+            <button className="btn btn-primary" onClick={importBulk} disabled={bulkSaving}>{bulkSaving ? "Importing..." : "Import JSON"}</button>
+          </>
+        }
+      >
+        <div className="form-field">
+          <label>JSON array (order in array is kept)</label>
+          <textarea
+            rows={16}
+            value={bulkJson}
+            onChange={(e) => setBulkJson(e.target.value)}
+            placeholder='[{"slug":"my-project","name":"My Project","category":"AI & RAG SYSTEMS","short_description":"..."}]'
+            style={{ fontFamily: "var(--font-mono)", fontSize: 12 }}
+          />
+        </div>
+        <div className="form-field">
+          <label>Remove existing projects not present in JSON</label>
+          <Toggle on={bulkClearExisting} onChange={(v: boolean) => setBulkClearExisting(v)} />
+        </div>
       </Drawer>
     </AdminLayout>
   );

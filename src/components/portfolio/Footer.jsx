@@ -1,8 +1,8 @@
-export default function Footer() {
+export default function Footer({ site }) {
   return (
     <footer className="footer">
       <div className="container footer-inner">
-        <span>Inam Ullah Shaikh · 2025</span>
+        <span>{site?.footer_text || ""}</span>
         <div className="footer-links">
           <a href="#about">About</a>
           <a href="#projects">Projects</a>

@@ -1,22 +1,28 @@
 import { GithubIcon, LinkedinIcon, MailIcon, PhoneIcon, CodeIcon, DownloadIcon, ArrowRightIcon } from "../icons/Icons";
-const STACK = ["Python","FastAPI","RAG","YOLOv8","AWS","Kubernetes","React"];
-export default function Hero() {
+
+export default function Hero({ site }) {
+  const stack = site?.hero_stack_tags?.length ? site.hero_stack_tags : [];
+  const resume = site?.resume_url?.trim();
   return (
     <section className="hero">
       <div className="container">
-        <h1>AI Engineer.</h1>
-        <h2>RAG pipelines, computer vision APIs, and the cloud infra that makes them real.</h2>
-        <div className="mono-row">{STACK.map(s => <span key={s} className="tag">{s}</span>)}</div>
+        <h1>{site?.hero_title || "AI Engineer."}</h1>
+        <h2>{site?.hero_subtitle || ""}</h2>
+        <div className="mono-row">{stack.map((s) => <span key={s} className="tag">{s}</span>)}</div>
         <div className="cta-row">
           <a href="#projects" className="btn btn-primary">View Projects <ArrowRightIcon size={16} /></a>
-          <a href="/resume.pdf" className="btn btn-outline" download><DownloadIcon size={16} /> Download Resume</a>
+          {resume ? (
+            <a href={resume} className="btn btn-outline" target="_blank" rel="noreferrer" download>
+              <DownloadIcon size={16} /> Download Resume
+            </a>
+          ) : null}
         </div>
         <div className="icon-row">
-          <a href="https://github.com/inamshz" target="_blank" rel="noreferrer" aria-label="GitHub"><GithubIcon /></a>
-          <a href="https://linkedin.com/in/inamshz" target="_blank" rel="noreferrer" aria-label="LinkedIn"><LinkedinIcon /></a>
-          <a href="https://leetcode.com/inamshz" target="_blank" rel="noreferrer" aria-label="LeetCode"><CodeIcon /></a>
-          <a href="mailto:inam@example.com" aria-label="Email"><MailIcon /></a>
-          <a href="tel:+923000000000" aria-label="Phone"><PhoneIcon /></a>
+          {site?.github_url ? <a href={site.github_url} target="_blank" rel="noreferrer" aria-label="GitHub"><GithubIcon /></a> : null}
+          {site?.linkedin_url ? <a href={site.linkedin_url} target="_blank" rel="noreferrer" aria-label="LinkedIn"><LinkedinIcon /></a> : null}
+          {site?.leetcode_url ? <a href={site.leetcode_url} target="_blank" rel="noreferrer" aria-label="LeetCode"><CodeIcon /></a> : null}
+          {site?.email ? <a href={`mailto:${site.email}`} aria-label="Email"><MailIcon /></a> : null}
+          {site?.phone_tel ? <a href={`tel:${site.phone_tel}`} aria-label="Phone"><PhoneIcon /></a> : null}
         </div>
       </div>
     </section>
