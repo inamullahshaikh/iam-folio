@@ -17,6 +17,7 @@ import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminExperienceRouteImport } from './routes/admin.experience'
+import { Route as AdminEducationRouteImport } from './routes/admin.education'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as AdminCertificationsRouteImport } from './routes/admin.certifications'
 
@@ -60,6 +61,11 @@ const AdminExperienceRoute = AdminExperienceRouteImport.update({
   path: '/admin/experience',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminEducationRoute = AdminEducationRouteImport.update({
+  id: '/admin/education',
+  path: '/admin/education',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin/certifications': typeof AdminCertificationsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/education': typeof AdminEducationRoute
   '/admin/experience': typeof AdminExperienceRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -87,6 +94,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/certifications': typeof AdminCertificationsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/education': typeof AdminEducationRoute
   '/admin/experience': typeof AdminExperienceRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin/certifications': typeof AdminCertificationsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/education': typeof AdminEducationRoute
   '/admin/experience': typeof AdminExperienceRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/messages': typeof AdminMessagesRoute
@@ -114,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/certifications'
     | '/admin/dashboard'
+    | '/admin/education'
     | '/admin/experience'
     | '/admin/login'
     | '/admin/messages'
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/certifications'
     | '/admin/dashboard'
+    | '/admin/education'
     | '/admin/experience'
     | '/admin/login'
     | '/admin/messages'
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/certifications'
     | '/admin/dashboard'
+    | '/admin/education'
     | '/admin/experience'
     | '/admin/login'
     | '/admin/messages'
@@ -151,6 +163,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminCertificationsRoute: typeof AdminCertificationsRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEducationRoute: typeof AdminEducationRoute
   AdminExperienceRoute: typeof AdminExperienceRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
@@ -218,6 +231,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminExperienceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/education': {
+      id: '/admin/education'
+      path: '/admin/education'
+      fullPath: '/admin/education'
+      preLoaderRoute: typeof AdminEducationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
@@ -239,6 +259,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminCertificationsRoute: AdminCertificationsRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminEducationRoute: AdminEducationRoute,
   AdminExperienceRoute: AdminExperienceRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminMessagesRoute: AdminMessagesRoute,
