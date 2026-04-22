@@ -3,6 +3,7 @@
 export const API =
   (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_URL) ||
   "http://localhost:8000";
+const API_BASE = String(API).replace(/\/+$/, "");
 
 const TOKEN_KEY = "admin_jwt";
 export const getToken = () =>
@@ -11,12 +12,16 @@ export const setToken = (t) => localStorage.setItem(TOKEN_KEY, t);
 export const clearToken = () => localStorage.removeItem(TOKEN_KEY);
 
 async function request(path, opts = {}) {
-  const headers = { "Content-Type": "application/json", ...(opts.headers || {}) };
+  const headers = { ...(opts.headers || {}) };
+  if (opts.body && !headers["Content-Type"]) {
+    headers["Content-Type"] = "application/json";
+  }
   if (opts.auth) {
     const t = getToken();
     if (t) headers["Authorization"] = `Bearer ${t}`;
   }
-  const res = await fetch(`${API}${path}`, { ...opts, headers });
+  const normalizedPath = String(path || "").startsWith("/") ? String(path) : `/${path || ""}`;
+  const res = await fetch(`${API_BASE}${normalizedPath}`, { ...opts, headers });
   if (!res.ok) {
     let msg = `HTTP ${res.status}`;
     try {
