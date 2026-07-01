@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import CvDownloadLink from "./CvDownloadLink";
 
 const links = [
   { to: "/", label: "Home", end: true },
@@ -37,6 +38,11 @@ export default function Nav() {
               </NavLink>
             </li>
           ))}
+          <li>
+            <CvDownloadLink className="text-ink-faint transition-colors hover:text-rust">
+              CV
+            </CvDownloadLink>
+          </li>
         </ul>
       </nav>
     </header>

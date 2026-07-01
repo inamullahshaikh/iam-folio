@@ -1,5 +1,6 @@
 import { personal, identity } from "../data/portfolio";
 import { usePageMeta } from "../lib/usePageMeta";
+import CvDownloadLink from "../components/CvDownloadLink";
 
 const links = [
   { label: "Email", value: personal.contact.email, href: `mailto:${personal.contact.email}`, external: false },
@@ -20,8 +21,12 @@ export default function Contact() {
     <div className="mx-auto max-w-[720px] px-6 pt-16 pb-4">
       <h1 className="text-[2rem] font-semibold text-ink">Contact</h1>
       <p className="mt-4 max-w-[560px] text-[17px] leading-[1.7] text-ink-soft">
-        Open to full-time roles, remote or Islamabad. Email is fastest. GitHub and
-        LinkedIn are below.
+        Open to full-time roles, remote or Islamabad. Email is fastest. GitHub,
+        LinkedIn, and my CV are below.
+      </p>
+
+      <p className="mt-6">
+        <CvDownloadLink className="link-rust text-sm font-medium" />
       </p>
 
       <dl className="mt-10 divide-y divide-line border-y border-line">

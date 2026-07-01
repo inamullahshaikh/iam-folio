@@ -7,6 +7,7 @@ import {
   heroProjects,
 } from "../data/portfolio";
 import { usePageMeta } from "../lib/usePageMeta";
+import CvDownloadLink from "../components/CvDownloadLink";
 
 const heroSummary: Record<string, { problem: string; solution: string }> = {
   proj_foresyte: {
@@ -40,6 +41,7 @@ const heroLinks = [
   { label: "LinkedIn", href: personal.contact.linkedin },
   { label: "Email", href: `mailto:${personal.contact.email}` },
   { label: "LeetCode", href: personal.contact.leetcode },
+  { label: "CV", href: personal.cv.href, download: personal.cv.downloadName },
 ];
 
 export default function Home() {
@@ -62,17 +64,21 @@ export default function Home() {
           {identity.shortBioFirstPerson}
         </p>
         <div className="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          {heroLinks.map((l) => (
-            <a
-              key={l.label}
-              href={l.href}
-              target={l.href.startsWith("mailto:") ? undefined : "_blank"}
-              rel="noreferrer noopener"
-              className="link-rust"
-            >
-              {l.label}
-            </a>
-          ))}
+          {heroLinks.map((l) =>
+            l.download ? (
+              <CvDownloadLink key={l.label}>{l.label}</CvDownloadLink>
+            ) : (
+              <a
+                key={l.label}
+                href={l.href}
+                target={l.href.startsWith("mailto:") ? undefined : "_blank"}
+                rel="noreferrer noopener"
+                className="link-rust"
+              >
+                {l.label}
+              </a>
+            )
+          )}
         </div>
       </section>
 

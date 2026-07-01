@@ -1,5 +1,6 @@
 import { identity, education, skills, personal } from "../data/portfolio";
 import { usePageMeta } from "../lib/usePageMeta";
+import CvDownloadLink from "../components/CvDownloadLink";
 
 export default function About() {
   usePageMeta({
@@ -68,6 +69,7 @@ export default function About() {
           {identity.nowLine}
         </p>
         <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          <CvDownloadLink>Download CV</CvDownloadLink>
           <a className="link-rust" href={personal.contact.github} target="_blank" rel="noreferrer noopener">
             GitHub
           </a>

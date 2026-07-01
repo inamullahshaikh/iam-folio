@@ -59,6 +59,11 @@ export const personal = {
     linkedin: "https://www.linkedin.com/in/inam-ullah-shaikh",
     leetcode: "https://leetcode.com/u/inam_290/",
   } as Contact,
+  cv: {
+    href: "/Inam-Ullah-Shaikh.pdf",
+    downloadName: "Inam-Ullah-Shaikh-CV.pdf",
+    label: "Download CV",
+  },
 };
 
 export const identity = {
