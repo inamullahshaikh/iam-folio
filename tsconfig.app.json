@@ -19,5 +19,18 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "src/components/ui",
+    "src/components/admin",
+    "src/components/portfolio",
+    "src/components/icons",
+    "src/routes",
+    "src/hooks",
+    "src/router.tsx",
+    "src/routeTree.gen.ts",
+    "src/lib/api.js",
+    "src/lib/utils.ts",
+    "src/styles.css"
+  ]
 }
