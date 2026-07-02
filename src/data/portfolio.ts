@@ -1,334 +1,348 @@
-// Typed portfolio data from docs/portfolio_context.json (source of truth).
-// Only facts present in the JSON are represented here. No invented tools or metrics.
+import raw from "../../portfolio_context.json";
+import { siteCopy } from "./siteCopy";
 
-export type Category = "AI/ML" | "Full-Stack" | "DevOps" | "Other";
+export const portfolio = raw;
 
-export interface Contact {
-  email: string;
-  phone: string;
-  github: string;
-  linkedin: string;
-  leetcode: string;
-}
+export const personal = portfolio.personal;
+export const identity = portfolio.identity;
+export const achievements = portfolio.achievements_and_signals;
+export const buildInstructions = portfolio.portfolio_build_instructions;
 
-export interface EducationItem {
-  degree: string;
-  institution: string;
-  location: string;
-  start: string;
-  end: string;
-  status: string;
-}
+export const titleOptions = personal.title_options;
+export const ctaLine = siteCopy.ctaLine;
+export const oneLiner = siteCopy.oneLiner;
+export const shortBio = identity.short_bio;
+export const contact = personal.contact;
+export const heroCopy = siteCopy.hero;
+export const aboutSubtitle = siteCopy.aboutSubtitle;
+export const skillsSubtitle = siteCopy.skillsSubtitle;
+export const projectsCopy = siteCopy.projects;
+export const experienceCopy = siteCopy.experience;
+export const contactCopy = siteCopy.contact;
+export const footerCopy = siteCopy.footer;
 
-export interface ProjectMediaItem {
-  label: string;
-  url: string;
-}
+export const stats = [
+  {
+    value: portfolio.skills.competitive_programming.problems_solved,
+    label: siteCopy.stats[0].label,
+  },
+  {
+    value: String(achievements.internship_months),
+    label: siteCopy.stats[1].label,
+  },
+  {
+    value: String(achievements.rag_projects_count),
+    label: siteCopy.stats[2].label,
+  },
+] as const;
 
-export interface ProjectLinks {
+export const socialLinks = [
+  { id: "github", label: "GitHub", href: contact.github },
+  { id: "linkedin", label: "LinkedIn", href: contact.linkedin },
+  { id: "email", label: "Email", href: `mailto:${contact.email}` },
+  { id: "leetcode", label: "LeetCode", href: contact.leetcode },
+] as const;
+
+export const education = portfolio.education;
+export const longBioParagraphs = siteCopy.longBioParagraphs;
+export const careerInterests = identity.career_interests.slice(0, 3);
+
+const bsDegree = education[0];
+
+export const aboutQuickFacts = [
+  {
+    label: "Location",
+    value: `${personal.location.city}, ${personal.location.country}${
+      personal.location.open_to_remote ? siteCopy.aboutQuickFacts.locationSuffix : ""
+    }`,
+  },
+  {
+    label: "Education",
+    value: `${bsDegree.institution}, ${bsDegree.degree.replace("Bachelor of Science in ", "BS ")}, graduated June 2026`,
+  },
+  {
+    label: "Current focus",
+    value: siteCopy.aboutQuickFacts.currentFocus,
+  },
+] as const;
+
+export const educationTimeline = education.map((item) => ({
+  degree: item.degree,
+  institution: item.institution,
+  location: item.location,
+  status: item.status,
+  dateRange: `${new Date(
+    Number(item.start_date.split("-")[0]),
+    Number(item.start_date.split("-")[1]) - 1
+  ).toLocaleString("en-US", { month: "short", year: "numeric" })} - ${new Date(
+    Number(item.end_date.split("-")[0]),
+    Number(item.end_date.split("-")[1]) - 1
+  ).toLocaleString("en-US", { month: "short", year: "numeric" })}`,
+}));
+
+const { languages, frontend, backend, ai_ml, data, devops_cloud } = portfolio.skills;
+
+export const skillCategories = [
+  {
+    id: "languages",
+    title: "Languages",
+    tags: [...languages.primary, ...languages.secondary, ...languages.other],
+  },
+  {
+    id: "frontend",
+    title: "Frontend",
+    tags: frontend,
+  },
+  {
+    id: "backend",
+    title: "Backend",
+    tags: backend,
+  },
+  {
+    id: "ai-ml",
+    title: "AI / ML",
+    tags: [...ai_ml.core, ...ai_ml.models_tools, ...ai_ml.practices],
+  },
+  {
+    id: "devops",
+    title: "DevOps & Cloud",
+    tags: [
+      ...devops_cloud.cloud,
+      ...devops_cloud.containers,
+      ...devops_cloud.iac,
+      ...devops_cloud.deployment,
+      ...devops_cloud.practices,
+    ],
+  },
+  {
+    id: "databases",
+    title: "Databases",
+    tags: [...data.databases, "MongoDB", ...data.concepts],
+  },
+] as const;
+
+// --- Projects ---
+
+export type ProjectFilter = "all" | "ai-ml" | "full-stack" | "devops";
+
+export const projectFilters = [
+  { id: "all" as const, label: "All" },
+  { id: "ai-ml" as const, label: "AI-ML" },
+  { id: "full-stack" as const, label: "Full-Stack" },
+  { id: "devops" as const, label: "DevOps" },
+];
+
+type JsonProject = (typeof portfolio.projects.items)[number];
+
+type JsonLinks = {
   github?: string | null;
   live_demo?: string | null;
-}
+};
 
-export interface ProjectMedia {
-  docs?: ProjectMediaItem[];
-  videos?: ProjectMediaItem[];
-}
-
-export interface Project {
+export type PortfolioProject = {
   id: string;
-  slug: string;
   name: string;
   tagline: string;
-  categories: Category[];
-  categoryLabels?: string[];
-  dateRange?: string;
-  status?: string;
-  techLine: string;
-  featured: boolean;
-  isFyp?: boolean;
-  links: ProjectLinks;
-  media?: ProjectMedia;
-  hasCaseStudy: boolean;
+  image: string | null;
+  categories: string[];
+  summary: string;
+  problem: string | null;
+  solution: string | null;
+  highlights: string[];
+  architecture: {
+    description: string;
+    components: string[];
+    dataFlow: string | null;
+  } | null;
+  status: string | null;
+  dateRange: string | null;
+  isFinalYearProject: boolean;
+  techTags: string[];
+  primaryTechTag: string | null;
+  links: { github: string | null; live_demo: string | null };
+  matchesFilter: (filter: ProjectFilter) => boolean;
+};
+
+function formatDateRange(
+  dateRange: { start: string; end: string } | undefined
+): string | null {
+  if (!dateRange) return null;
+
+  const format = (value: string) => {
+    const [year, month] = value.split("-").map(Number);
+    return new Date(year, month - 1).toLocaleString("en-US", {
+      month: "short",
+      year: "numeric",
+    });
+  };
+
+  return `${format(dateRange.start)} - ${format(dateRange.end)}`;
 }
 
-export const personal = {
-  fullName: "Inamullah Shaikh",
-  preferredName: "Inam",
-  title: "Software Engineer · Full-Stack",
-  location: {
-    city: "Islamabad",
-    country: "Pakistan",
-    timezone: "PKT (UTC+5)",
-    openToRemote: true,
-  },
-  contact: {
-    email: "inamullahshaikh01@gmail.com",
-    phone: "+92 336 9994718",
-    github: "https://github.com/inamullahshaikh",
-    linkedin: "https://www.linkedin.com/in/inam-ullah-shaikh",
-    leetcode: "https://leetcode.com/u/inam_290/",
-  } as Contact,
-  cv: {
-    href: "/Inam-Ullah-Shaikh.pdf",
-    downloadName: "Inam-Ullah-Shaikh-CV.pdf",
-    label: "Download CV",
-  },
-};
+function projectArchitecture(project: JsonProject) {
+  if (!("architecture" in project) || !project.architecture) return null;
 
-export const identity = {
-  oneLiner:
-    "Full-stack developer: web, cloud, desktop, databases, and applied AI.",
-  shortBioFirstPerson:
-    "CS grad from FAST-NUCES, Islamabad. I build across the stack: React and MERN apps, Python/Node APIs, AWS deployments, desktop tools in C# and Java, and AI when the problem needs it.",
-  aboutParagraph:
-    "I work end to end on web frontends, backends, cloud infra, desktop apps, and applied AI. ForeSyte was my FYP. I pick up whatever the project needs and ship with clear docs.",
-  nowLine: "Open to full-stack roles. Islamabad, remote OK.",
-};
+  return {
+    description: project.architecture.description,
+    components: project.architecture.components ?? [],
+    dataFlow:
+      "data_flow" in project.architecture ? project.architecture.data_flow ?? null : null,
+  };
+}
 
-export const education: EducationItem[] = [
-  {
-    degree: "BS Computer Science",
-    institution: "FAST-NUCES",
-    location: "Islamabad, Pakistan",
-    start: "2022",
-    end: "2026",
-    status: "Graduated",
-  },
-  {
-    degree: "A-Levels",
-    institution: "BMI-A",
-    location: "Islamabad, Pakistan",
-    start: "2020",
-    end: "2022",
-    status: "Completed",
-  },
-  {
-    degree: "O-Levels",
-    institution: "BMI-B",
-    location: "Islamabad, Pakistan",
-    start: "2018",
-    end: "2020",
-    status: "Completed",
-  },
-];
+function flattenTechStack(techStack: JsonProject["tech_stack"]): string[] {
+  if (!techStack) return [];
+  return Object.values(techStack).flatMap((value) => value ?? []);
+}
 
-export const experience = {
-  role: "AI Intern",
-  company: "Komatsu Pakistan Soft",
-  location: "Islamabad, Pakistan",
-  dateRange: "Aug 2025 to Dec 2025",
-  summary:
-    "AI intern on an Agile team. Git-based workflow across prototype and integration phases.",
-  responsibilities: [
-    "Built and debugged AI-driven features in a production-style codebase",
-    "Worked in Agile sprints with Git and cross-functional handoffs",
-    "Wrote technical documentation for integration work",
-  ],
-  achievements: [
-    "Shipped work across prototype and integration phases",
-    "Helped improve release readiness before rollout",
-  ],
-  technologies: ["Python", "Git", "GitHub", "Agile", "Scrum"],
-};
+function projectSummary(project: JsonProject): string {
+  const problem = "problem" in project ? project.problem : undefined;
+  const solution = "solution" in project ? project.solution : undefined;
+  if (problem && solution) return `${problem} ${solution}`;
+  return project.tagline;
+}
 
-export const stackStrip =
-  "Python · JavaScript · TypeScript · React · Node.js · FastAPI · C# · Java · AWS · Docker · SQL";
+function normalizeLinks(links: JsonLinks | undefined) {
+  return {
+    github: links?.github ?? null,
+    live_demo: links?.live_demo ?? null,
+  };
+}
 
-export const skills = {
-  languages: {
-    primary: ["Python", "JavaScript", "TypeScript"],
-    secondary: ["C++", "Java", "C#", "SQL"],
-    other: ["Assembly (MASM)"],
-  },
-  frontend: ["React", "HTML", "CSS", "JavaFX"],
-  backend: ["FastAPI", "Flask", "Express.js", "RESTful APIs", "Microservices"],
-  aiMl: [
-    "RAG (Retrieval-Augmented Generation)",
-    "LLMs",
-    "Generative AI",
-    "NLP",
-    "Computer Vision",
-    "YOLOv8",
-    "Artificial Neural Networks (ANN)",
-    "Prompt engineering",
-    "Semantic search",
-  ],
-  data: ["SQL Server", "Data modeling", "Relational databases", "REST API design"],
-  devopsCloud: [
-    "AWS EC2",
-    "Docker",
-    "Kubernetes",
-    "Terraform",
-    "Ansible",
-    "CI/CD",
-    "Infrastructure as Code",
-  ],
-  asyncPipelines: ["Celery", "Task queues", "ETL-style workflows"],
-  tools: ["Git", "GitHub", "Agile", "Scrum", "Cursor"],
-  leetcode: "100+ problems solved",
-};
+function projectImage(id: string): string | null {
+  const images: Record<string, string> = {
+    proj_foresyte: "/foresyte-img.png",
+    proj_virtualxi: "/virtualxi-img.png",
+    proj_startup_law_rag: "/startup-law-img.png",
+    proj_fastcite: "/fastcite-img.png",
+  };
 
-export const projects: Project[] = [
-  {
-    id: "proj_foresyte",
-    slug: "foresyte",
-    name: "ForeSyte",
-    tagline: "Real-time exam integrity monitoring with computer vision.",
-    categories: ["AI/ML", "Full-Stack"],
-    categoryLabels: ["AI/ML", "Computer Vision", "Full-Stack"],
-    dateRange: "Jan 2025 to Jun 2026",
-    status: "Completed · Final Year Project",
-    techLine: "Python · FastAPI · React · YOLOv8 · Computer Vision",
-    featured: true,
-    isFyp: true,
-    links: { github: null, live_demo: null },
-    // Add media when ready, e.g.:
-    // media: {
-    //   videos: [{ label: "Demo", url: "/projects/foresyte/demo.mp4" }],
-    //   docs: [{ label: "Report", url: "/projects/foresyte/report.pdf" }],
-    // },
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_startup_law_rag",
-    slug: "startup-law-rag",
-    name: "Startup & Law RAG",
-    tagline: "Legal Q&A grounded in real documents.",
-    categories: ["AI/ML", "Full-Stack"],
-    categoryLabels: ["AI/ML", "NLP", "RAG", "Full-Stack"],
-    dateRange: "Jan 2025 to Jun 2026",
-    status: "Completed",
-    techLine: "Python · FastAPI · Celery · React · RAG · Semantic Search",
-    featured: true,
-    links: { github: null, live_demo: null },
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_fastcite",
-    slug: "fastcite",
-    name: "FastCite",
-    tagline: "RAG-powered study assistant for document search and citation generation.",
-    categories: ["AI/ML", "Full-Stack"],
-    categoryLabels: ["AI/ML", "NLP", "RAG", "Full-Stack"],
-    dateRange: "Nov 2025 to Dec 2025",
-    status: "Completed",
-    techLine: "Python · FastAPI · Celery · React · RAG · NLP",
-    featured: true,
-    links: { github: null, live_demo: null },
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_attendance_app",
-    slug: "attendance-app",
-    name: "Attendance App",
-    tagline: "Cloud-native microservices attendance platform on AWS.",
-    categories: ["DevOps"],
-    categoryLabels: ["DevOps", "Cloud", "Backend", "Microservices"],
-    dateRange: "Jan 2025 to Apr 2025",
-    status: "Completed",
-    techLine: "Python · AWS EC2 · Kubernetes · Docker · Terraform · Ansible · CI/CD",
-    featured: true,
-    links: { github: null, live_demo: null },
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_eventsync",
-    slug: "eventsync",
-    name: "EventSync",
-    tagline: "MERN stack web event management system.",
-    categories: ["Full-Stack"],
-    categoryLabels: ["Full-Stack", "MERN"],
-    dateRange: "2024",
-    techLine: "React.js · Node.js · Express.js · MongoDB · REST APIs",
-    featured: false,
-    links: {},
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_gym_management",
-    slug: "gym-management",
-    name: "GYM Management System",
-    tagline: "Desktop gym management with a SQL Server backend.",
-    categories: ["Full-Stack", "Other"],
-    categoryLabels: ["Desktop", "Database"],
-    dateRange: "2024",
-    techLine: "C# · SQL · SQL Server",
-    featured: false,
-    links: {},
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_torcs_bot",
-    slug: "torcs-bot",
-    name: "TORCS Game Bot",
-    tagline: "Autonomous racing agent trained with artificial neural networks.",
-    categories: ["AI/ML"],
-    categoryLabels: ["AI/ML", "Reinforcement Learning"],
-    dateRange: "2024",
-    techLine: "Python · Artificial Neural Networks (ANN)",
-    featured: false,
-    links: {},
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_eventax",
-    slug: "eventax",
-    name: "EventaX",
-    tagline: "Desktop event management app with JavaFX.",
-    categories: ["Other"],
-    categoryLabels: ["Desktop", "OOP"],
-    techLine: "Java · JavaFX · Singleton & Factory patterns",
-    featured: false,
-    links: {},
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_ipfs",
-    slug: "ipfs-file-system",
-    name: "IPFS-Inspired File System",
-    tagline: "Custom file system simulation built on core data structures.",
-    categories: ["Other"],
-    categoryLabels: ["Systems", "Data Structures"],
-    techLine: "C++ · B-trees · Hashmaps · Linked Lists",
-    featured: false,
-    links: {},
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_hospital_network",
-    slug: "hospital-network",
-    name: "Hospital Management System (Network)",
-    tagline: "Hospital network infrastructure simulation.",
-    categories: ["Other"],
-    categoryLabels: ["Networking"],
-    techLine: "Cisco Packet Tracer · VLANs · Routing · Network Security",
-    featured: false,
-    links: {},
-    hasCaseStudy: true,
-  },
-  {
-    id: "proj_other_games",
-    slug: "games-and-systems",
-    name: "Games & Systems Projects",
-    tagline: "Tetris, SpaceShooter, PACMAN, OS concepts, and assembly work.",
-    categories: ["Other"],
-    categoryLabels: ["Games", "Systems"],
-    techLine: "C++ · SFML · Assembly (MASM) · OS Concepts",
-    featured: false,
-    links: {},
-    hasCaseStudy: true,
-  },
-];
+  return images[id] ?? null;
+}
 
-export const featuredProjects = projects.filter((p) => p.featured);
+function matchesCategoryFilter(categories: string[], filter: ProjectFilter): boolean {
+  if (filter === "all") return true;
 
-const heroProjectIds = [
-  "proj_foresyte",
-  "proj_attendance_app",
-  "proj_startup_law_rag",
-];
+  const normalized = categories.map((c) => c.toLowerCase());
 
-export const heroProjects = heroProjectIds
-  .map((id) => projects.find((p) => p.id === id))
-  .filter((p): p is Project => p !== undefined);
+  if (filter === "ai-ml") {
+    return normalized.some(
+      (c) =>
+        c.includes("ai/ml") ||
+        c.includes("computer vision") ||
+        c.includes("nlp") ||
+        c.includes("rag") ||
+        c.includes("reinforcement")
+    );
+  }
+
+  if (filter === "full-stack") {
+    return normalized.some(
+      (c) => c.includes("full-stack") || c.includes("mern") || c.includes("backend")
+    );
+  }
+
+  if (filter === "devops") {
+    return normalized.some(
+      (c) =>
+        c.includes("devops") ||
+        c.includes("cloud") ||
+        c.includes("microservices")
+    );
+  }
+
+  return true;
+}
+
+function applyProjectCopy(project: PortfolioProject): PortfolioProject {
+  const copy =
+    siteCopy.projects.items[project.id as keyof typeof siteCopy.projects.items];
+  if (!copy) return project;
+
+  const problem = ("problem" in copy ? copy.problem : undefined) ?? project.problem;
+  const solution =
+    ("solution" in copy ? copy.solution : undefined) ?? project.solution;
+  const tagline = copy.tagline ?? project.tagline;
+  const summary =
+    problem && solution ? `${problem} ${solution}` : tagline;
+
+  return {
+    ...project,
+    tagline,
+    problem: problem ?? project.problem,
+    solution: solution ?? project.solution,
+    summary,
+    highlights: [
+      ...(("highlights" in copy ? copy.highlights : undefined) ?? project.highlights),
+    ],
+    architecture: project.architecture
+      ? {
+          ...project.architecture,
+          description:
+            ("architectureDescription" in copy
+              ? copy.architectureDescription
+              : undefined) ?? project.architecture.description,
+        }
+      : null,
+  };
+}
+
+function toPortfolioProject(project: JsonProject): PortfolioProject {
+  const categories = "category" in project ? project.category : [];
+  const techTags = flattenTechStack(project.tech_stack);
+  const links = normalizeLinks("links" in project ? project.links : undefined);
+
+  return applyProjectCopy({
+    id: project.id,
+    name: project.name,
+    tagline: project.tagline,
+    image: projectImage(project.id),
+    categories,
+    summary: projectSummary(project),
+    problem: "problem" in project ? project.problem ?? null : null,
+    solution: "solution" in project ? project.solution ?? null : null,
+    highlights: "highlights" in project ? project.highlights ?? [] : [],
+    architecture: projectArchitecture(project),
+    status: "status" in project ? project.status ?? null : null,
+    dateRange: formatDateRange("date_range" in project ? project.date_range : undefined),
+    isFinalYearProject:
+      "is_final_year_project" in project ? Boolean(project.is_final_year_project) : false,
+    techTags,
+    primaryTechTag: techTags[0] ?? categories[0] ?? null,
+    links,
+    matchesFilter: (filter) => matchesCategoryFilter(categories, filter),
+  });
+}
+
+function getProjectById(id: string): JsonProject {
+  const project = portfolio.projects.items.find((item) => item.id === id);
+  if (!project) throw new Error(`Project not found: ${id}`);
+  return project;
+}
+
+export const featuredProjects = portfolio.projects.featured_order.map((id) =>
+  toPortfolioProject(getProjectById(id))
+);
+
+export const secondaryProjects = portfolio.projects.secondary_order.map((id) =>
+  toPortfolioProject(getProjectById(id))
+);
+
+export const allProjects = portfolio.projects.items.map((project) =>
+  toPortfolioProject(project)
+);
+
+// --- Experience / Contact ---
+
+export const featuredExperience = portfolio.experience[0];
+
+export const experienceSummary = siteCopy.experience.summary;
+export const experienceBullets = [...siteCopy.experience.bullets];
+
+export const contactRows = [
+  { id: "email", label: "Email", value: personal.contact.email, href: `mailto:${personal.contact.email}` },
+  { id: "phone", label: "Phone", value: personal.contact.phone, href: `tel:${personal.contact.phone.replace(/\s+/g, "")}` },
+  { id: "github", label: "GitHub", value: personal.contact.github, href: personal.contact.github },
+  { id: "linkedin", label: "LinkedIn", value: personal.contact.linkedin, href: personal.contact.linkedin },
+  { id: "leetcode", label: "LeetCode", value: personal.contact.leetcode, href: personal.contact.leetcode },
+] as const;

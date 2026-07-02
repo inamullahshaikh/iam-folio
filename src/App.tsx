@@ -1,12 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import PortfolioHome from "./pages/PortfolioHome";
-import PortfolioProjectDetail from "./pages/PortfolioProjectDetail";
+import Home from "./pages/Home";
 
 export default function App() {
   return (
     <Routes>
-      <Route index element={<PortfolioHome />} />
-      <Route path="projects/:slug" element={<PortfolioProjectDetail />} />
+      <Route path="/" element={<Home />} />
     </Routes>
   );
 }
