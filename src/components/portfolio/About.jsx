@@ -1,17 +1,17 @@
 import Reveal from "./Reveal";
+import { site } from "../../data/siteConfig";
 
-export default function About({ site }) {
-  const facts = site?.about_facts?.length ? site.about_facts : [];
+export default function About() {
   return (
     <section className="section" id="about">
       <div className="container">
         <Reveal>
           <div className="section-label">About</div>
           <div className="about-grid">
-            <p className="about-bio">{site?.about_bio || ""}</p>
+            <p className="about-bio">{site.about_bio}</p>
             <div className="about-facts">
-              {facts.map((row, i) => (
-                <div className="fact-row" key={`${row.k}-${i}`}>
+              {site.about_facts.map((row) => (
+                <div className="fact-row" key={row.k}>
                   <span className="k">{row.k}</span>
                   <span className="v">{row.v}</span>
                 </div>

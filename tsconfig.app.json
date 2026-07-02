@@ -12,6 +12,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
+    "allowJs": true,
     "jsx": "react-jsx",
 
     "strict": true,
@@ -23,14 +24,11 @@
   "exclude": [
     "src/components/ui",
     "src/components/admin",
-    "src/components/portfolio",
-    "src/components/icons",
     "src/routes",
     "src/hooks",
     "src/router.tsx",
     "src/routeTree.gen.ts",
     "src/lib/api.js",
-    "src/lib/utils.ts",
-    "src/styles.css"
+    "src/lib/utils.ts"
   ]
 }
