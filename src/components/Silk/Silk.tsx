@@ -5,6 +5,8 @@ import {
   useRef,
   useMemo,
   useLayoutEffect,
+  useEffect,
+  useState,
   type RefObject,
 } from "react";
 import { Color, Vector2, type Mesh, type ShaderMaterial } from "three";
@@ -148,6 +150,18 @@ export default function Silk({
   className,
 }: SilkProps) {
   const meshRef = useRef<Mesh>(null);
+  const [dpr, setDpr] = useState(1);
+
+  useEffect(() => {
+    const update = () => {
+      const isMobile = window.innerWidth < 640;
+      setDpr(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+    };
+
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
 
   const uniforms = useMemo<Uniforms>(
     () => ({
@@ -167,7 +181,7 @@ export default function Silk({
       className={className}
       style={{ width: "100%", height: "100%", position: "relative" }}
     >
-      <Canvas dpr={[1, 2]} frameloop="always" style={{ width: "100%", height: "100%" }}>
+      <Canvas dpr={dpr} frameloop="always" style={{ width: "100%", height: "100%" }}>
         <SilkPlane ref={meshRef} uniforms={uniforms} />
       </Canvas>
     </div>

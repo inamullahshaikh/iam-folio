@@ -3,18 +3,20 @@ import { useCursorMotionEnabled } from "../../hooks/useCursorMotionEnabled";
 import Silk from "./Silk";
 
 export default function SilkBackground() {
-  const [desktopEnabled, setDesktopEnabled] = useState(false);
   const cursorEnabled = useCursorMotionEnabled();
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia("(min-width: 640px)");
-    const update = () => setDesktopEnabled(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  const enabled = desktopEnabled && cursorEnabled;
+    const update = () => {
+      setEnabled(!reducedMotion.matches);
+    };
+
+    update();
+    reducedMotion.addEventListener("change", update);
+    return () => reducedMotion.removeEventListener("change", update);
+  }, []);
 
   if (!enabled) return null;
 
@@ -26,7 +28,7 @@ export default function SilkBackground() {
         color="#7B7481"
         noiseIntensity={1.5}
         rotation={0}
-        className="h-full w-full hero-silk-shell"
+        className={`h-full w-full ${cursorEnabled ? "hero-silk-shell" : ""}`}
       />
       <div className="absolute inset-0 bg-bg/55" />
       <div className="absolute inset-0 glow-spot opacity-60" />
