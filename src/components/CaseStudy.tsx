@@ -11,53 +11,52 @@ export function CaseStudyShell({
   children: ReactNode;
 }) {
   return (
-    <div className="mx-auto max-w-[720px] px-6 pt-14 pb-4">
+    <div className="prose-shell pb-8 pt-8 sm:pt-12">
       <Link
         to="/projects"
         className="text-sm text-ink-faint transition-colors hover:text-rust"
       >
         ← Projects
       </Link>
-      <p className="mt-8 font-mono text-sm text-ink-faint">{eyebrow}</p>
-      <h1 className="mt-3 text-[2rem] font-semibold leading-tight text-ink sm:text-[2.3rem]">
+      <p className="mt-6 font-mono text-xs text-ink-faint sm:text-sm">{eyebrow}</p>
+      <h1 className="mt-2 text-2xl font-semibold leading-tight text-ink sm:text-3xl">
         {title}
       </h1>
-      <div className="fade-section mt-10">{children}</div>
-      <div className="mt-16 border-t border-line pt-6">
-        <Link
-          to="/projects"
-          className="text-sm text-rust hover:underline hover:underline-offset-4"
-        >
-          ← Back to all projects
-        </Link>
-      </div>
+      <div className="mt-6 sm:mt-8">{children}</div>
     </div>
   );
 }
 
-export function H2({ children }: { children: ReactNode }) {
+export function ProjectLinks({
+  github,
+  liveDemo,
+}: {
+  github?: string | null;
+  liveDemo?: string | null;
+}) {
+  if (!github && !liveDemo) return null;
   return (
-    <h2 className="mt-12 mb-3 text-xl font-semibold text-ink">{children}</h2>
-  );
-}
-
-export function P({ children }: { children: ReactNode }) {
-  return <p className="mb-4 text-[17px] leading-[1.7] text-ink-soft">{children}</p>;
-}
-
-export function Diagram({ children }: { children: string }) {
-  return (
-    <pre className="my-6 overflow-x-auto rounded border border-line bg-[color-mix(in_srgb,var(--color-ink)_3%,transparent)] p-5 font-mono text-[12.5px] leading-[1.55] text-ink">
-      {children}
-    </pre>
-  );
-}
-
-export function TechLine({ label, value }: { label: string; value: string }) {
-  return (
-    <p className="my-4 font-mono text-[13.5px] text-ink-faint">
-      <span className="text-ink-soft">{label}: </span>
-      {value}
-    </p>
+    <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+      {github && (
+        <a
+          href={github}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="link-rust"
+        >
+          GitHub
+        </a>
+      )}
+      {liveDemo && (
+        <a
+          href={liveDemo}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="link-rust"
+        >
+          Live demo
+        </a>
+      )}
+    </div>
   );
 }

@@ -3,45 +3,42 @@ import CvDownloadLink from "./CvDownloadLink";
 
 const links = [
   { to: "/", label: "Home", end: true },
-  { to: "/projects", label: "Projects" },
+  { to: "/projects", label: "Work" },
   { to: "/about", label: "About" },
-  { to: "/experience", label: "Experience" },
   { to: "/contact", label: "Contact" },
 ];
 
 export default function Nav() {
   return (
-    <header className="border-b border-line">
+    <header className="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-sm">
       <nav
         aria-label="Primary"
-        className="mx-auto flex max-w-[1100px] flex-col gap-3 px-6 py-5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+        className="page-shell flex items-center justify-between gap-4 py-3 sm:py-4"
       >
         <NavLink
           to="/"
-          className="text-sm tracking-tight text-ink hover:text-rust"
+          className="shrink-0 text-sm font-medium tracking-tight text-ink"
         >
-          inamullah shaikh
+          Inam
         </NavLink>
-        <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
+        <ul className="nav-scroll flex max-w-[70vw] gap-4 overflow-x-auto text-sm sm:max-w-none sm:gap-5">
           {links.map((link) => (
-            <li key={link.to}>
+            <li key={link.to} className="shrink-0">
               <NavLink
                 to={link.to}
                 end={link.end}
                 className={({ isActive }) =>
                   isActive
-                    ? "text-rust"
-                    : "text-ink-faint transition-colors hover:text-ink"
+                    ? "font-medium text-rust"
+                    : "text-ink-faint whitespace-nowrap"
                 }
               >
                 {link.label}
               </NavLink>
             </li>
           ))}
-          <li>
-            <CvDownloadLink className="text-ink-faint transition-colors hover:text-rust">
-              CV
-            </CvDownloadLink>
+          <li className="shrink-0">
+            <CvDownloadLink className="whitespace-nowrap text-ink-faint">CV</CvDownloadLink>
           </li>
         </ul>
       </nav>

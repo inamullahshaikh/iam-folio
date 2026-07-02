@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { CaseStudyShell, H2, P, Diagram, TechLine } from "../components/CaseStudy";
+import { CaseStudyShell, ProjectLinks } from "../components/CaseStudy";
+import ProjectMedia from "../components/ProjectMedia";
 import { getCaseStudyBySlug } from "../data/caseStudies";
 import { projects } from "../data/portfolio";
 import { usePageMeta } from "../lib/usePageMeta";
@@ -23,54 +24,35 @@ export default function ProjectCaseStudy() {
 
   return (
     <CaseStudyShell eyebrow={study.eyebrow} title={study.title}>
-      {study.blocks.map((block, i) => {
-        switch (block.type) {
-          case "h2":
-            return <H2 key={i}>{block.content as string}</H2>;
-          case "p":
-            return <P key={i}>{block.content as string}</P>;
-          case "diagram":
-            return <Diagram key={i}>{block.content as string}</Diagram>;
-          case "tech":
-            return (
-              <TechLine key={i} label="Stack" value={block.content as string} />
-            );
-          case "ul":
-            return (
-              <ul key={i} className="mb-4 list-disc space-y-2 pl-5 text-ink-soft">
-                {(block.content as string[]).map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            );
-          default:
-            return null;
-        }
-      })}
-      {project.links.github && (
-        <p className="mt-8">
-          <a
-            href={project.links.github}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="link-rust text-sm"
-          >
-            View on GitHub
-          </a>
+      <p className="text-[15px] leading-relaxed text-ink-soft sm:text-base">
+        {study.summary}
+      </p>
+
+      <ul className="mt-5 list-disc space-y-1.5 pl-4 text-sm text-ink-soft sm:text-[15px]">
+        {study.highlights.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+
+      {study.diagram && (
+        <p className="mt-5 rounded-lg border border-line bg-ink/[0.03] px-3 py-2 font-mono text-xs text-ink-faint sm:text-sm">
+          {study.diagram}
         </p>
       )}
-      {project.links.live_demo && (
-        <p className="mt-2">
-          <a
-            href={project.links.live_demo}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="link-rust text-sm"
-          >
-            Live demo
-          </a>
-        </p>
-      )}
+
+      <p className="mt-5 font-mono text-xs text-ink-faint sm:text-sm">
+        {study.stack}
+      </p>
+
+      <ProjectLinks
+        github={project.links.github}
+        liveDemo={project.links.live_demo}
+      />
+
+      <ProjectMedia
+        docs={project.media?.docs}
+        videos={project.media?.videos}
+      />
     </CaseStudyShell>
   );
 }

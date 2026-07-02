@@ -2,27 +2,34 @@ import { Link } from "react-router-dom";
 import type { Project } from "../data/portfolio";
 
 export default function ProjectRow({ project }: { project: Project }) {
-  const to = `/projects/${project.slug}`;
+  const hasMedia =
+    (project.media?.docs?.length ?? 0) > 0 ||
+    (project.media?.videos?.length ?? 0) > 0;
 
   return (
     <Link
-      to={to}
-      className="group block border-b border-line transition-colors hover:bg-[color-mix(in_srgb,var(--color-rust)_5%,transparent)]"
+      to={`/projects/${project.slug}`}
+      className="block py-4 active:bg-rust/5 sm:py-5"
     >
-      <div className="grid gap-2 py-7 sm:grid-cols-[1fr_auto] sm:items-baseline">
-        <div className="max-w-[640px]">
-          <div className="flex flex-wrap items-baseline gap-x-3">
-            <h3 className="text-xl font-semibold text-ink">{project.name}</h3>
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-semibold text-ink">{project.name}</h3>
             {project.isFyp && (
-              <span className="font-mono text-xs text-rust">Final Year Project</span>
+              <span className="font-mono text-[10px] text-rust sm:text-xs">FYP</span>
+            )}
+            {hasMedia && (
+              <span className="font-mono text-[10px] text-ink-faint sm:text-xs">
+                docs · video
+              </span>
             )}
           </div>
-          <p className="mt-1 text-ink-soft">{project.tagline}</p>
-          <p className="mt-2 font-mono text-[13px] text-ink-faint">
+          <p className="mt-1 text-sm text-ink-soft">{project.tagline}</p>
+          <p className="mt-2 font-mono text-[11px] text-ink-faint sm:text-xs">
             {project.techLine}
           </p>
         </div>
-        <div className="text-sm text-rust sm:text-right">Read case study →</div>
+        <span className="shrink-0 text-xs text-rust">→</span>
       </div>
     </Link>
   );

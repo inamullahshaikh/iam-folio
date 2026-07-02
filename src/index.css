@@ -15,16 +15,25 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-size: 17px;
-    line-height: 1.65;
+    font-size: 16px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  @media (min-width: 640px) {
+    body {
+      font-size: 17px;
+      line-height: 1.65;
+    }
   }
 
   ::selection {
@@ -40,6 +49,28 @@
     outline: 2px solid var(--color-rust);
     outline-offset: 3px;
     border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  .page-shell {
+    @apply mx-auto w-full max-w-[1100px] px-4 sm:px-6;
+  }
+
+  .prose-shell {
+    @apply mx-auto w-full max-w-[720px] px-4 sm:px-6;
+  }
+
+  .section-gap {
+    @apply mt-12 sm:mt-16;
+  }
+
+  .nav-scroll {
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .nav-scroll::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -61,19 +92,4 @@
     transition: none !important;
     scroll-behavior: auto !important;
   }
-}
-
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-section {
-  animation: fade-in-up 400ms ease both;
 }

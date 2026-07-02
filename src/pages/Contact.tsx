@@ -1,56 +1,45 @@
 import { personal, identity } from "../data/portfolio";
 import { usePageMeta } from "../lib/usePageMeta";
 import CvDownloadLink from "../components/CvDownloadLink";
+import PageShell from "../components/PageShell";
 
 const links = [
-  { label: "Email", value: personal.contact.email, href: `mailto:${personal.contact.email}`, external: false },
-  { label: "Phone", value: personal.contact.phone, href: `tel:${personal.contact.phone.replace(/\s+/g, "")}`, external: false },
-  { label: "GitHub", value: "github.com/inamullahshaikh", href: personal.contact.github, external: true },
-  { label: "LinkedIn", value: "in/inam-ullah-shaikh", href: personal.contact.linkedin, external: true },
-  { label: "LeetCode", value: "leetcode.com/u/inam_290", href: personal.contact.leetcode, external: true },
+  { label: "Email", value: personal.contact.email, href: `mailto:${personal.contact.email}` },
+  { label: "Phone", value: personal.contact.phone, href: `tel:${personal.contact.phone.replace(/\s+/g, "")}` },
+  { label: "GitHub", value: "GitHub", href: personal.contact.github, external: true },
+  { label: "LinkedIn", value: "LinkedIn", href: personal.contact.linkedin, external: true },
 ];
 
 export default function Contact() {
   usePageMeta({
     title: "Contact | Inamullah Shaikh",
-    description:
-      "Get in touch with Inamullah Shaikh. Email, GitHub, and LinkedIn. Open to full-time roles, remote or Islamabad.",
+    description: "Email, GitHub, LinkedIn, and CV.",
   });
 
   return (
-    <div className="mx-auto max-w-[720px] px-6 pt-16 pb-4">
-      <h1 className="text-[2rem] font-semibold text-ink">Contact</h1>
-      <p className="mt-4 max-w-[560px] text-[17px] leading-[1.7] text-ink-soft">
-        Open to full-time roles, remote or Islamabad. Email is fastest. GitHub,
-        LinkedIn, and my CV are below.
-      </p>
+    <PageShell narrow>
+      <h1 className="text-2xl font-semibold text-ink">Contact</h1>
+      <p className="mt-3 text-sm text-ink-soft">{identity.nowLine}</p>
 
-      <p className="mt-6">
-        <CvDownloadLink className="link-rust text-sm font-medium" />
-      </p>
+      <CvDownloadLink className="mt-5 inline-block text-sm font-medium">
+        Download CV
+      </CvDownloadLink>
 
-      <dl className="mt-10 divide-y divide-line border-y border-line">
+      <ul className="mt-8 divide-y divide-line border-y border-line">
         {links.map((l) => (
-          <div
-            key={l.label}
-            className="grid gap-1 py-4 sm:grid-cols-[7rem_1fr] sm:items-baseline sm:gap-4"
-          >
-            <dt className="text-sm text-ink-faint">{l.label}</dt>
-            <dd>
-              <a
-                href={l.href}
-                target={l.external ? "_blank" : undefined}
-                rel={l.external ? "noreferrer noopener" : undefined}
-                className="link-rust font-mono text-[15px]"
-              >
-                {l.value}
-              </a>
-            </dd>
-          </div>
+          <li key={l.label} className="flex items-center justify-between gap-4 py-3 text-sm">
+            <span className="text-ink-faint">{l.label}</span>
+            <a
+              href={l.href}
+              target={l.external ? "_blank" : undefined}
+              rel={l.external ? "noreferrer noopener" : undefined}
+              className="link-rust truncate font-mono text-xs sm:text-sm"
+            >
+              {l.value}
+            </a>
+          </li>
         ))}
-      </dl>
-
-      <p className="mt-10 text-sm text-ink-faint">{identity.nowLine}</p>
-    </div>
+      </ul>
+    </PageShell>
   );
 }

@@ -20,10 +20,19 @@ export interface EducationItem {
   status: string;
 }
 
+export interface ProjectMediaItem {
+  label: string;
+  url: string;
+}
+
 export interface ProjectLinks {
   github?: string | null;
   live_demo?: string | null;
-  video_demo?: string | null;
+}
+
+export interface ProjectMedia {
+  docs?: ProjectMediaItem[];
+  videos?: ProjectMediaItem[];
 }
 
 export interface Project {
@@ -39,6 +48,7 @@ export interface Project {
   featured: boolean;
   isFyp?: boolean;
   links: ProjectLinks;
+  media?: ProjectMedia;
   hasCaseStudy: boolean;
 }
 
@@ -68,20 +78,13 @@ export const personal = {
 
 export const identity = {
   oneLiner:
-    "CS graduate and full-stack developer: web apps, cloud deployments, desktop software, databases, and applied AI.",
+    "Full-stack developer: web, cloud, desktop, databases, and applied AI.",
   shortBioFirstPerson:
-    "I'm a Computer Science graduate from FAST-NUCES based in Islamabad. I work across the stack: React and MERN web apps, Python and Node APIs, AWS and Kubernetes deployments, C# and Java desktop apps, SQL databases, and AI projects when the problem needs them.",
-  longBio: [
-    "I build software end to end. On the web I've shipped React frontends, MERN stacks, and REST APIs. On the infrastructure side I've provisioned AWS with Terraform, configured hosts with Ansible, and deployed microservices on Kubernetes. I've also built desktop apps in C# and JavaFX with SQL Server backends.",
-    "Applied AI is part of the mix, not the whole story. ForeSyte (my Final Year Project) pairs computer vision with a FastAPI backend and React UI. Startup & Law RAG and FastCite are retrieval apps with async pipelines. Alongside that I've done MERN event management, gym billing systems, game bots, networking labs, and C++ systems coursework.",
-    "I go where the project needs me: UI, API, data model, deploy scripts, or model integration. I work in Agile teams, keep documentation honest, and use modern tooling to move faster without cutting corners on reliability.",
-  ],
-  nowLine:
-    "CS grad, open to full-stack and software engineering roles. Based in Islamabad, remote OK.",
+    "CS grad from FAST-NUCES, Islamabad. I build across the stack: React and MERN apps, Python/Node APIs, AWS deployments, desktop tools in C# and Java, and AI when the problem needs it.",
+  aboutParagraph:
+    "I work end to end on web frontends, backends, cloud infra, desktop apps, and applied AI. ForeSyte was my FYP. I pick up whatever the project needs and ship with clear docs.",
+  nowLine: "Open to full-stack roles. Islamabad, remote OK.",
 };
-
-export const workAreas =
-  "Web · APIs · Cloud & DevOps · Desktop · Databases · AI/ML · Systems";
 
 export const education: EducationItem[] = [
   {
@@ -116,16 +119,15 @@ export const experience = {
   location: "Islamabad, Pakistan",
   dateRange: "Aug 2025 to Dec 2025",
   summary:
-    "Contributed to AI-driven software development in an Agile, Git-based team across prototype and integration phases.",
+    "AI intern on an Agile team. Git-based workflow across prototype and integration phases.",
   responsibilities: [
-    "Collaborated with the development team using Git version control and Agile methodologies.",
-    "Worked with AI-driven systems in a production-oriented engineering environment.",
-    "Supported integration and debugging of intelligent software components.",
-    "Contributed to technical documentation and cross-functional handoffs.",
+    "Built and debugged AI-driven features in a production-style codebase",
+    "Worked in Agile sprints with Git and cross-functional handoffs",
+    "Wrote technical documentation for integration work",
   ],
   achievements: [
-    "Contributed across two delivery phases (prototype and integration).",
-    "Improved release readiness before broader internal rollout.",
+    "Shipped work across prototype and integration phases",
+    "Helped improve release readiness before rollout",
   ],
   technologies: ["Python", "Git", "GitHub", "Agile", "Scrum"],
 };
@@ -180,14 +182,19 @@ export const projects: Project[] = [
     techLine: "Python · FastAPI · React · YOLOv8 · Computer Vision",
     featured: true,
     isFyp: true,
-    links: { github: null, live_demo: null, video_demo: null },
+    links: { github: null, live_demo: null },
+    // Add media when ready, e.g.:
+    // media: {
+    //   videos: [{ label: "Demo", url: "/projects/foresyte/demo.mp4" }],
+    //   docs: [{ label: "Report", url: "/projects/foresyte/report.pdf" }],
+    // },
     hasCaseStudy: true,
   },
   {
     id: "proj_startup_law_rag",
     slug: "startup-law-rag",
     name: "Startup & Law RAG",
-    tagline: "AI legal assistant for entrepreneurs, grounded in real documents.",
+    tagline: "Legal Q&A grounded in real documents.",
     categories: ["AI/ML", "Full-Stack"],
     categoryLabels: ["AI/ML", "NLP", "RAG", "Full-Stack"],
     dateRange: "Jan 2025 to Jun 2026",
@@ -319,7 +326,6 @@ export const featuredProjects = projects.filter((p) => p.featured);
 const heroProjectIds = [
   "proj_foresyte",
   "proj_attendance_app",
-  "proj_eventsync",
   "proj_startup_law_rag",
 ];
 
