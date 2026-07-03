@@ -32,7 +32,9 @@ export const stats = [
     label: siteCopy.stats[1].label,
   },
   {
-    value: String(achievements.rag_projects_count + achievements.llm_agent_projects),
+    value: String(
+      achievements.rag_projects_count + (achievements.llm_agent_projects ?? 0)
+    ),
     label: siteCopy.stats[2].label,
   },
 ] as const;
@@ -98,7 +100,7 @@ export const skillCategories = [
   {
     id: "backend",
     title: "Backend & APIs",
-    tags: [...backend, ...messaging],
+    tags: [...backend, ...(messaging ?? [])],
   },
   {
     id: "ai-ml",
@@ -108,7 +110,7 @@ export const skillCategories = [
   {
     id: "async",
     title: "Async & Automation",
-    tags: [...async_pipelines, ...blockchain],
+    tags: [...(async_pipelines ?? []), ...(blockchain ?? [])],
   },
   {
     id: "devops",
@@ -327,19 +329,26 @@ function toPortfolioProject(project: JsonProject): PortfolioProject {
   });
 }
 
-function getProjectById(id: string): JsonProject {
-  const project = portfolio.projects.items.find((item) => item.id === id);
-  if (!project) throw new Error(`Project not found: ${id}`);
-  return project;
+function getProjectById(id: string): JsonProject | null {
+  return portfolio.projects.items.find((item) => item.id === id) ?? null;
 }
 
-export const featuredProjects = portfolio.projects.featured_order.map((id) =>
-  toPortfolioProject(getProjectById(id))
-);
+function mapOrderedProjects(order: readonly string[] | undefined): PortfolioProject[] {
+  return (order ?? [])
+    .map((id) => {
+      const project = getProjectById(id);
+      if (!project) {
+        console.warn(`[portfolio] Skipping missing project id: ${id}`);
+        return null;
+      }
+      return toPortfolioProject(project);
+    })
+    .filter((project): project is PortfolioProject => project !== null);
+}
 
-export const secondaryProjects = portfolio.projects.secondary_order.map((id) =>
-  toPortfolioProject(getProjectById(id))
-);
+export const featuredProjects = mapOrderedProjects(portfolio.projects.featured_order);
+
+export const secondaryProjects = mapOrderedProjects(portfolio.projects.secondary_order);
 
 export const allProjects = portfolio.projects.items.map((project) =>
   toPortfolioProject(project)

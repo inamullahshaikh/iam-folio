@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { personal, ctaLine } from "../data/portfolio";
+import { ctaLine } from "../data/portfolio";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -7,18 +7,9 @@ const navLinks = [
   { href: "#education", label: "Education" },
   { href: "#skills", label: "Skills" },
   { href: "#projects", label: "Projects" },
+  { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
 ] as const;
-
-function initials(name: string) {
-  return name
-    .split(" ")
-    .filter(Boolean)
-    .map((part) => part[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase();
-}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -44,22 +35,14 @@ export default function Navbar() {
     <header
       className={`safe-top fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/5 bg-bg/80 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+          ? "border-b border-white/5 bg-bg/95 shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
           : "bg-transparent"
       }`}
     >
       <nav
-        className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16 sm:px-6"
+        className="relative mx-auto flex h-14 max-w-6xl items-center justify-center px-4 sm:h-16 sm:px-6"
         aria-label="Main navigation"
       >
-        <a
-          href="#home"
-          className="text-sm font-semibold tracking-wide text-text transition-colors hover:text-accent"
-          onClick={handleNavClick}
-        >
-          {initials(personal.full_name)}
-        </a>
-
         <ul className="hidden items-center gap-0.5 lg:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
@@ -73,15 +56,9 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <span className="max-w-[14rem] rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-center text-[11px] leading-snug text-accent-cyan xl:max-w-none xl:text-xs">
-            {ctaLine}
-          </span>
-        </div>
-
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-text lg:hidden"
+          className="absolute right-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-text sm:right-6 lg:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -109,9 +86,9 @@ export default function Navbar() {
       {menuOpen && (
         <div
           id="mobile-nav"
-          className="safe-bottom border-t border-white/5 bg-bg/95 px-4 py-4 backdrop-blur-xl lg:hidden"
+          className="safe-bottom border-t border-white/5 bg-bg/98 px-4 py-4 lg:hidden"
         >
-          <ul className="flex flex-col gap-1">
+          <ul className="flex flex-col items-center gap-1">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a

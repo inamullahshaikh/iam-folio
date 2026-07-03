@@ -10,6 +10,7 @@ import {
   type RefObject,
 } from "react";
 import { Color, Vector2, type Mesh, type ShaderMaterial } from "three";
+import { cursorPointer } from "../../lib/cursorState";
 
 function hexToNormalizedRGB(hex: string): [number, number, number] {
   const normalized = hex.replace("#", "");
@@ -108,14 +109,10 @@ const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane(
 
     material.uniforms.uTime.value += 0.1 * delta;
 
-    const styles = getComputedStyle(document.documentElement);
-    const pointerX = Number(styles.getPropertyValue("--cursor-ratio-x")) || 0.5;
-    const pointerY = Number(styles.getPropertyValue("--cursor-ratio-y")) || 0.5;
-
     if (material.uniforms.uPointer) {
       const currentPointer = material.uniforms.uPointer.value as Vector2;
-      currentPointer.x += (pointerX - currentPointer.x) * 0.06;
-      currentPointer.y += (pointerY - currentPointer.y) * 0.06;
+      currentPointer.x += (cursorPointer.x - currentPointer.x) * 0.08;
+      currentPointer.y += (cursorPointer.y - currentPointer.y) * 0.08;
     }
   });
 
@@ -139,6 +136,7 @@ export type SilkProps = {
   noiseIntensity?: number;
   rotation?: number;
   className?: string;
+  active?: boolean;
 };
 
 export default function Silk({
@@ -148,6 +146,7 @@ export default function Silk({
   noiseIntensity = 1.5,
   rotation = 0,
   className,
+  active = true,
 }: SilkProps) {
   const meshRef = useRef<Mesh>(null);
   const [dpr, setDpr] = useState(1);
@@ -155,7 +154,7 @@ export default function Silk({
   useEffect(() => {
     const update = () => {
       const isMobile = window.innerWidth < 640;
-      setDpr(isMobile ? 1 : Math.min(window.devicePixelRatio, 2));
+      setDpr(isMobile ? 1 : Math.min(window.devicePixelRatio, 1.5));
     };
 
     update();
@@ -181,7 +180,11 @@ export default function Silk({
       className={className}
       style={{ width: "100%", height: "100%", position: "relative" }}
     >
-      <Canvas dpr={dpr} frameloop="always" style={{ width: "100%", height: "100%" }}>
+      <Canvas
+        dpr={dpr}
+        frameloop={active ? "always" : "never"}
+        style={{ width: "100%", height: "100%" }}
+      >
         <SilkPlane ref={meshRef} uniforms={uniforms} />
       </Canvas>
     </div>

@@ -1,11 +1,9 @@
-import { lazy, Suspense } from "react";
 import { personal, oneLiner, ctaLine, heroCopy } from "../data/portfolio";
-import { useReveal } from "../hooks/useReveal";
+import { useReveal, revealSectionClass } from "../hooks/useReveal";
 import TypewriterRole from "./TypewriterRole";
 import SocialIcons from "./SocialIcons";
 import ScrollIndicator from "./ScrollIndicator";
-
-const SilkBackground = lazy(() => import("./Silk/SilkBackground"));
+import SilkBackground from "./Silk/SilkBackground";
 
 export default function Hero() {
   const ref = useReveal();
@@ -14,11 +12,9 @@ export default function Hero() {
     <section
       id="home"
       ref={ref}
-      className="reveal-section scene-3d relative flex min-h-[100dvh] items-center justify-center overflow-hidden px-4 pt-[calc(4.5rem+env(safe-area-inset-top))] pb-28 sm:px-6 sm:pb-24"
+      className={`${revealSectionClass} scene-3d relative flex min-h-[100dvh] items-center justify-center overflow-hidden px-4 pt-[calc(4.5rem+env(safe-area-inset-top))] pb-28 sm:px-6 sm:pb-24`}
     >
-      <Suspense fallback={null}>
-        <SilkBackground />
-      </Suspense>
+      <SilkBackground />
       <div className="cursor-depth-grid" aria-hidden />
       <div
         className="pointer-events-none absolute inset-0 glow-spot opacity-80 sm:opacity-40 surface-3d-float"
@@ -28,8 +24,8 @@ export default function Hero() {
         className="pointer-events-none absolute left-1/2 top-1/3 h-48 w-48 -translate-x-1/2 rounded-full bg-accent/10 blur-3xl surface-3d-float sm:h-64 sm:w-64"
         aria-hidden
       />
-      <div className="relative z-10 mx-auto w-full max-w-3xl scene-3d text-center">
-        <div className="split-panel split-shell surface-3d surface-3d-medium rounded-[2rem] border border-white/8 bg-white/[0.03] px-5 py-8 backdrop-blur-sm sm:px-8 sm:py-10">
+      <div className="reveal-content relative z-10 mx-auto w-full max-w-3xl scene-3d text-center">
+        <div className="split-panel split-shell surface-3d surface-3d-medium surface-3d-card rounded-[2rem] border border-white/8 bg-white/[0.03] px-5 py-8 backdrop-blur-sm sm:px-8 sm:py-10">
           <span className="split-layer-down surface-3d-inner inline-block max-w-full rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-medium leading-snug tracking-wide text-text-muted sm:px-4 sm:text-xs">
           {ctaLine}
           </span>

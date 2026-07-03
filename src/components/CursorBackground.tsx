@@ -14,7 +14,6 @@ export default function CursorBackground() {
       <div className="cursor-bg-base" />
       <div className="cursor-bg-orb cursor-bg-orb-primary" />
       <div className="cursor-bg-orb cursor-bg-orb-secondary" />
-      <div className="cursor-bg-orb cursor-bg-orb-accent" />
       <div className="cursor-bg-vignette" />
     </div>
   );

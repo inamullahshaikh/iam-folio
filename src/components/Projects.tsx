@@ -7,7 +7,7 @@ import {
   type ProjectFilter,
   type PortfolioProject,
 } from "../data/portfolio";
-import { useReveal } from "../hooks/useReveal";
+import { useReveal, revealSectionClass } from "../hooks/useReveal";
 import ProjectDetailModal from "./ProjectDetailModal";
 import SectionHeading from "./SectionHeading";
 
@@ -69,7 +69,7 @@ function FeaturedCard({
   const hasLinks = Boolean(project.links.github || project.links.live_demo);
 
   return (
-    <article className="group scene-3d split-panel split-shell surface-3d surface-3d-medium surface-3d-card flex flex-col overflow-hidden rounded-2xl border border-white/8 bg-bg/80 transition-all duration-200 hover:border-accent/35 sm:hover:-translate-y-1 sm:hover:shadow-[0_0_28px_rgba(139,92,246,0.15)]">
+    <article className="group card-elevated flex flex-col overflow-hidden">
       <button
         type="button"
         onClick={() => onOpen(project)}
@@ -77,7 +77,7 @@ function FeaturedCard({
         aria-label={`View details for ${project.name}`}
       >
         {project.image ? (
-          <div className="surface-3d-inner split-layer-up overflow-hidden border-b border-white/10 bg-[#0d0911]">
+          <div className="overflow-hidden border-b border-white/10 bg-[#0d0911]">
             <img
               src={project.image}
               alt={`${project.name} preview`}
@@ -88,7 +88,7 @@ function FeaturedCard({
           </div>
         ) : null}
 
-        <div className="split-layer-down flex flex-1 flex-col p-4 sm:p-6">
+        <div className="flex flex-1 flex-col p-4 sm:p-6">
           <div className="flex items-start justify-between gap-2 sm:gap-3">
             <div className="min-w-0">
               <h3 className="text-lg font-semibold text-text sm:text-xl">{project.name}</h3>
@@ -133,7 +133,7 @@ function SecondaryRow({
       <button
         type="button"
         onClick={() => onOpen(project)}
-        className="scene-3d split-panel-soft split-shell surface-3d surface-3d-soft surface-3d-card flex w-full flex-col gap-3 rounded-xl border border-white/6 bg-white/[0.02] px-4 py-4 text-left transition-all duration-200 hover:border-accent/30 hover:bg-white/[0.04] hover:shadow-[0_0_16px_rgba(139,92,246,0.1)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-5"
+        className="card-surface flex w-full flex-col gap-3 rounded-xl bg-white/[0.02] px-4 py-4 text-left transition-colors duration-200 hover:bg-white/[0.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-5"
         aria-label={`View details for ${project.name}`}
       >
         <div className="flex items-start justify-between gap-3">
@@ -178,12 +178,12 @@ export default function Projects() {
       <section
         id="projects"
         ref={ref}
-        className="reveal-section section-pad relative"
+        className={`${revealSectionClass} section-pad relative`}
         aria-labelledby="projects-heading"
       >
         <div className="pointer-events-none absolute inset-x-0 top-24 h-56 glow-spot opacity-40" aria-hidden />
 
-        <div className="relative mx-auto max-w-6xl">
+        <div className="reveal-content relative mx-auto max-w-6xl">
           <SectionHeading
             title="Featured"
             highlight="Projects"

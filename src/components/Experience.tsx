@@ -1,5 +1,5 @@
 import { experienceBullets, experienceCopy, experienceSummary, featuredExperience } from "../data/portfolio";
-import { useReveal } from "../hooks/useReveal";
+import { useReveal, revealSectionClass } from "../hooks/useReveal";
 import SectionHeading from "./SectionHeading";
 
 function formatDateRange(startDate: string, endDate: string) {
@@ -23,17 +23,17 @@ export default function Experience() {
     <section
       id="experience"
       ref={ref}
-      className="reveal-section section-pad border-t border-white/5 bg-bg-elevated/30"
+      className={`${revealSectionClass} section-pad border-t border-white/5 bg-bg-elevated/30`}
       aria-labelledby="experience-heading"
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="reveal-content mx-auto max-w-6xl">
         <SectionHeading
           title="Experience"
           subtitle={experienceCopy.subtitle}
           headingId="experience-heading"
         />
 
-        <article className="scene-3d surface-3d surface-3d-soft surface-3d-card rounded-2xl border border-white/8 bg-bg/80 p-4 sm:p-8">
+        <article className="card-surface p-4 sm:p-8">
           <div className="grid gap-5 sm:gap-6 lg:grid-cols-[minmax(0,220px)_1fr] lg:gap-8">
             <div className="border-l-2 border-accent pl-4">
               <p className="text-sm font-medium text-accent">

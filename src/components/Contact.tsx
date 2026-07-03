@@ -1,5 +1,5 @@
 import { ctaLine, contactCopy, contactRows } from "../data/portfolio";
-import { useReveal } from "../hooks/useReveal";
+import { useReveal, revealSectionClass } from "../hooks/useReveal";
 import SectionHeading from "./SectionHeading";
 
 function ContactIcon({ id }: { id: (typeof contactRows)[number]["id"] }) {
@@ -47,12 +47,12 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="reveal-section section-pad relative border-t border-white/5"
+      className={`${revealSectionClass} section-pad relative border-t border-white/5`}
       aria-labelledby="contact-heading"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 glow-spot opacity-45" aria-hidden />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="reveal-content relative mx-auto max-w-6xl">
         <SectionHeading
           title="Get In"
           highlight="Touch"
@@ -64,17 +64,16 @@ export default function Contact() {
           {contactCopy.closingQuestion}
         </p>
 
-        <div className="scene-3d mx-auto max-w-3xl">
-          <div className="split-panel split-shell surface-3d surface-3d-soft surface-3d-card rounded-2xl border border-white/8 bg-bg/80 p-4 sm:p-6">
+        <div className="mx-auto max-w-3xl">
+          <div className="card-surface p-4 sm:p-6">
             <div className="grid gap-3">
-              {contactRows.map((row, index) => (
+              {contactRows.map((row) => (
                 <a
                   key={row.id}
                   href={row.href}
                   target={row.id === "email" || row.id === "phone" ? undefined : "_blank"}
                   rel={row.id === "email" || row.id === "phone" ? undefined : "noopener noreferrer"}
-                  className="surface-3d surface-3d-soft split-panel-soft flex min-h-[3.25rem] items-center gap-3 rounded-xl border border-white/8 bg-white/[0.02] px-3 py-3 transition-all duration-200 hover:border-accent/35 sm:gap-4 sm:px-4 sm:py-4"
-                  style={{ ["--float-delay" as string]: `${index * 0.18}s` }}
+                  className="card-surface flex min-h-[3.25rem] items-center gap-3 bg-white/[0.02] px-3 py-3 transition-colors duration-200 hover:border-accent/35 sm:gap-4 sm:px-4 sm:py-4"
                 >
                   <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-accent">
                     <ContactIcon id={row.id} />
