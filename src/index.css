@@ -440,20 +440,23 @@
     gap: 0.25rem;
   }
 
-  html[data-cursor-motion="true"] #home .split-heading-ghost {
+  #home .split-heading-ghost {
     position: absolute;
     inset: 0;
     z-index: -1;
     color: color-mix(in srgb, var(--color-accent) 72%, white);
     filter: blur(10px);
     opacity: 0.22;
+    pointer-events: none;
+  }
+
+  html[data-cursor-motion="true"] #home .split-heading-ghost {
     transform: translate3d(
       calc(var(--cursor-parallax-x, 0px) * -0.12),
       calc(var(--cursor-parallax-y, 0px) * -0.12 + 8px),
       0
     );
     animation: split-text-ghost 4.8s ease-in-out infinite;
-    pointer-events: none;
   }
 
   #home .split-copy {
