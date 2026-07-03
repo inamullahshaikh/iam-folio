@@ -15,6 +15,7 @@ export const shortBio = identity.short_bio;
 export const contact = personal.contact;
 export const heroCopy = siteCopy.hero;
 export const aboutSubtitle = siteCopy.aboutSubtitle;
+export const educationSubtitle = siteCopy.educationSubtitle;
 export const skillsSubtitle = siteCopy.skillsSubtitle;
 export const projectsCopy = siteCopy.projects;
 export const experienceCopy = siteCopy.experience;

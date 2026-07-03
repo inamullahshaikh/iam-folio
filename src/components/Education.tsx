@@ -1,4 +1,4 @@
-import { educationTimeline } from "../data/portfolio";
+import { educationTimeline, educationSubtitle } from "../data/portfolio";
 import { useReveal } from "../hooks/useReveal";
 import SectionHeading from "./SectionHeading";
 
@@ -13,7 +13,11 @@ export default function Education() {
       aria-labelledby="education-heading"
     >
       <div className="mx-auto max-w-6xl">
-        <SectionHeading title="Education" headingId="education-heading" />
+        <SectionHeading
+          title="Education"
+          subtitle={educationSubtitle}
+          headingId="education-heading"
+        />
 
         <div className="scene-3d space-y-4">
           {educationTimeline.map((item) => (
