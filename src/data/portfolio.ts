@@ -31,7 +31,7 @@ export const stats = [
     label: siteCopy.stats[1].label,
   },
   {
-    value: String(achievements.rag_projects_count),
+    value: String(achievements.rag_projects_count + achievements.llm_agent_projects),
     label: siteCopy.stats[2].label,
   },
 ] as const;
@@ -80,7 +80,8 @@ export const educationTimeline = education.map((item) => ({
   ).toLocaleString("en-US", { month: "short", year: "numeric" })}`,
 }));
 
-const { languages, frontend, backend, ai_ml, data, devops_cloud } = portfolio.skills;
+const { languages, frontend, backend, ai_ml, data, devops_cloud, messaging, auth, async_pipelines, blockchain } =
+  portfolio.skills;
 
 export const skillCategories = [
   {
@@ -95,13 +96,18 @@ export const skillCategories = [
   },
   {
     id: "backend",
-    title: "Backend",
-    tags: backend,
+    title: "Backend & APIs",
+    tags: [...backend, ...messaging],
   },
   {
     id: "ai-ml",
     title: "AI / ML",
     tags: [...ai_ml.core, ...ai_ml.models_tools, ...ai_ml.practices],
+  },
+  {
+    id: "async",
+    title: "Async & Automation",
+    tags: [...async_pipelines, ...blockchain],
   },
   {
     id: "devops",
@@ -115,9 +121,14 @@ export const skillCategories = [
     ],
   },
   {
-    id: "databases",
-    title: "Databases",
-    tags: [...data.databases, "MongoDB", ...data.concepts],
+    id: "data",
+    title: "Databases & Data",
+    tags: [...data.databases, ...data.concepts],
+  },
+  {
+    id: "auth",
+    title: "Auth & Security",
+    tags: auth,
   },
 ] as const;
 
@@ -232,6 +243,7 @@ function matchesCategoryFilter(categories: string[], filter: ProjectFilter): boo
         c.includes("computer vision") ||
         c.includes("nlp") ||
         c.includes("rag") ||
+        c.includes("llm agents") ||
         c.includes("reinforcement")
     );
   }

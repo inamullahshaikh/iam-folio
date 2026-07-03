@@ -3,21 +3,18 @@ export const siteCopy = {
     "Honestly I'm open to full time roles. Remote works for me. So does Islamabad.",
 
   oneLiner:
-    "I'm a CS grad who builds full stack and AI systems. RAG pipelines, real time CV apps, and cloud backed microservices. That's the work I keep coming back to.",
+    "I'm a CS grad who builds full stack and AI systems — computer vision, RAG pipelines, LLM agents, and Dockerized microservices. That's the work I keep coming back to.",
 
   longBioParagraphs: [
-    "Here's the thing. I'm a software engineer with a bias toward backend systems and applied AI, and most of my recent work lives where FastAPI, Celery, React, and LLM backed retrieval meet.",
-    "I take messy documents or live inputs and try to turn them into products that don't embarrass me in a demo.",
-    "ForeSyte, my Final Year Project, pushed me into real time computer vision and inference APIs. And side projects like Startup and Law RAG and FastCite taught me how to design async pipelines that don't fall over when someone uploads a bad file or the queue gets heavy.",
-    "Can I do frontend? Sure. But am I happiest owning the data flow from ingest to process to serve to monitor? Absolutely.",
-    "Wait, that's not quite right. I'm not allergic to UI work. I just get obsessive about the pipeline behind it.",
-    "I work in Agile teams, I document what I build, and I use Cursor daily because it's like having a fast junior dev who never needs coffee.",
+    "Here's the thing. I'm a software engineer with a bias toward backend systems and applied AI. Most of my recent work lives where FastAPI, Celery, React, and LLM backed retrieval meet — taking messy documents or live video inputs and turning them into products that don't embarrass me in a demo.",
+    "ForeSyte, my Final Year Project, pushed me into real time computer vision. I trained YOLOv8 on a custom cheating detection dataset with PyTorch and CUDA, wired MediaPipe for invigilator tracking, and shipped FastAPI inference with a React dashboard. Side projects like Startup and Law RAG, FastCite, and Resumind taught me how to design async pipelines and LLM agents that don't fall over on bad inputs or heavy loads.",
+    "Can I do frontend? Sure. But am I happiest owning the data flow from ingest to process to serve to monitor? Absolutely. I containerize services with Docker, work in Agile teams, and use Cursor daily because it's like having a fast junior dev who never needs coffee.",
   ],
 
   aboutQuickFacts: {
     locationSuffix: ", and I'm open to remote",
     currentFocus:
-      "AI automation and agentic systems, backend and data pipelines, and full stack product engineering",
+      "AI automation and agentic systems, backend and data pipelines, and applied ML across computer vision and NLP",
   },
 
   aboutSubtitle:
@@ -26,7 +23,7 @@ export const siteCopy = {
   stats: [
     { label: "LeetCode problems I've solved" },
     { label: "Months in an AI internship" },
-    { label: "RAG systems I've built" },
+    { label: "RAG and LLM agent systems I've built" },
   ],
 
   hero: {
@@ -40,7 +37,7 @@ export const siteCopy = {
 
   projects: {
     subtitle:
-      "So what do I actually build? I ship production style systems across Python and FastAPI backends, React frontends, and AI pipelines. Retrieval augmented generation, async workers, deployable microservices. You'll see that pattern all over this page.",
+      "So what do I actually build? I ship production style systems across Python and FastAPI backends, React and Next.js frontends, and AI pipelines — RAG, LLM agents, computer vision, and Dockerized microservices. You'll see that pattern all over this page.",
     emptyCategory:
       "I don't have featured projects in this category yet. Try another filter and see what shows up.",
     moreTitle: "Other Things I've Built",
@@ -70,8 +67,25 @@ export const siteCopy = {
           "Three layers. Model inference in the back, API backend in the middle, React UI up front with event based alerts tying it together.",
         highlights: [
           "This was my Final Year Project and it's still my lead showcase piece.",
-          "I wired a real time monitoring pipeline with model triggered workflows.",
-          "Automated event detection cut down the manual review work proctors were drowning in.",
+          "I trained YOLOv8 on a custom cheating detection dataset using CUDA on Kaggle.",
+          "MediaPipe invigilator tracking integrated with the object detection pipeline.",
+          "Real time monitoring with model triggered workflows and automated event detection.",
+        ],
+      },
+      proj_resumind: {
+        tagline:
+          "An AI resume agent — profile builder, job post chat, gap analysis, and ATS scoring.",
+        problem:
+          "Job seekers manually rewrite resumes per role, miss skill gaps, and have no structured way to evaluate ATS or recruiter fit before applying. I've watched friends do this at 2 a.m. It doesn't scale.",
+        solution:
+          "I built an AI resume platform where users create structured profiles and submit job posts via chat. A LangChain and Groq agent generates tailored resumes, flags skill gaps, suggests interview questions, and scores ATS fit, recruiter fit, and interview likelihood.",
+        architectureDescription:
+          "Next.js frontend, FastAPI API, Celery workers, and a LangChain/Groq agent with PostgreSQL persistence. Profile plus job post gets enqueued, the agent generates resume, gap analysis, and scores, then everything persists and returns.",
+        highlights: [
+          "Structured profile builder for skills, education, certifications, experience, and projects.",
+          "Job post chat drives tailored resume generation and gap analysis.",
+          "Automated scoring for ATS fit, recruiter fit, and interview likelihood.",
+          "Async Celery backed agent workflows with PostgreSQL storage.",
         ],
       },
       proj_virtualxi: {
@@ -116,6 +130,7 @@ export const siteCopy = {
         highlights: [
           "Two workflows: semantic search and citation generation.",
           "Retrieval first design means less manual referencing.",
+          "Dockerized FastAPI and Celery services for reproducible deployment.",
           "I built the MVP in about 2 months as a focused side project.",
         ],
       },
@@ -148,9 +163,28 @@ export const siteCopy = {
         ],
       },
       proj_eventsync: {
-        tagline: "A MERN event management system. CRUD, but I learned auth properly.",
+        tagline:
+          "A MERN event management system with containerized microservices. Auth done properly this time.",
+        problem:
+          "Event management features need to scale independently. Monolithic deployment makes updates and environment parity harder than it should be.",
+        solution:
+          "I built full stack event management on MERN with JWT auth, packaging each microservice in its own Docker container.",
         highlights: [
           "Full stack event management on MongoDB, Express.js, React.js, and Node.js with JWT authentication.",
+          "Docker containers for each microservice — isolated, reproducible deployment.",
+        ],
+      },
+      proj_crypto_bot: {
+        tagline:
+          "Automated demo trading via TradingView webhooks and Binance Spot Testnet.",
+        problem:
+          "Manual crypto demo trading lacks automation and structured logging for strategy validation. You can't improve what you don't measure.",
+        solution:
+          "I built Flask REST endpoints that receive TradingView webhooks and execute trades on Binance Spot Testnet with Pine Script signals and structured trade logging.",
+        highlights: [
+          "Webhook driven automation from TradingView to a Flask backend.",
+          "Binance Spot Testnet integration for safe demo trading.",
+          "Structured trade logging for strategy review.",
         ],
       },
       proj_eventax: {

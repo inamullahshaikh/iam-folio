@@ -8,7 +8,6 @@
     "companion_note": "For job applications (CV + cover letter), use application_context.json with general_prompt.txt. For portfolio website builds in Cursor, use portfolio_prompt.txt.",
     "owner_note": "Fields marked null or empty arrays should be filled in by Inam before publishing. Do not invent tools, metrics, or employers not listed here."
   },
-
   "personal": {
     "full_name": "Inam Ullah Shaikh",
     "preferred_name": "Inam",
@@ -35,25 +34,27 @@
       "portfolio": "https://inamullahshaikh.vercel.app/"
     },
     "languages": {
-      "spoken": ["English", "Urdu"],
+      "spoken": [
+        "English",
+        "Urdu"
+      ],
       "professional_english": true
     }
   },
-
   "identity": {
-    "one_liner": "CS graduate who builds full-stack and AI systems — RAG pipelines, real-time CV apps, and cloud-backed microservices.",
-    "short_bio": "Computer Science graduate from FAST-NUCES (June 2026) based in Islamabad. I build production-style systems across Python/FastAPI backends, React frontends, and AI pipelines — especially retrieval-augmented generation, async workers, and deployable microservices. Five-month AI internship plus a portfolio of shipped academic and independent projects.",
+    "one_liner": "CS graduate who builds full-stack and AI systems — computer vision, RAG pipelines, LLM agents, and Dockerized microservices.",
+    "short_bio": "Computer Science graduate from FAST-NUCES (June 2026), based in Islamabad. I build production-style systems across Python/FastAPI backends, React/Next.js frontends, and AI pipelines — RAG, LLM agents (LangChain/Groq), real-time computer vision, and async Celery workers. I've Dockerized FastCite and EventSync microservices, deployed live apps (VirtualXI), and completed a five-month AI internship at Komatsu Pakistan Soft.",
     "long_bio_paragraphs": [
-      "I'm a software engineer with a bias toward backend systems and applied AI. Most of my recent work lives at the intersection of FastAPI, Celery, React, and LLM-backed retrieval — taking messy documents or live inputs and turning them into reliable, usable products.",
-      "My Final Year Project (ForeSyte) pushed me into real-time computer vision and inference APIs. Side projects like Startup & Law RAG and FastCite taught me how to design async pipelines that don't fall over on bad inputs or heavy loads.",
-      "I'm comfortable across the stack when needed, but I'm happiest owning the data flow: ingest → process → serve → monitor. I work in Agile teams, document what I build, and use AI-native tooling (Cursor) daily."
+      "I'm a software engineer with a bias toward backend systems and applied AI. Most of my recent work lives at the intersection of FastAPI, Celery, React, and LLM-backed retrieval — taking messy documents or live video inputs and turning them into reliable, usable products.",
+      "My Final Year Project (ForeSyte) pushed me into real-time computer vision: I trained YOLOv8 on a custom cheating-detection dataset with PyTorch and CUDA on Kaggle, integrated MediaPipe for invigilator tracking, and shipped FastAPI inference with a React dashboard. Side projects like Startup & Law RAG, FastCite, and Resumind taught me how to design async pipelines and LLM agents that don't fall over on bad inputs or heavy loads.",
+      "I'm comfortable across the stack when needed, but I'm happiest owning the data flow: ingest → process → serve → monitor. I containerize services with Docker, work in Agile teams, and use AI-native tooling (Cursor) daily."
     ],
     "differentiators": [
-      "Multiple end-to-end RAG systems built from scratch, not tutorials",
-      "Real-time computer vision FYP with deployable API architecture",
-      "AWS + Kubernetes + IaC project experience alongside AI work",
-      "100+ LeetCode problems — strong DSA foundation",
-      "AI internship with cross-functional Agile delivery"
+      "End-to-end computer vision FYP: PyTorch training → YOLOv8 inference → FastAPI → React",
+      "Multiple RAG systems plus Resumind LLM agent (LangChain/Groq) with scoring workflows",
+      "Docker containerization on FastCite (FastAPI/Celery) and EventSync microservices",
+      "Live deployed MERN app (VirtualXI) plus AWS/Kubernetes/IaC on Attendance App",
+      "100+ LeetCode problems and five-month AI internship in Agile delivery"
     ],
     "career_interests": [
       "AI automation and agentic systems",
@@ -74,7 +75,6 @@
       "Tableau / Power BI / Superset"
     ]
   },
-
   "education": [
     {
       "degree": "Bachelor of Science in Computer Science",
@@ -104,7 +104,6 @@
       "highlights": []
     }
   ],
-
   "experience": [
     {
       "id": "exp_komatsu_ai_intern",
@@ -125,26 +124,33 @@
         "Contributed across 2 delivery phases (prototype and integration)",
         "Improved release readiness before broader internal rollout"
       ],
-      "technologies": ["Python", "Git", "GitHub", "Agile", "Scrum"],
+      "technologies": [
+        "Python",
+        "Git",
+        "GitHub",
+        "Agile",
+        "Scrum"
+      ],
       "featured_on_portfolio": true
     }
   ],
-
   "projects": {
     "featured_order": [
       "proj_foresyte",
-      "proj_virtualxi",
+      "proj_resumind",
       "proj_startup_law_rag",
-      "proj_fastcite"
+      "proj_virtualxi",
+      "proj_fastcite",
+      "proj_attendance_app"
     ],
     "secondary_order": [
-      "proj_attendance_app",
       "proj_eventsync",
       "proj_football_stats",
-      "proj_gym_management",
+      "proj_crypto_bot",
       "proj_torcs_bot",
-      "proj_eventax",
       "proj_ipfs",
+      "proj_gym_management",
+      "proj_eventax",
       "proj_hospital_network",
       "proj_other_games"
     ],
@@ -156,30 +162,60 @@
         "is_final_year_project": true,
         "featured": true,
         "priority_rank": 1,
-        "category": ["AI/ML", "Computer Vision", "Full-Stack"],
-        "date_range": { "start": "2025-01", "end": "2026-06" },
+        "category": [
+          "AI/ML",
+          "Computer Vision",
+          "Full-Stack"
+        ],
+        "date_range": {
+          "start": "2025-01",
+          "end": "2026-06"
+        },
         "status": "Completed / FYP",
         "problem": "Manual proctoring is slow, inconsistent, and hard to scale. Exams need automated detection of suspicious behavior in real time.",
-        "solution": "Built a real-time cheating detection system using YOLOv8 object detection, FastAPI inference APIs, and a React monitoring interface.",
+        "solution": "Built a real-time cheating detection system using YOLOv8 object detection trained on a custom dataset (CUDA/Kaggle), MediaPipe invigilator tracking, FastAPI inference APIs, and a React monitoring interface.",
         "architecture": {
           "layers": 3,
           "description": "3-layer architecture: model inference → API backend → React UI with event-based alerts",
           "components": [
-            "YOLOv8 detection model",
+            "YOLOv8 detection model (PyTorch, CUDA training on Kaggle)",
+            "MediaPipe invigilator tracking",
             "FastAPI inference API",
             "React frontend",
             "Real-time alert pipeline"
           ]
         },
         "tech_stack": {
-          "languages": ["Python"],
-          "backend": ["FastAPI"],
-          "frontend": ["React"],
-          "ml": ["YOLOv8", "Computer Vision", "Object Detection"],
-          "other": []
+          "languages": [
+            "Python"
+          ],
+          "backend": [
+            "FastAPI"
+          ],
+          "frontend": [
+            "React"
+          ],
+          "ml": [
+            "PyTorch",
+            "YOLOv8",
+            "OpenCV",
+            "MediaPipe",
+            "NumPy",
+            "scikit-learn",
+            "Computer Vision",
+            "Object Detection",
+            "CUDA"
+          ],
+          "other": [],
+          "training": [
+            "Kaggle GPU",
+            "Custom cheating-detection dataset"
+          ]
         },
         "highlights": [
           "Final Year Project (FYP) — lead showcase piece",
+          "Trained YOLOv8 on custom cheating-detection dataset using CUDA on Kaggle",
+          "MediaPipe invigilator tracking integrated with object detection pipeline",
           "Real-time monitoring pipeline with model-triggered workflows",
           "Reduced manual review through automated event detection"
         ],
@@ -201,14 +237,101 @@
         }
       },
       {
+        "id": "proj_resumind",
+        "name": "Resumind",
+        "tagline": "AI resume agent — profile builder, job-post chat, gap analysis, and ATS scoring",
+        "is_final_year_project": false,
+        "featured": true,
+        "priority_rank": 2,
+        "category": [
+          "AI/ML",
+          "LLM Agents",
+          "Full-Stack"
+        ],
+        "date_range": {
+          "start": "2026-01",
+          "end": "2026-06"
+        },
+        "status": "Active / Completed",
+        "problem": "Job seekers manually rewrite resumes per role, miss skill gaps, and have no structured way to evaluate ATS or recruiter fit before applying.",
+        "solution": "AI resume platform where users build structured profiles and submit job posts via chat; LangChain/Groq agent generates tailored resumes, flags skill gaps, suggests interview questions, and scores ATS fit, recruiter fit, and interview likelihood.",
+        "architecture": {
+          "layers": 4,
+          "description": "Next.js frontend → FastAPI API → Celery workers → LangChain/Groq agent with PostgreSQL persistence",
+          "components": [
+            "Next.js frontend",
+            "FastAPI backend",
+            "LangChain agent orchestration",
+            "Groq LLM inference",
+            "Celery async jobs",
+            "PostgreSQL",
+            "n8n workflow hooks"
+          ],
+          "data_flow": "Profile + job post → enqueue → agent generates resume + gap analysis + scores → persist and return"
+        },
+        "tech_stack": {
+          "languages": [
+            "Python",
+            "TypeScript"
+          ],
+          "backend": [
+            "FastAPI",
+            "Celery"
+          ],
+          "frontend": [
+            "Next.js",
+            "Tailwind CSS"
+          ],
+          "databases": [
+            "PostgreSQL"
+          ],
+          "ml": [
+            "LangChain",
+            "Groq",
+            "LLMs",
+            "AI agents",
+            "Prompt engineering"
+          ],
+          "automation": [
+            "n8n"
+          ],
+          "other": [
+            "REST APIs"
+          ]
+        },
+        "highlights": [
+          "Structured profile builder: skills, education, certifications, experience, projects",
+          "Job-post chat drives tailored resume generation and gap analysis",
+          "Automated scoring: ATS fit, recruiter fit, interview/selection likelihood",
+          "Async Celery-backed agent workflows with PostgreSQL storage"
+        ],
+        "links": {
+          "github": null,
+          "live_demo": null
+        },
+        "portfolio_display": {
+          "hero_worthy": true,
+          "show_architecture_diagram": true,
+          "case_study_depth": "deep"
+        }
+      },
+      {
         "id": "proj_startup_law_rag",
         "name": "Startup & Law RAG",
         "tagline": "AI legal assistant for entrepreneurs — grounded answers from real documents",
         "is_final_year_project": false,
         "featured": true,
         "priority_rank": 2,
-        "category": ["AI/ML", "NLP", "RAG", "Full-Stack"],
-        "date_range": { "start": "2025-01", "end": "2026-06" },
+        "category": [
+          "AI/ML",
+          "NLP",
+          "RAG",
+          "Full-Stack"
+        ],
+        "date_range": {
+          "start": "2025-01",
+          "end": "2026-06"
+        },
         "status": "Active / Completed",
         "problem": "Entrepreneurs waste time searching scattered legal and compliance documents when starting a business. Generic LLM answers are unreliable for legal guidance.",
         "solution": "RAG application that retrieves from ingested legal documents and generates grounded answers about business formation, compliance, and law-related questions.",
@@ -226,18 +349,37 @@
           "data_flow": "Upload/query → enqueue → ingest/clean/chunk/embed → retrieve → generate grounded answer"
         },
         "tech_stack": {
-          "languages": ["Python", "JavaScript"],
-          "backend": ["FastAPI", "Celery", "Flask"],
-          "frontend": ["React"],
-          "ml": ["RAG", "LLM", "Semantic Search", "Generative AI"],
-          "other": ["REST APIs"]
+          "languages": [
+            "Python",
+            "JavaScript"
+          ],
+          "backend": [
+            "FastAPI",
+            "Celery",
+            "Flask"
+          ],
+          "frontend": [
+            "React"
+          ],
+          "ml": [
+            "RAG",
+            "LLM",
+            "Semantic Search",
+            "Generative AI"
+          ],
+          "other": [
+            "REST APIs"
+          ]
         },
         "highlights": [
           "Covers 2 legal domains: business formation and compliance",
           "End-to-end async pipeline — not synchronous request blocking",
           "Reliability work: early validation at ingest, idempotent processing steps, explicit failure states (see narrative_notes)"
         ],
-        "domains_served": ["Business formation", "Compliance"],
+        "domains_served": [
+          "Business formation",
+          "Compliance"
+        ],
         "narrative_notes": {
           "reliability_story": "V1 processed documents synchronously in FastAPI requests — timeouts on large PDFs, crashes on bad encodings. Rebuilt as Celery-backed pipeline with early file validation, idempotent chunking for safe retries, and logged failure modes instead of silent 500s.",
           "verify_before_publishing": true
@@ -265,11 +407,19 @@
         "is_final_year_project": false,
         "featured": true,
         "priority_rank": 3,
-        "category": ["AI/ML", "NLP", "RAG", "Full-Stack"],
-        "date_range": { "start": "2025-11", "end": "2025-12" },
+        "category": [
+          "AI/ML",
+          "NLP",
+          "RAG",
+          "Full-Stack"
+        ],
+        "date_range": {
+          "start": "2025-11",
+          "end": "2025-12"
+        },
         "status": "Completed",
         "problem": "Students spend excessive time manually searching documents and formatting citations for research work.",
-        "solution": "RAG-based study application with semantic document search and automated citation generation.",
+        "solution": "RAG-based study application with semantic document search and automated citation generation; FastAPI and Celery services containerized with Docker.",
         "architecture": {
           "layers": 4,
           "description": "Same stack pattern as Startup & Law RAG: FastAPI + Celery + retrieval + React",
@@ -281,17 +431,33 @@
           ]
         },
         "tech_stack": {
-          "languages": ["Python", "JavaScript"],
-          "backend": ["FastAPI", "Celery"],
-          "frontend": ["React"],
-          "ml": ["RAG", "Semantic Search", "NLP"]
+          "languages": [
+            "Python",
+            "JavaScript"
+          ],
+          "backend": [
+            "FastAPI",
+            "Celery"
+          ],
+          "frontend": [
+            "React"
+          ],
+          "ml": [
+            "RAG",
+            "Semantic Search",
+            "NLP"
+          ]
         },
         "highlights": [
           "2 user workflows: semantic search and citation generation",
           "Retrieval-first design reduces manual referencing steps",
+          "Dockerized FastAPI and Celery services for reproducible deployment",
           "Built in ~2 months as focused MVP"
         ],
-        "links": { "github": null, "live_demo": null },
+        "links": {
+          "github": null,
+          "live_demo": null
+        },
         "portfolio_display": {
           "hero_worthy": false,
           "case_study_depth": "medium"
@@ -302,10 +468,18 @@
         "name": "Attendance App",
         "tagline": "Cloud-native microservices attendance platform on AWS",
         "is_final_year_project": false,
-        "featured": false,
-        "priority_rank": 4,
-        "category": ["DevOps", "Cloud", "Backend", "Microservices"],
-        "date_range": { "start": "2025-01", "end": "2025-04" },
+        "featured": true,
+        "priority_rank": 5,
+        "category": [
+          "DevOps",
+          "Cloud",
+          "Backend",
+          "Microservices"
+        ],
+        "date_range": {
+          "start": "2025-01",
+          "end": "2025-04"
+        },
         "status": "Completed",
         "problem": "Manual attendance infrastructure setup is error-prone and hard to reproduce across environments.",
         "solution": "Microservices-based attendance system with full infrastructure-as-code, CI/CD, and AWS deployment.",
@@ -323,11 +497,28 @@
           ]
         },
         "tech_stack": {
-          "languages": ["Python", "YAML", "HCL"],
-          "cloud": ["AWS EC2", "Kubernetes", "Docker"],
-          "devops": ["Terraform", "Ansible", "CI/CD"],
-          "messaging": ["RabbitMQ"],
-          "other": ["Microservices", "AMQP message brokering between services"]
+          "languages": [
+            "Python",
+            "YAML",
+            "HCL"
+          ],
+          "cloud": [
+            "AWS EC2",
+            "Kubernetes",
+            "Docker"
+          ],
+          "devops": [
+            "Terraform",
+            "Ansible",
+            "CI/CD"
+          ],
+          "messaging": [
+            "RabbitMQ"
+          ],
+          "other": [
+            "Microservices",
+            "AMQP message brokering between services"
+          ]
         },
         "highlights": [
           "RabbitMQ message brokering between microservices",
@@ -335,7 +526,10 @@
           "Infrastructure-as-code for reproducible environments",
           "Demonstrates reliability and operational thinking beyond app code"
         ],
-        "links": { "github": null, "live_demo": null },
+        "links": {
+          "github": null,
+          "live_demo": null
+        },
         "portfolio_display": {
           "hero_worthy": false,
           "case_study_depth": "medium"
@@ -347,20 +541,45 @@
         "tagline": "Track FIFA career mode stats — deployed MERN full-stack app",
         "featured": true,
         "priority_rank": 2,
-        "category": ["Full-Stack", "MERN"],
-        "date_range": { "start": "2026-01", "end": "2026-03" },
+        "category": [
+          "Full-Stack",
+          "MERN"
+        ],
+        "date_range": {
+          "start": "2026-01",
+          "end": "2026-03"
+        },
         "status": "Live / Deployed",
         "build_duration": "2 months",
         "problem": "FIFA career mode players need a persistent way to track and compare stats across seasons.",
         "solution": "Full-stack MERN application storing player career stats with JWT auth, Cloudflare R2 for blob assets, and production deployment on Vercel (frontend) and Render (backend).",
         "tech_stack": {
-          "languages": ["JavaScript", "TypeScript"],
-          "backend": ["Node.js", "Express.js"],
-          "frontend": ["React.js"],
-          "database": ["MongoDB"],
-          "storage": ["Cloudflare R2"],
-          "auth": ["JWT", "Authentication and authorization", "User roles"],
-          "deployment": ["Vercel", "Render"]
+          "languages": [
+            "JavaScript",
+            "TypeScript"
+          ],
+          "backend": [
+            "Node.js",
+            "Express.js"
+          ],
+          "frontend": [
+            "React.js"
+          ],
+          "database": [
+            "MongoDB"
+          ],
+          "storage": [
+            "Cloudflare R2"
+          ],
+          "auth": [
+            "JWT",
+            "Authentication and authorization",
+            "User roles"
+          ],
+          "deployment": [
+            "Vercel",
+            "Render"
+          ]
         },
         "highlights": [
           "Built in 2 months (Jan--Mar 2026)",
@@ -384,110 +603,257 @@
         "name": "Football Stats App",
         "tagline": "Football statistics platform with SOAP ingestion and web scraping",
         "featured": false,
-        "category": ["Full-Stack", "Backend", "Node.js"],
-        "date_range": { "start": "2024-01", "end": "2024-12" },
+        "category": [
+          "Full-Stack",
+          "Backend",
+          "Node.js"
+        ],
+        "date_range": {
+          "start": "2024-01",
+          "end": "2024-12"
+        },
         "status": "Completed",
         "problem": "Football statistics from external providers need reliable ingestion and a usable web interface.",
         "solution": "Next.js frontend with Node.js backend consuming SOAP APIs and web-scraped data sources.",
         "tech_stack": {
-          "languages": ["JavaScript", "TypeScript"],
-          "backend": ["Node.js", "SOAP", "Web scraping"],
-          "frontend": ["Next.js"],
-          "other": ["REST/SOAP API integration"]
+          "languages": [
+            "JavaScript",
+            "TypeScript"
+          ],
+          "backend": [
+            "Node.js",
+            "SOAP",
+            "Web scraping"
+          ],
+          "frontend": [
+            "Next.js"
+          ],
+          "other": [
+            "REST/SOAP API integration"
+          ]
         },
         "highlights": [
           "SOAP API consumption and web scraping for football statistics ingestion",
           "Next.js frontend integrated with Node.js backend services"
         ],
-        "links": { "github": null, "live_demo": null },
-        "portfolio_display": { "case_study_depth": "light" }
+        "links": {
+          "github": null,
+          "live_demo": null
+        },
+        "portfolio_display": {
+          "case_study_depth": "light"
+        }
+      },
+      {
+        "id": "proj_crypto_bot",
+        "name": "Crypto Trading Bot",
+        "tagline": "Automated demo trading via TradingView webhooks and Binance Spot Testnet",
+        "featured": false,
+        "category": [
+          "Backend",
+          "Automation",
+          "Blockchain"
+        ],
+        "date_range": {
+          "start": "2024-01",
+          "end": "2024-12"
+        },
+        "status": "Completed",
+        "problem": "Manual crypto demo trading lacks automation and structured logging for strategy validation.",
+        "solution": "Flask REST endpoints receive TradingView webhooks and execute trades on Binance Spot Testnet with Pine Script signals and trade logging.",
+        "tech_stack": {
+          "languages": [
+            "Python"
+          ],
+          "backend": [
+            "Flask",
+            "REST APIs"
+          ],
+          "other": [
+            "Binance API",
+            "Pine Script",
+            "TradingView webhooks",
+            "Trade logging"
+          ]
+        },
+        "highlights": [
+          "Webhook-driven automation from TradingView to Flask backend",
+          "Binance Spot Testnet integration for safe demo trading",
+          "Structured trade logging for strategy review"
+        ],
+        "links": {
+          "github": null,
+          "live_demo": null
+        },
+        "portfolio_display": {
+          "case_study_depth": "light"
+        }
       },
       {
         "id": "proj_eventsync",
         "name": "EventSync",
-        "tagline": "MERN stack web event management system",
+        "tagline": "MERN stack web event management system with containerized microservices",
         "featured": false,
-        "category": ["Full-Stack", "MERN"],
-        "date_range": { "start": "2024-01", "end": "2024-12" },
+        "category": [
+          "Full-Stack",
+          "MERN"
+        ],
+        "date_range": {
+          "start": "2024-01",
+          "end": "2024-12"
+        },
         "tech_stack": {
-          "languages": ["JavaScript", "HTML", "CSS"],
-          "backend": ["Node.js", "Express.js"],
-          "frontend": ["React.js"],
-          "database": ["MongoDB"],
-          "other": ["MERN Stack", "RESTful APIs"]
+          "languages": [
+            "JavaScript",
+            "HTML",
+            "CSS"
+          ],
+          "backend": [
+            "Node.js",
+            "Express.js"
+          ],
+          "frontend": [
+            "React.js"
+          ],
+          "database": [
+            "MongoDB"
+          ],
+          "other": [
+            "MERN Stack",
+            "RESTful APIs"
+          ],
+          "devops": [
+            "Docker"
+          ]
         },
         "highlights": [
-          "Full-stack event management on MongoDB, Express.js, React.js, and Node.js with JWT authentication"
+          "Full-stack event management on MongoDB, Express.js, React.js, and Node.js with JWT authentication",
+          "Built Docker containers for each microservice for isolated, reproducible deployment"
         ],
-        "portfolio_display": { "case_study_depth": "light" }
+        "portfolio_display": {
+          "case_study_depth": "light"
+        },
+        "problem": "Event management features need to scale independently; monolithic deployment makes updates and environment parity harder.",
+        "solution": "Full-stack event management on MERN with JWT auth; each microservice packaged in its own Docker container."
       },
       {
         "id": "proj_eventax",
         "name": "EventaX",
         "tagline": "Desktop event management app with JavaFX",
         "featured": false,
-        "category": ["Desktop", "OOP"],
+        "category": [
+          "Desktop",
+          "OOP"
+        ],
         "tech_stack": {
-          "languages": ["Java"],
-          "other": ["JavaFX", "Singleton Pattern", "Factory Pattern"]
+          "languages": [
+            "Java"
+          ],
+          "other": [
+            "JavaFX",
+            "Singleton Pattern",
+            "Factory Pattern"
+          ]
         },
-        "highlights": ["Rich GUI desktop app using SDA design patterns"],
-        "portfolio_display": { "case_study_depth": "light" }
+        "highlights": [
+          "Rich GUI desktop app using SDA design patterns"
+        ],
+        "portfolio_display": {
+          "case_study_depth": "light"
+        }
       },
       {
         "id": "proj_gym_management",
         "name": "GYM Management System",
         "tagline": "Desktop gym management with SQL Server backend",
         "featured": false,
-        "category": ["Desktop", "Database"],
-        "date_range": { "start": "2024-01", "end": "2024-12" },
+        "category": [
+          "Desktop",
+          "Database"
+        ],
+        "date_range": {
+          "start": "2024-01",
+          "end": "2024-12"
+        },
         "tech_stack": {
-          "languages": ["C#", "SQL"],
-          "databases": ["SQL Server"]
+          "languages": [
+            "C#",
+            "SQL"
+          ],
+          "databases": [
+            "SQL Server"
+          ]
         },
         "highlights": [
           "Relational data modeling for members, billing, and attendance",
           "Secure database backend with C# frontend"
         ],
-        "portfolio_display": { "case_study_depth": "light" }
+        "portfolio_display": {
+          "case_study_depth": "light"
+        }
       },
       {
         "id": "proj_torcs_bot",
         "name": "TORCS Game Bot",
         "tagline": "Autonomous racing agent trained with artificial neural networks",
         "featured": false,
-        "category": ["AI/ML", "Reinforcement Learning"],
-        "date_range": { "start": "2024-01", "end": "2024-12" },
+        "category": [
+          "AI/ML",
+          "Reinforcement Learning"
+        ],
+        "date_range": {
+          "start": "2024-01",
+          "end": "2024-12"
+        },
         "tech_stack": {
-          "languages": ["Python"],
-          "ml": ["Artificial Neural Networks (ANN)"]
+          "languages": [
+            "Python"
+          ],
+          "ml": [
+            "Artificial Neural Networks (ANN)"
+          ]
         },
         "highlights": [
           "Iterative model tuning for lap navigation in TORCS racing simulator"
         ],
-        "portfolio_display": { "case_study_depth": "light" }
+        "portfolio_display": {
+          "case_study_depth": "light"
+        }
       },
       {
         "id": "proj_ipfs",
         "name": "IPFS-Inspired File System",
         "tagline": "Custom file system simulation with core data structures",
         "featured": false,
-        "category": ["Systems", "Data Structures"],
+        "category": [
+          "Systems",
+          "Data Structures"
+        ],
         "tech_stack": {
-          "languages": ["C++"],
-          "other": ["B-trees", "Hashmaps", "Linked Lists"]
+          "languages": [
+            "C++"
+          ],
+          "other": [
+            "B-trees",
+            "Hashmaps",
+            "Linked Lists"
+          ]
         },
         "highlights": [
           "Implemented B-trees, hashmaps, and linked lists for file system simulation"
         ],
-        "portfolio_display": { "case_study_depth": "light" }
+        "portfolio_display": {
+          "case_study_depth": "light"
+        }
       },
       {
         "id": "proj_hospital_network",
         "name": "Hospital Management System (Network)",
         "tagline": "Hospital network infrastructure simulation",
         "featured": false,
-        "category": ["Networking"],
+        "category": [
+          "Networking"
+        ],
         "tech_stack": {
           "other": [
             "Cisco Packet Tracer",
@@ -496,34 +862,60 @@
             "Network Security"
           ]
         },
-        "portfolio_display": { "case_study_depth": "skip" }
+        "portfolio_display": {
+          "case_study_depth": "skip"
+        }
       },
       {
         "id": "proj_other_games",
         "name": "Games & Systems Projects",
         "tagline": "Tetris, SpaceShooter, PACMAN, OS concepts, assembly",
         "featured": false,
-        "category": ["Games", "Systems"],
+        "category": [
+          "Games",
+          "Systems"
+        ],
         "tech_stack": {
-          "languages": ["C++", "Assembly (MASM)"],
+          "languages": [
+            "C++",
+            "Assembly (MASM)"
+          ],
           "other": [
             "SFML",
             "OS Concepts (forking, semaphores)",
             "Grocery Store frontend"
           ]
         },
-        "portfolio_display": { "case_study_depth": "skip" }
+        "portfolio_display": {
+          "case_study_depth": "skip"
+        }
       }
     ]
   },
-
   "skills": {
     "languages": {
-      "primary": ["Python", "JavaScript", "TypeScript"],
-      "secondary": ["C++", "Java", "C#", "SQL"],
-      "other": ["Assembly (MASM)"]
+      "primary": [
+        "Python",
+        "JavaScript",
+        "TypeScript"
+      ],
+      "secondary": [
+        "C++",
+        "Java",
+        "C#",
+        "SQL"
+      ],
+      "other": [
+        "Assembly (MASM)"
+      ]
     },
-    "frontend": ["React", "Next.js", "HTML", "CSS", "JavaFX"],
+    "frontend": [
+      "React",
+      "Next.js",
+      "HTML",
+      "CSS",
+      "JavaFX"
+    ],
     "backend": [
       "Node.js",
       "FastAPI",
@@ -533,16 +925,31 @@
       "SOAP",
       "Microservices"
     ],
-    "messaging": ["RabbitMQ", "AMQP"],
+    "messaging": [
+      "RabbitMQ",
+      "AMQP"
+    ],
     "ai_ml": {
       "core": [
         "RAG (Retrieval-Augmented Generation)",
         "LLMs",
         "Generative AI",
         "NLP",
-        "Computer Vision"
+        "Computer Vision",
+        "AI agents"
       ],
-      "models_tools": ["YOLOv8", "Artificial Neural Networks (ANN)"],
+      "models_tools": [
+        "PyTorch",
+        "YOLOv8",
+        "OpenCV",
+        "MediaPipe",
+        "NumPy",
+        "scikit-learn",
+        "CUDA",
+        "LangChain",
+        "Groq",
+        "Artificial Neural Networks (ANN)"
+      ],
       "practices": [
         "Prompt engineering",
         "Semantic search",
@@ -551,7 +958,10 @@
       ]
     },
     "data": {
-      "databases": ["SQL Server", "SQL"],
+      "databases": [
+        "SQL Server",
+        "SQL"
+      ],
       "concepts": [
         "Data modeling",
         "Relational databases",
@@ -559,10 +969,22 @@
       ]
     },
     "devops_cloud": {
-      "cloud": ["AWS EC2", "Cloudflare R2"],
-      "containers": ["Docker", "Kubernetes"],
-      "iac": ["Terraform", "Ansible"],
-      "deployment": ["Vercel", "Render"],
+      "cloud": [
+        "AWS EC2",
+        "Cloudflare R2"
+      ],
+      "containers": [
+        "Docker",
+        "Kubernetes"
+      ],
+      "iac": [
+        "Terraform",
+        "Ansible"
+      ],
+      "deployment": [
+        "Vercel",
+        "Render"
+      ],
       "practices": [
         "CI/CD",
         "Infrastructure as Code",
@@ -578,7 +1000,7 @@
       "Celery",
       "Asynchronous processing",
       "Task queues",
-      "ETL-style workflows"
+      "n8n workflow automation"
     ],
     "prompt_engineering_tools": [
       "ChatGPT",
@@ -592,17 +1014,30 @@
       "platform": "LeetCode",
       "problems_solved": "100+",
       "profile_url": "https://leetcode.com/u/inam_290/"
-    }
+    },
+    "blockchain": [
+      "Binance API",
+      "Pine Script",
+      "TradingView webhook integration"
+    ]
   },
-
   "achievements_and_signals": {
     "leetcode": "100+ problems solved",
     "internship_months": 5,
     "rag_projects_count": 2,
     "cloud_deployments": 1,
-    "fyp": "ForeSyte — real-time computer vision"
+    "fyp": "ForeSyte — real-time computer vision (YOLOv8, PyTorch, MediaPipe, FastAPI, React)",
+    "internship_company": "Komatsu Pakistan Soft",
+    "llm_agent_projects": 1,
+    "docker_containerized_projects": [
+      "FastCite",
+      "EventSync",
+      "Attendance App"
+    ],
+    "live_deployments": [
+      "VirtualXI"
+    ]
   },
-
   "target_roles_and_positioning": {
     "primary": [
       "AI Engineer",
@@ -623,7 +1058,6 @@
       "reliability_automation": "Emphasize Startup & Law RAG reliability refactor story, failure modes, idempotent retries"
     }
   },
-
   "portfolio_build_instructions": {
     "site_tone": "Editorial engineering portfolio — reads like a senior engineer's personal site, not a template or AI demo. Direct, specific, slightly understated. Early-career honest; never oversell.",
     "content_principles_2026": [
@@ -644,7 +1078,10 @@
       "/experience — Komatsu internship",
       "/contact — Email, GitHub, LinkedIn (no mailto-only trap)"
     ],
-    "featured_projects_for_hero": ["ForeSyte", "Startup & Law RAG"],
+    "featured_projects_for_hero": [
+      "ForeSyte",
+      "Startup & Law RAG"
+    ],
     "case_study_requirements": {
       "word_count_target": "400–800 words per deep case study",
       "each_deep_case_study_must_include": [
@@ -669,11 +1106,19 @@
       "AI engineer Pakistan"
     ]
   },
-
   "gaps_to_fill_before_publish": [
-    { "field": "GitHub repo URLs per project", "priority": "high" },
-    { "field": "Live demo URLs", "priority": "high" },
-    { "field": "ForeSyte demo video or screenshots", "priority": "high" },
+    {
+      "field": "GitHub repo URLs per project",
+      "priority": "high"
+    },
+    {
+      "field": "Live demo URLs",
+      "priority": "high"
+    },
+    {
+      "field": "ForeSyte demo video or screenshots",
+      "priority": "high"
+    },
     {
       "field": "Specific LLM providers used (OpenAI, Gemini, etc.)",
       "priority": "medium"
@@ -686,10 +1131,15 @@
       "field": "Quantified metrics (latency, accuracy, documents indexed)",
       "priority": "medium"
     },
-    { "field": "A-Level / O-Level subjects and grades", "priority": "low" },
-    { "field": "Professional headshot URL", "priority": "low" }
+    {
+      "field": "A-Level / O-Level subjects and grades",
+      "priority": "low"
+    },
+    {
+      "field": "Professional headshot URL",
+      "priority": "low"
+    }
   ],
-
   "lovable": {
     "setup_steps": [
       "1. Create new Lovable project. Paste THIS ENTIRE JSON into Project Settings → Knowledge (this is the single source of truth).",
@@ -699,7 +1149,6 @@
       "5. Connect GitHub. Pin a working version before each new phase.",
       "6. Before publish: run lovable.pre_ship_audit checklist manually."
     ],
-
     "design_system": {
       "reference_aesthetic": "Restrained technical editorial — think Linear docs meets a personal engineering blog. NOT a SaaS landing page. NOT a Dribbble hero.",
       "mode": "Light preferred — warm off-white background (#F7F6F3 or #FAFAF8), near-black text (#1A1A1A). Single accent: rust/amber (#C45C26 or #B45309). Dark mode optional toggle only — do not default to purple-on-black.",
@@ -718,7 +1167,6 @@
       "motion": "None on hero. Optional 150ms fade-in on scroll for case study sections only. No parallax, no floating elements, no cursor trails.",
       "imagery": "No AI-generated headshots. No stock photos. No gradient orbs. Use typography, whitespace, and optional project screenshot placeholders as bordered rectangles with label 'Screenshot — ForeSyte dashboard'."
     },
-
     "forbidden_vibe_coded_patterns": {
       "description": "If ANY of these appear, the output failed. Reject and re-prompt with this list.",
       "hard_bans": [
@@ -748,9 +1196,7 @@
         "Footer is minimal: copyright, GitHub, LinkedIn — no sitemap of 12 links"
       ]
     },
-
     "founding_prompt": "Build a personal portfolio website for Inamullah Shaikh — a Computer Science graduate (FAST-NUCES, Islamabad) who builds Python/FastAPI backends, RAG pipelines, and React frontends.\n\nSOURCE OF TRUTH: The Knowledge file JSON. Use ONLY facts from personal, identity, education, experience, projects, and skills sections. Never invent tools listed in not_yet_claimed_on_record. Never fabricate metrics — if metrics_to_add is null, omit that stat entirely.\n\nPURPOSE: A recruiter or engineering manager lands here and within 30 seconds knows: (1) what I build, (2) my two best projects, (3) how to reach me or see GitHub. Secondary goal: deep case studies that survive a technical screen.\n\nUSER FLOW:\n- Land on / → read one-line positioning → scan ForeSyte + Startup & Law RAG previews → click case study or GitHub\n- /projects → filter by category → open case study\n- /projects/foresyte and /projects/startup-law-rag → long-form technical write-ups (400–800 words each)\n- /about → education timeline + bio from identity.long_bio_paragraphs\n- /experience → Komatsu internship\n- /contact → email, GitHub, LinkedIn links from personal.contact\n\nPAGES TO BUILD (phase 1 scope — shell + home + routing):\nHome, About, Projects index, two case study routes, Experience, Contact. React + React Router. Tailwind CSS.\n\nUI STYLE — READ CAREFULLY, THIS OVERRIDES DEFAULTS:\nEditorial engineering aesthetic. Light warm off-white background. Text near-black. Single rust/amber accent for links and focus states only.\nFonts: Source Serif 4 (display, sparingly), IBM Plex Sans (body), IBM Plex Mono (code/stack/dates). Load from Google Fonts.\nLayout is LEFT-ALIGNED and asymmetric. No centered gradient hero. No three-card grids. No glassmorphism. No purple. No skill percentage bars. No fake stats. No 'passionate developer' copy.\n\nHOME HERO (exact structure):\n- Top: small mono line 'Inamullah Shaikh · Islamabad · CS grad'\n- Headline (Source Serif, ~36px): 'I build backends and AI pipelines that have to work in production.'\n- Subhead (2 sentences max from identity.short_bio — rewrite in first person, direct tone)\n- Row of text links: GitHub · LinkedIn · Email · LeetCode (from personal.contact)\n- NO giant CTA button with arrow. Links are enough.\n\nFEATURED WORK (below hero):\nTwo stacked project blocks (NOT cards in a grid):\n1. ForeSyte (Final Year Project) — one sentence problem, one sentence solution, mono tech line, 'Read case study →'\n2. Startup & Law RAG — same format\n\nSTACK STRIP: single mono line — 'Python · FastAPI · Celery · React · RAG · YOLOv8 · AWS · Docker · SQL'\n\nFOOTER: minimal — © 2026 · GitHub · LinkedIn\n\nTECH: React, TypeScript, Tailwind, React Router. Mobile-first. Lighthouse target 90+. Semantic HTML.\n\nCONSTRAINTS:\n- Do not add Supabase, auth, contact form backend, or blog unless asked\n- Do not use placeholder lorem ipsum — all copy from JSON\n- Do not show 'Coming soon' for more than one link total\n- Do not add sections not in recommended_pages\n\nAfter building the shell and home page, STOP. I will prompt case study pages in follow-up messages.",
-
     "phased_prompts": [
       {
         "phase": 2,
@@ -773,7 +1219,6 @@
         "prompt": "Build /contact — static page with email, phone, GitHub, LinkedIn as plain links. Add nav to all pages (text links, no hamburger animation circus). Add meta title/description for SEO from portfolio_build_instructions.seo_keywords. Run accessibility pass: focus states, contrast, skip link. Reduce any animation to scroll fade only. Audit against forbidden_vibe_coded_patterns — list any violations found and fix them."
       }
     ],
-
     "pre_ship_audit": [
       "Home hero is left-aligned — not centered with gradient blob",
       "Zero purple/violet in codebase (search hex and tailwind classes)",
@@ -787,10 +1232,8 @@
       "Would a senior engineer think this was template-generated? If yes, simplify further."
     ]
   },
-
   "claude": {
     "overview": "Use this JSON with Claude via (A) Claude Projects on claude.ai, (B) Claude Code in a local repo, or (C) Claude Artifacts for HTML/React prototypes. All paths share the same design system and anti-vibe-coded rules as lovable.design_system and lovable.forbidden_vibe_coded_patterns.",
-
     "setup_paths": {
       "claude_projects": {
         "when_to_use": "Best for planning, copy, case study prose, and iterative Artifacts without local dev setup.",
@@ -826,7 +1269,6 @@
         ]
       }
     },
-
     "knowledge_upload_strategy": {
       "note": "Claude Projects: max 30 files. Keep curated, not a dump. Re-upload when JSON changes.",
       "recommended_files": [
@@ -858,11 +1300,8 @@
       ],
       "optional_split_if_token_heavy": "If Claude retrieval gets sloppy, split projects into individual markdown files and drop secondary projects from Knowledge until needed."
     },
-
     "project_custom_instructions": "You are the staff engineer and design director building Inamullah Shaikh's personal portfolio website.\n\nKNOWLEDGE: portfolio_context.json is the only source of truth for facts — personal info, education, experience, projects, skills. Never invent employers, tools, metrics, or testimonials. Never claim anything listed in identity.not_yet_claimed_on_record.\n\nVOICE: First person for Inam. Direct, technical, understated. No marketing fluff. Banned words: passionate, innovative, crafting digital experiences, tech enthusiast, synergy, leverage, thrilled, dynamic.\n\nDESIGN — NON-NEGOTIABLE (override your defaults):\nEditorial engineering aesthetic. NOT a SaaS landing page. NOT vibe-coded.\n- Light warm off-white bg (#F7F6F3), near-black text (#1A1A1A), rust accent (#C45C26) for links only\n- Fonts: Source Serif 4 (display, sparingly), IBM Plex Sans (body), IBM Plex Mono (stack/code/dates)\n- Left-aligned asymmetric layout. NO centered gradient hero. NO purple/violet anywhere\n- NO glassmorphism, NO three equal cards, NO bento grids, NO skill % bars, NO fake metrics\n- NO pulsing availability dot, NO gradient logo circle, NO lorem ipsum\n- Projects as vertical list or stacked blocks — not identical tiles\n- Case studies = 400–800 word engineering blog posts with tradeoffs and 'what I'd do differently'\n\nCONTENT PRIORITY:\n1. ForeSyte (FYP) — hero featured project\n2. Startup & Law RAG — second featured + deep case study\n3. FastCite, Attendance App — secondary\n4. Komatsu AI Intern — experience page only\n\nTECH DEFAULTS (unless I say otherwise):\nReact + TypeScript + Tailwind + React Router. Semantic HTML. Mobile-first. No backend/auth/Supabase unless I ask.\n\nWORKFLOW:\n- Plan before coding. Ask clarifying questions only if JSON is ambiguous.\n- One page or one component group per response when building code — don't rewrite the whole app each message.\n- When I say 'audit', run lovable.pre_ship_audit checklist and list violations with fixes.\n- If metrics_to_add is null in JSON, omit stats — never fabricate numbers.\n- Hide link buttons when project.links are null — max one 'Coming soon' on entire site.\n\nOUTPUT:\nWhen generating code, produce complete files ready to paste. When generating copy, produce final publishable prose — not outlines.",
-
     "founding_prompt": "I've uploaded portfolio_context.json as Knowledge. Read it fully before responding.\n\nTask: Plan then build Phase 1 of my portfolio — project shell, routing, and home page only.\n\nStack: React + TypeScript + Vite + Tailwind CSS + React Router.\n\nBefore writing code, output a brief plan (max 15 bullets) confirming:\n- You will NOT use any pattern in lovable.forbidden_vibe_coded_patterns.hard_bans\n- You will follow lovable.design_system typography and colors\n- Home hero uses the exact headline: 'I build backends and AI pipelines that have to work in production.'\n- Featured projects are ForeSyte and Startup & Law RAG as stacked blocks, not a card grid\n\nThen implement Phase 1:\n- File structure (src/pages, src/components, src/data)\n- src/data/portfolio.ts — typed exports parsed from JSON (personal, projects featured only for now)\n- Layout with minimal text nav: Home · Projects · About · Experience · Contact\n- Home page per lovable.founding_prompt hero spec\n- Responsive, accessible, no animation except optional scroll fade\n\nDo NOT build case study pages yet. Do NOT add Supabase. Do NOT add a contact form.\n\nAfter code, list what to prompt next for Phase 2.",
-
     "phased_prompts": [
       {
         "phase": 1,
@@ -895,20 +1334,15 @@
         "prompt": "Read both case study pages. Rewrite copy to sound human — like an engineer explaining to a teammate. Cut any sentence that could appear on any developer's portfolio. Add one specific detail per case study that only applies to ForeSyte or Startup & Law RAG. Keep all facts JSON-accurate. Output revised markdown copy only, no code."
       }
     ],
-
     "artifact_home_prompt": "Create a single-page HTML/CSS portfolio home preview (one artifact) for Inamullah Shaikh using data from portfolio_context.json in this chat.\n\nConstraints — reject your default portfolio template:\n- NO purple gradients, NO glass cards, NO centered hero blob, NO three-column grid\n- Light bg #F7F6F3, text #1A1A1A, accent #C45C26\n- Google Fonts: Source Serif 4 + IBM Plex Sans + IBM Plex Mono\n- Left-aligned hero with headline exactly: 'I build backends and AI pipelines that have to work in production.'\n- Two stacked project sections: ForeSyte (FYP) and Startup & Law RAG — real copy from JSON\n- Mono stack line: Python · FastAPI · Celery · React · RAG · YOLOv8 · AWS · Docker · SQL\n- Links: GitHub, LinkedIn, email from personal.contact\n- Self-contained HTML with embedded CSS. Mobile responsive. Under 200 lines if possible.\n- Must NOT look like a vibe-coded AI portfolio. If it does, simplify.",
-
     "anti_slop_correction_prompt": "Stop. This output looks vibe-coded / AI-template generated.\n\nRe-read lovable.forbidden_vibe_coded_patterns.hard_bans in Knowledge.\n\nRewrite the last output eliminating:\n- Any purple/violet/blue-pink gradient\n- Centered hero with giant headline + CTA arrow\n- Three equal cards in a row\n- Glassmorphism, neon glow, pill-badge overload\n- Generic copy ('passionate developer', 'crafting experiences')\n\nReplace with: left-aligned editorial layout, IBM Plex typography, rust accent only, real project names from JSON, prose-style project descriptions.\n\nShow me a bullet list of what you removed, then output the corrected version.",
-
     "claude_code_claude_md": "# Inamullah Shaikh Portfolio\n\n## Project\nPersonal engineering portfolio. Source of truth: `docs/portfolio_context.json`.\n\n## Stack\n- React 18 + TypeScript + Vite\n- Tailwind CSS v4\n- React Router v6\n- Deploy target: Vercel or Netlify (static)\n\n## Commands\n```bash\nnpm run dev      # local dev\nnpm run build    # production build\nnpm run preview  # preview build\n```\n\n## Design system (NON-NEGOTIABLE)\nRead `docs/portfolio_context.json` → `lovable.design_system` and `lovable.forbidden_vibe_coded_patterns`.\n\n- Light warm off-white `#F7F6F3`, text `#1A1A1A`, accent `#C45C26` only\n- Fonts: Source Serif 4, IBM Plex Sans, IBM Plex Mono (Google Fonts)\n- Left-aligned asymmetric layout — NEVER centered gradient hero\n- NO purple, NO glass cards, NO three-column grids, NO skill bars, NO fake metrics\n\n## Content rules\n- All copy from `portfolio_context.json` only\n- Never invent tools in `identity.not_yet_claimed_on_record`\n- ForeSyte is FYP — always listed first in projects\n- Omit metrics when null — do not fabricate\n\n## Architecture\n```\nsrc/\n  components/   # Layout, Nav, ProjectRow, ProseSection\n  pages/        # Home, Projects, About, Experience, Contact, case studies\n  data/         # portfolio.ts — typed JSON exports\n  styles/       # globals, fonts\n```\n\n## Workflow\n- One page per task unless asked otherwise\n- Plan in 5–10 bullets before multi-file changes\n- Commit message format: `feat(pages): add foresyte case study`\n- Run `npm run build` after each phase — fix TypeScript errors before moving on\n\n## Audit before PR\nRun checklist from `lovable.pre_ship_audit` in portfolio_context.json.",
-
     "conversation_starters": {
       "plan_only": "Read portfolio_context.json. Do NOT write code. Produce: sitemap, component tree, file list, design token table (colors, fonts, spacing), and risk list of where you might default to vibe-coded patterns. Wait for my approval.",
       "copy_only": "Write the ForeSyte case study as publishable markdown (600 words) from JSON. Engineering blog tone. Include ASCII architecture diagram. No code.",
       "review_artifact": "Screenshot/description attached. Audit against forbidden_vibe_coded_patterns. Score 1–10 on 'would a senior engineer think this is AI slop?' List specific fixes.",
       "deploy_help": "I have a working Vite build. Give me step-by-step Vercel deploy instructions and index.html meta tags for SEO from portfolio_context.json."
     },
-
     "lessons_log_template": {
       "description": "Create lessons.md in Project Knowledge when Claude repeats mistakes. Log date + what went wrong + rule added.",
       "example_entries": [
@@ -917,16 +1351,13 @@
         "2026-06-12 — Three-card project grid returned. Switched to vertical ProjectRow component spec."
       ]
     },
-
     "pre_ship_audit": "Same checklist as lovable.pre_ship_audit — run via Phase 5 prompt or manually.",
-
     "differences_from_lovable": {
       "claude_strengths": "Better long-form case study prose, architecture planning, copy humanization, local git workflow via Claude Code",
       "lovable_strengths": "Faster visual iteration, live preview, Visual Edits for spacing, hosted deploy pipeline",
       "recommended_hybrid": "Plan + write case studies in Claude Projects → build code in Claude Code OR Lovable Phase 1–5 → final copy polish in Claude → deploy"
     }
   },
-
   "cursor": {
     "prompt_file": "portfolio_prompt.txt",
     "setup_steps": [
@@ -939,6 +1370,5 @@
     ],
     "recommended_claude_md": "Copy claude.claude_code_claude_md from this JSON into ./CLAUDE.md at repo root for persistent rules across sessions"
   },
-
   "sample_prompt_for_portfolio_generator": "Use portfolio_prompt.txt in Cursor (attach @portfolio_context.json). For Lovable: lovable.founding_prompt + phased_prompts. For Claude Projects/Code: claude.founding_prompt + claude.phased_prompts."
 }
