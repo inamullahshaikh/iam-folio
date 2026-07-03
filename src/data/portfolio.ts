@@ -172,6 +172,7 @@ export type PortfolioProject = {
   dateRange: string | null;
   isFinalYearProject: boolean;
   techTags: string[];
+  techStackGrouped: Record<string, string[]>;
   primaryTechTag: string | null;
   links: { github: string | null; live_demo: string | null };
   matchesFilter: (filter: ProjectFilter) => boolean;
@@ -207,6 +208,36 @@ function projectArchitecture(project: JsonProject) {
 function flattenTechStack(techStack: JsonProject["tech_stack"]): string[] {
   if (!techStack) return [];
   return Object.values(techStack).flatMap((value) => value ?? []);
+}
+
+function groupTechStack(techStack: JsonProject["tech_stack"]): Record<string, string[]> {
+  if (!techStack) return {};
+
+  return Object.fromEntries(
+    Object.entries(techStack).filter(
+      (entry): entry is [string, string[]] =>
+        Array.isArray(entry[1]) && entry[1].length > 0
+    )
+  );
+}
+
+const techCategoryLabels: Record<string, string> = {
+  languages: "Languages",
+  backend: "Backend",
+  frontend: "Frontend",
+  ml: "ML & AI",
+  database: "Database",
+  devops: "DevOps",
+  infrastructure: "Infrastructure",
+  training: "Training",
+  other: "Other",
+};
+
+export function formatTechCategory(key: string): string {
+  return (
+    techCategoryLabels[key] ??
+    key.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
+  );
 }
 
 function projectSummary(project: JsonProject): string {
@@ -323,6 +354,7 @@ function toPortfolioProject(project: JsonProject): PortfolioProject {
     isFinalYearProject:
       "is_final_year_project" in project ? Boolean(project.is_final_year_project) : false,
     techTags,
+    techStackGrouped: groupTechStack(project.tech_stack),
     primaryTechTag: techTags[0] ?? categories[0] ?? null,
     links,
     matchesFilter: (filter) => matchesCategoryFilter(categories, filter),
@@ -353,6 +385,45 @@ export const secondaryProjects = mapOrderedProjects(portfolio.projects.secondary
 export const allProjects = portfolio.projects.items.map((project) =>
   toPortfolioProject(project)
 );
+
+export function projectSlug(id: string): string {
+  return id.replace(/^proj_/, "");
+}
+
+export function getPortfolioProjectBySlug(slug: string): PortfolioProject | null {
+  const project = portfolio.projects.items.find(
+    (item) => projectSlug(item.id) === slug
+  );
+  return project ? toPortfolioProject(project) : null;
+}
+
+const projectNavOrder = [
+  ...(portfolio.projects.featured_order ?? []),
+  ...(portfolio.projects.secondary_order ?? []),
+];
+
+export function getAdjacentProjects(slug: string): {
+  prev: PortfolioProject | null;
+  next: PortfolioProject | null;
+} {
+  const currentId = portfolio.projects.items.find(
+    (item) => projectSlug(item.id) === slug
+  )?.id;
+
+  if (!currentId) return { prev: null, next: null };
+
+  const index = projectNavOrder.indexOf(currentId);
+  if (index === -1) return { prev: null, next: null };
+
+  const prevId = index > 0 ? projectNavOrder[index - 1] : null;
+  const nextId =
+    index < projectNavOrder.length - 1 ? projectNavOrder[index + 1] : null;
+
+  return {
+    prev: prevId ? getPortfolioProjectBySlug(projectSlug(prevId)) : null,
+    next: nextId ? getPortfolioProjectBySlug(projectSlug(nextId)) : null,
+  };
+}
 
 // --- Experience / Contact ---
 

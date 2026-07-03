@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import StatsStrip from "../components/StatsStrip";
@@ -9,8 +11,20 @@ import Experience from "../components/Experience";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 import CursorBackground from "../components/CursorBackground";
+import { scrollToSection } from "../lib/scrollToSection";
 
 export default function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!location.hash) return;
+
+    const sectionId = location.hash.replace(/^#/, "");
+    const scroll = () => scrollToSection(sectionId);
+
+    requestAnimationFrame(() => requestAnimationFrame(scroll));
+  }, [location.hash]);
+
   return (
     <div className="relative isolate">
       <CursorBackground />

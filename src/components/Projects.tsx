@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   featuredProjects,
   secondaryProjects,
   projectFilters,
+  projectSlug,
   projectsCopy,
   type ProjectFilter,
   type PortfolioProject,
 } from "../data/portfolio";
 import { useReveal, revealSectionClass } from "../hooks/useReveal";
-import ProjectDetailModal from "./ProjectDetailModal";
 import SectionHeading from "./SectionHeading";
 
 function TechTag({ label }: { label: string }) {
@@ -32,7 +33,7 @@ function ProjectLinks({
 
   return (
     <div className="flex flex-wrap gap-3 pt-4">
-          {live_demo && (
+      {live_demo && (
         <a
           href={live_demo}
           target="_blank"
@@ -58,23 +59,16 @@ function ProjectLinks({
   );
 }
 
-function FeaturedCard({
-  project,
-  onOpen,
-}: {
-  project: PortfolioProject;
-  onOpen: (project: PortfolioProject) => void;
-}) {
+function FeaturedCard({ project }: { project: PortfolioProject }) {
   const stopPropagation = (event: React.MouseEvent) => event.stopPropagation();
   const hasLinks = Boolean(project.links.github || project.links.live_demo);
 
   return (
     <article className="group card-elevated flex flex-col overflow-hidden">
-      <button
-        type="button"
-        onClick={() => onOpen(project)}
+      <Link
+        to={`/projects/${projectSlug(project.id)}`}
         className="flex w-full flex-1 flex-col text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-accent"
-        aria-label={`View details for ${project.name}`}
+        aria-label={`View case study for ${project.name}`}
       >
         {project.image ? (
           <div className="overflow-hidden border-b border-white/10 bg-[#0d0911]">
@@ -110,7 +104,7 @@ function FeaturedCard({
             )}
           </div>
         </div>
-      </button>
+      </Link>
 
       {hasLinks && (
         <div className="border-t border-white/8 px-4 pb-4 sm:px-6 sm:pb-5">
@@ -121,20 +115,13 @@ function FeaturedCard({
   );
 }
 
-function SecondaryRow({
-  project,
-  onOpen,
-}: {
-  project: PortfolioProject;
-  onOpen: (project: PortfolioProject) => void;
-}) {
+function SecondaryRow({ project }: { project: PortfolioProject }) {
   return (
     <li>
-      <button
-        type="button"
-        onClick={() => onOpen(project)}
+      <Link
+        to={`/projects/${projectSlug(project.id)}`}
         className="card-surface flex w-full flex-col gap-3 rounded-xl bg-white/[0.02] px-4 py-4 text-left transition-colors duration-200 hover:bg-white/[0.04] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:px-5"
-        aria-label={`View details for ${project.name}`}
+        aria-label={`View case study for ${project.name}`}
       >
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
@@ -151,7 +138,7 @@ function SecondaryRow({
             <TechTag key={`${project.id}-${tag}`} label={tag} />
           ))}
         </div>
-      </button>
+      </Link>
     </li>
   );
 }
@@ -159,9 +146,6 @@ function SecondaryRow({
 export default function Projects() {
   const ref = useReveal<HTMLElement>();
   const [filter, setFilter] = useState<ProjectFilter>("all");
-  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(
-    null
-  );
 
   const filteredFeatured = useMemo(
     () => featuredProjects.filter((p) => p.matchesFilter(filter)),
@@ -174,83 +158,68 @@ export default function Projects() {
   );
 
   return (
-    <>
-      <section
-        id="projects"
-        ref={ref}
-        className={`${revealSectionClass} section-pad relative`}
-        aria-labelledby="projects-heading"
-      >
-        <div className="pointer-events-none absolute inset-x-0 top-24 h-56 glow-spot opacity-40" aria-hidden />
+    <section
+      id="projects"
+      ref={ref}
+      className={`${revealSectionClass} section-pad relative`}
+      aria-labelledby="projects-heading"
+    >
+      <div className="pointer-events-none absolute inset-x-0 top-24 h-56 glow-spot opacity-40" aria-hidden />
 
-        <div className="reveal-content relative mx-auto max-w-6xl">
-          <SectionHeading
-            title="Featured"
-            highlight="Projects"
-            subtitle={projectsCopy.subtitle}
-            headingId="projects-heading"
-          />
+      <div className="reveal-content relative mx-auto max-w-6xl">
+        <SectionHeading
+          title="Featured"
+          highlight="Projects"
+          subtitle={projectsCopy.subtitle}
+          headingId="projects-heading"
+        />
 
-          <div
-            className="mb-8 flex flex-wrap justify-center gap-1.5 sm:mb-10 sm:gap-2"
-            role="tablist"
-            aria-label="Filter projects by category"
-          >
-            {projectFilters.map((tab) => (
-              <button
-                key={tab.id}
-                type="button"
-                role="tab"
-                aria-selected={filter === tab.id}
-                onClick={() => setFilter(tab.id)}
-                className={`rounded-full px-3 py-2 text-xs font-medium transition-all duration-200 sm:px-4 sm:text-sm ${
-                  filter === tab.id
-                    ? "bg-accent text-white shadow-[0_0_20px_rgba(139,92,246,0.35)]"
-                    : "border border-white/10 bg-white/[0.03] text-text-muted hover:border-accent/30 hover:text-text"
-                }`}
-              >
-                {tab.label}
-              </button>
+        <div
+          className="mb-8 flex flex-wrap justify-center gap-1.5 sm:mb-10 sm:gap-2"
+          role="tablist"
+          aria-label="Filter projects by category"
+        >
+          {projectFilters.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              role="tab"
+              aria-selected={filter === tab.id}
+              onClick={() => setFilter(tab.id)}
+              className={`rounded-full px-3 py-2 text-xs font-medium transition-all duration-200 sm:px-4 sm:text-sm ${
+                filter === tab.id
+                  ? "bg-accent text-white shadow-[0_0_20px_rgba(139,92,246,0.35)]"
+                  : "border border-white/10 bg-white/[0.03] text-text-muted hover:border-accent/30 hover:text-text"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {filteredFeatured.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2">
+            {filteredFeatured.map((project) => (
+              <FeaturedCard key={project.id} project={project} />
             ))}
           </div>
+        ) : (
+          <p className="rounded-2xl border border-white/8 bg-bg-elevated/50 px-6 py-10 text-center text-sm text-text-muted">
+            {projectsCopy.emptyCategory}
+          </p>
+        )}
 
-          {filteredFeatured.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-2">
-              {filteredFeatured.map((project) => (
-                <FeaturedCard
-                  key={project.id}
-                  project={project}
-                  onOpen={setSelectedProject}
-                />
+        {filteredSecondary.length > 0 && (
+          <div className="mt-16">
+            <h3 className="mb-5 text-lg font-semibold text-text">{projectsCopy.moreTitle}</h3>
+            <ul className="space-y-2">
+              {filteredSecondary.map((project) => (
+                <SecondaryRow key={project.id} project={project} />
               ))}
-            </div>
-          ) : (
-            <p className="rounded-2xl border border-white/8 bg-bg-elevated/50 px-6 py-10 text-center text-sm text-text-muted">
-              {projectsCopy.emptyCategory}
-            </p>
-          )}
-
-          {filteredSecondary.length > 0 && (
-            <div className="mt-16">
-              <h3 className="mb-5 text-lg font-semibold text-text">{projectsCopy.moreTitle}</h3>
-              <ul className="space-y-2">
-                {filteredSecondary.map((project) => (
-                  <SecondaryRow
-                    key={project.id}
-                    project={project}
-                    onOpen={setSelectedProject}
-                  />
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      </section>
-
-      <ProjectDetailModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
-    </>
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
   );
 }

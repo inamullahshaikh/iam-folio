@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ctaLine } from "../data/portfolio";
+import { scrollToSection } from "../lib/scrollToSection";
 
 const navLinks = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#education", label: "Education" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#contact", label: "Contact" },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "education", label: "Education" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "experience", label: "Experience" },
+  { id: "contact", label: "Contact" },
 ] as const;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -29,7 +33,20 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  const handleNavClick = () => setMenuOpen(false);
+  const handleSectionNav = (sectionId: string) => {
+    setMenuOpen(false);
+
+    if (location.pathname !== "/") {
+      navigate({ pathname: "/", hash: sectionId });
+      return;
+    }
+
+    scrollToSection(sectionId);
+
+    if (location.hash !== `#${sectionId}`) {
+      navigate({ pathname: "/", hash: sectionId }, { replace: true });
+    }
+  };
 
   return (
     <header
@@ -45,13 +62,14 @@ export default function Navbar() {
       >
         <ul className="hidden items-center gap-0.5 lg:flex">
           {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
+            <li key={link.id}>
+              <button
+                type="button"
+                onClick={() => handleSectionNav(link.id)}
                 className="rounded-lg px-2.5 py-2 text-sm text-text-muted transition-colors hover:bg-white/5 hover:text-text xl:px-3"
               >
                 {link.label}
-              </a>
+              </button>
             </li>
           ))}
         </ul>
@@ -90,14 +108,14 @@ export default function Navbar() {
         >
           <ul className="flex flex-col items-center gap-1">
             {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="flex min-h-11 items-center rounded-lg px-3 text-sm text-text-muted hover:bg-white/5 hover:text-text"
-                  onClick={handleNavClick}
+              <li key={link.id}>
+                <button
+                  type="button"
+                  onClick={() => handleSectionNav(link.id)}
+                  className="flex min-h-11 w-full items-center justify-center rounded-lg px-3 text-sm text-text-muted hover:bg-white/5 hover:text-text"
                 >
                   {link.label}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
