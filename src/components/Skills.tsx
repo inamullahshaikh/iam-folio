@@ -2,49 +2,26 @@ import { skillCategories, skillsSubtitle } from "../data/portfolio";
 import { useReveal, revealSectionClass } from "../hooks/useReveal";
 import SectionHeading from "./SectionHeading";
 
-function SkillTag({ label }: { label: string }) {
-  return (
-    <span className="inline-flex rounded-lg border border-white/10 bg-white/[0.04] px-3 py-1.5 text-sm text-text-muted">
-      {label}
-    </span>
-  );
-}
-
 export default function Skills() {
   const ref = useReveal<HTMLElement>();
 
   return (
-    <section
-      id="skills"
-      ref={ref}
-      className={`${revealSectionClass} section-pad border-t border-white/5 bg-bg-elevated/30`}
-      aria-labelledby="skills-heading"
-    >
-      <div className="reveal-content mx-auto max-w-6xl">
-        <SectionHeading
-          title="Skills"
-          highlight="& Tools"
-          subtitle={skillsSubtitle}
-          headingId="skills-heading"
-        />
+    <section id="skills" ref={ref} className={`${revealSectionClass} section-pad`} aria-labelledby="skills-heading">
+      <div className="reveal-content mx-auto max-w-[1200px]">
+        <SectionHeading title="The toolbox" subtitle={skillsSubtitle} headingId="skills-heading" />
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <dl className="tile divide-y divide-line px-7 md:px-12">
           {skillCategories.map((category) => (
-            <article
-              key={category.id}
-              className="card-surface p-5"
-            >
-              <h3 className="mb-4 border-b border-accent/25 pb-3 text-sm font-semibold uppercase tracking-wider text-accent">
-                {category.title}
-              </h3>
-              <div className="flex flex-wrap gap-2">
+            <div key={category.id} className="grid gap-3 py-6 md:grid-cols-[1fr_2fr] md:gap-12">
+              <dt className="text-[17px] font-semibold text-text">{category.title}</dt>
+              <dd className="flex flex-wrap gap-x-5 gap-y-2 text-[17px] text-text-muted">
                 {category.tags.map((tag) => (
-                  <SkillTag key={tag} label={tag} />
+                  <span key={tag}>{tag}</span>
                 ))}
-              </div>
-            </article>
+              </dd>
+            </div>
           ))}
-        </div>
+        </dl>
       </div>
     </section>
   );

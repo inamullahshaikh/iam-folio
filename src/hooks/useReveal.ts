@@ -21,7 +21,7 @@ export function useReveal<T extends HTMLElement = HTMLElement>(threshold = 0.1) 
           observer.disconnect();
         }
       },
-      { threshold, rootMargin: "0px 0px -4% 0px" }
+      { threshold, rootMargin: "0px 0px -4% 0px" },
     );
 
     requestAnimationFrame(() => observer.observe(el));

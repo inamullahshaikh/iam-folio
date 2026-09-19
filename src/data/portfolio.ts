@@ -23,18 +23,11 @@ export const contactCopy = siteCopy.contact;
 export const footerCopy = siteCopy.footer;
 
 export const stats = [
+  { value: 96, suffix: "%", label: siteCopy.stats[0].label },
+  { value: achievements.internship_months, suffix: "", label: siteCopy.stats[1].label },
   {
-    value: portfolio.skills.competitive_programming.problems_solved,
-    label: siteCopy.stats[0].label,
-  },
-  {
-    value: String(achievements.internship_months),
-    label: siteCopy.stats[1].label,
-  },
-  {
-    value: String(
-      achievements.rag_projects_count + (achievements.llm_agent_projects ?? 0)
-    ),
+    value: achievements.rag_projects_count + (achievements.llm_agent_projects ?? 0),
+    suffix: "",
     label: siteCopy.stats[2].label,
   },
 ] as const;
@@ -76,10 +69,10 @@ export const educationTimeline = education.map((item) => ({
   status: item.status,
   dateRange: `${new Date(
     Number(item.start_date.split("-")[0]),
-    Number(item.start_date.split("-")[1]) - 1
+    Number(item.start_date.split("-")[1]) - 1,
   ).toLocaleString("en-US", { month: "short", year: "numeric" })} - ${new Date(
     Number(item.end_date.split("-")[0]),
-    Number(item.end_date.split("-")[1]) - 1
+    Number(item.end_date.split("-")[1]) - 1,
   ).toLocaleString("en-US", { month: "short", year: "numeric" })}`,
 }));
 
@@ -87,6 +80,11 @@ const { languages, frontend, backend, ai_ml, data, devops_cloud, messaging, auth
   portfolio.skills;
 
 export const skillCategories = [
+  {
+    id: "ai-ml",
+    title: "AI & LLM systems",
+    tags: [...ai_ml.core, ...ai_ml.models_tools, ...ai_ml.practices],
+  },
   {
     id: "languages",
     title: "Languages",
@@ -101,11 +99,6 @@ export const skillCategories = [
     id: "backend",
     title: "Backend & APIs",
     tags: [...backend, ...(messaging ?? [])],
-  },
-  {
-    id: "ai-ml",
-    title: "AI / ML",
-    tags: [...ai_ml.core, ...ai_ml.models_tools, ...ai_ml.practices],
   },
   {
     id: "async",
@@ -178,9 +171,7 @@ export type PortfolioProject = {
   matchesFilter: (filter: ProjectFilter) => boolean;
 };
 
-function formatDateRange(
-  dateRange: { start: string; end: string } | undefined
-): string | null {
+function formatDateRange(dateRange: { start: string; end: string } | undefined): string | null {
   if (!dateRange) return null;
 
   const format = (value: string) => {
@@ -200,8 +191,7 @@ function projectArchitecture(project: JsonProject) {
   return {
     description: project.architecture.description,
     components: project.architecture.components ?? [],
-    dataFlow:
-      "data_flow" in project.architecture ? project.architecture.data_flow ?? null : null,
+    dataFlow: "data_flow" in project.architecture ? (project.architecture.data_flow ?? null) : null,
   };
 }
 
@@ -215,9 +205,8 @@ function groupTechStack(techStack: JsonProject["tech_stack"]): Record<string, st
 
   return Object.fromEntries(
     Object.entries(techStack).filter(
-      (entry): entry is [string, string[]] =>
-        Array.isArray(entry[1]) && entry[1].length > 0
-    )
+      (entry): entry is [string, string[]] => Array.isArray(entry[1]) && entry[1].length > 0,
+    ),
   );
 }
 
@@ -234,10 +223,7 @@ const techCategoryLabels: Record<string, string> = {
 };
 
 export function formatTechCategory(key: string): string {
-  return (
-    techCategoryLabels[key] ??
-    key.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
-  );
+  return techCategoryLabels[key] ?? key.replace(/_/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 function projectSummary(project: JsonProject): string {
@@ -278,39 +264,29 @@ function matchesCategoryFilter(categories: string[], filter: ProjectFilter): boo
         c.includes("nlp") ||
         c.includes("rag") ||
         c.includes("llm agents") ||
-        c.includes("reinforcement")
+        c.includes("reinforcement"),
     );
   }
 
   if (filter === "full-stack") {
-    return normalized.some(
-      (c) => c.includes("full-stack") || c.includes("mern") || c.includes("backend")
-    );
+    return normalized.some((c) => c.includes("full-stack") || c.includes("mern") || c.includes("backend"));
   }
 
   if (filter === "devops") {
-    return normalized.some(
-      (c) =>
-        c.includes("devops") ||
-        c.includes("cloud") ||
-        c.includes("microservices")
-    );
+    return normalized.some((c) => c.includes("devops") || c.includes("cloud") || c.includes("microservices"));
   }
 
   return true;
 }
 
 function applyProjectCopy(project: PortfolioProject): PortfolioProject {
-  const copy =
-    siteCopy.projects.items[project.id as keyof typeof siteCopy.projects.items];
+  const copy = siteCopy.projects.items[project.id as keyof typeof siteCopy.projects.items];
   if (!copy) return project;
 
   const problem = ("problem" in copy ? copy.problem : undefined) ?? project.problem;
-  const solution =
-    ("solution" in copy ? copy.solution : undefined) ?? project.solution;
+  const solution = ("solution" in copy ? copy.solution : undefined) ?? project.solution;
   const tagline = copy.tagline ?? project.tagline;
-  const summary =
-    problem && solution ? `${problem} ${solution}` : tagline;
+  const summary = problem && solution ? `${problem} ${solution}` : tagline;
 
   return {
     ...project,
@@ -318,16 +294,13 @@ function applyProjectCopy(project: PortfolioProject): PortfolioProject {
     problem: problem ?? project.problem,
     solution: solution ?? project.solution,
     summary,
-    highlights: [
-      ...(("highlights" in copy ? copy.highlights : undefined) ?? project.highlights),
-    ],
+    highlights: [...(("highlights" in copy ? copy.highlights : undefined) ?? project.highlights)],
     architecture: project.architecture
       ? {
           ...project.architecture,
           description:
-            ("architectureDescription" in copy
-              ? copy.architectureDescription
-              : undefined) ?? project.architecture.description,
+            ("architectureDescription" in copy ? copy.architectureDescription : undefined) ??
+            project.architecture.description,
         }
       : null,
   };
@@ -345,14 +318,13 @@ function toPortfolioProject(project: JsonProject): PortfolioProject {
     image: projectImage(project.id),
     categories,
     summary: projectSummary(project),
-    problem: "problem" in project ? project.problem ?? null : null,
-    solution: "solution" in project ? project.solution ?? null : null,
-    highlights: "highlights" in project ? project.highlights ?? [] : [],
+    problem: "problem" in project ? (project.problem ?? null) : null,
+    solution: "solution" in project ? (project.solution ?? null) : null,
+    highlights: "highlights" in project ? (project.highlights ?? []) : [],
     architecture: projectArchitecture(project),
-    status: "status" in project ? project.status ?? null : null,
+    status: "status" in project ? (project.status ?? null) : null,
     dateRange: formatDateRange("date_range" in project ? project.date_range : undefined),
-    isFinalYearProject:
-      "is_final_year_project" in project ? Boolean(project.is_final_year_project) : false,
+    isFinalYearProject: "is_final_year_project" in project ? Boolean(project.is_final_year_project) : false,
     techTags,
     techStackGrouped: groupTechStack(project.tech_stack),
     primaryTechTag: techTags[0] ?? categories[0] ?? null,
@@ -382,33 +354,24 @@ export const featuredProjects = mapOrderedProjects(portfolio.projects.featured_o
 
 export const secondaryProjects = mapOrderedProjects(portfolio.projects.secondary_order);
 
-export const allProjects = portfolio.projects.items.map((project) =>
-  toPortfolioProject(project)
-);
+export const allProjects = portfolio.projects.items.map((project) => toPortfolioProject(project));
 
 export function projectSlug(id: string): string {
   return id.replace(/^proj_/, "");
 }
 
 export function getPortfolioProjectBySlug(slug: string): PortfolioProject | null {
-  const project = portfolio.projects.items.find(
-    (item) => projectSlug(item.id) === slug
-  );
+  const project = portfolio.projects.items.find((item) => projectSlug(item.id) === slug);
   return project ? toPortfolioProject(project) : null;
 }
 
-const projectNavOrder = [
-  ...(portfolio.projects.featured_order ?? []),
-  ...(portfolio.projects.secondary_order ?? []),
-];
+const projectNavOrder = [...(portfolio.projects.featured_order ?? []), ...(portfolio.projects.secondary_order ?? [])];
 
 export function getAdjacentProjects(slug: string): {
   prev: PortfolioProject | null;
   next: PortfolioProject | null;
 } {
-  const currentId = portfolio.projects.items.find(
-    (item) => projectSlug(item.id) === slug
-  )?.id;
+  const currentId = portfolio.projects.items.find((item) => projectSlug(item.id) === slug)?.id;
 
   if (!currentId) return { prev: null, next: null };
 
@@ -416,8 +379,7 @@ export function getAdjacentProjects(slug: string): {
   if (index === -1) return { prev: null, next: null };
 
   const prevId = index > 0 ? projectNavOrder[index - 1] : null;
-  const nextId =
-    index < projectNavOrder.length - 1 ? projectNavOrder[index + 1] : null;
+  const nextId = index < projectNavOrder.length - 1 ? projectNavOrder[index + 1] : null;
 
   return {
     prev: prevId ? getPortfolioProjectBySlug(projectSlug(prevId)) : null,
@@ -427,14 +389,21 @@ export function getAdjacentProjects(slug: string): {
 
 // --- Experience / Contact ---
 
-export const featuredExperience = portfolio.experience[0];
-
-export const experienceSummary = siteCopy.experience.summary;
-export const experienceBullets = [...siteCopy.experience.bullets];
+// First entry (Komatsu) uses the hand-written site copy; the rest use JSON text.
+export const experiences = portfolio.experience.map((item, i) => ({
+  ...item,
+  summaryText: i === 0 ? siteCopy.experience.summary : item.summary,
+  bullets: i === 0 ? [...siteCopy.experience.bullets] : item.responsibilities,
+}));
 
 export const contactRows = [
   { id: "email", label: "Email", value: personal.contact.email, href: `mailto:${personal.contact.email}` },
-  { id: "phone", label: "Phone", value: personal.contact.phone, href: `tel:${personal.contact.phone.replace(/\s+/g, "")}` },
+  {
+    id: "phone",
+    label: "Phone",
+    value: personal.contact.phone,
+    href: `tel:${personal.contact.phone.replace(/\s+/g, "")}`,
+  },
   { id: "github", label: "GitHub", value: personal.contact.github, href: personal.contact.github },
   { id: "linkedin", label: "LinkedIn", value: personal.contact.linkedin, href: personal.contact.linkedin },
   { id: "leetcode", label: "LeetCode", value: personal.contact.leetcode, href: personal.contact.leetcode },

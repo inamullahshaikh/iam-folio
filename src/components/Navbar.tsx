@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ctaLine } from "../data/portfolio";
+import { AnimatePresence, motion } from "framer-motion";
+import { personal } from "../data/portfolio";
 import { scrollToSection } from "../lib/scrollToSection";
 
 const navLinks = [
-  { id: "home", label: "Home" },
   { id: "about", label: "About" },
-  { id: "education", label: "Education" },
-  { id: "skills", label: "Skills" },
-  { id: "projects", label: "Projects" },
+  { id: "projects", label: "Work" },
   { id: "experience", label: "Experience" },
+  { id: "skills", label: "Toolbox" },
   { id: "contact", label: "Contact" },
 ] as const;
 
@@ -50,23 +49,33 @@ export default function Navbar() {
 
   return (
     <header
-      className={`safe-top fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-white/5 bg-bg/95 shadow-[0_8px_32px_rgba(0,0,0,0.35)]"
-          : "bg-transparent"
+      className={`safe-top fixed inset-x-0 top-0 z-50 transition-[background-color] duration-300 ease-[ease] ${
+        scrolled || menuOpen ? "material" : "bg-transparent"
       }`}
     >
       <nav
-        className="relative mx-auto flex h-14 max-w-6xl items-center justify-center px-4 sm:h-16 sm:px-6"
+        className="mx-auto flex h-11 max-w-[1024px] items-center justify-between px-4 sm:px-6"
         aria-label="Main navigation"
       >
-        <ul className="hidden items-center gap-0.5 lg:flex">
+        <button
+          type="button"
+          onClick={() => {
+            setMenuOpen(false);
+            if (location.pathname !== "/") navigate("/");
+            else window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          className="text-sm font-semibold text-text"
+        >
+          {personal.full_name}
+        </button>
+
+        <ul className="hidden items-center gap-9 md:flex">
           {navLinks.map((link) => (
             <li key={link.id}>
               <button
                 type="button"
                 onClick={() => handleSectionNav(link.id)}
-                className="rounded-lg px-2.5 py-2 text-sm text-text-muted transition-colors hover:bg-white/5 hover:text-text xl:px-3"
+                className="text-xs text-text/80 transition-colors hover:text-text"
               >
                 {link.label}
               </button>
@@ -76,54 +85,45 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="absolute right-4 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/10 text-text sm:right-6 lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center text-text md:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           onClick={() => setMenuOpen((open) => !open)}
         >
-          <span className="sr-only">Menu</span>
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            aria-hidden
-          >
-            {menuOpen ? (
-              <path d="M6 6l12 12M18 6L6 18" />
-            ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" />
-            )}
-          </svg>
+          <span className="relative block h-3 w-[18px]" aria-hidden>
+            <span className={`hamburger-line top-0 ${menuOpen ? "translate-y-[5.5px] rotate-45" : ""}`} />
+            <span className={`hamburger-line bottom-0 ${menuOpen ? "-translate-y-[5.5px] -rotate-45" : ""}`} />
+          </span>
         </button>
       </nav>
 
-      {menuOpen && (
-        <div
-          id="mobile-nav"
-          className="safe-bottom border-t border-white/5 bg-bg/98 px-4 py-4 lg:hidden"
-        >
-          <ul className="flex flex-col items-center gap-1">
-            {navLinks.map((link) => (
-              <li key={link.id}>
-                <button
-                  type="button"
-                  onClick={() => handleSectionNav(link.id)}
-                  className="flex min-h-11 w-full items-center justify-center rounded-lg px-3 text-sm text-text-muted hover:bg-white/5 hover:text-text"
-                >
-                  {link.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-4 rounded-2xl border border-accent/25 bg-accent/10 px-3 py-2.5 text-center text-xs leading-relaxed text-accent-cyan">
-            {ctaLine}
-          </p>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            id="mobile-nav"
+            className="safe-bottom h-[calc(100dvh-2.75rem)] px-8 pt-6 md:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.15 } }}
+            transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <ul>
+              {navLinks.map((link, i) => (
+                <li key={link.id} className="menu-item" style={{ "--d": i } as React.CSSProperties}>
+                  <button
+                    type="button"
+                    onClick={() => handleSectionNav(link.id)}
+                    className="flex w-full items-baseline gap-4 py-2 text-left text-[28px] font-semibold tracking-tight text-text"
+                  >
+                    {link.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

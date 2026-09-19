@@ -13,12 +13,11 @@
     "preferred_name": "Inam",
     "alternate_spelling": "Inam Ullah Shaikh",
     "title_options": [
-      "Software Engineer",
-      "AI / ML Engineer",
-      "Full-Stack Developer",
-      "Backend Engineer"
+      "AI Engineer",
+      "LLM & Agent Engineer",
+      "Applied ML Engineer"
     ],
-    "primary_title_recommendation": "Software Engineer · AI & Full-Stack",
+    "primary_title_recommendation": "AI Engineer · LLM agents, RAG & computer vision",
     "location": {
       "city": "Islamabad",
       "country": "Pakistan",
@@ -132,22 +131,41 @@
         "Scrum"
       ],
       "featured_on_portfolio": true
+    },
+    {
+      "id": "exp_pta_intern",
+      "role": "Intern",
+      "company": "Pakistan Telecommunication Authority",
+      "location": "Islamabad, Pakistan",
+      "start_date": "2024-07",
+      "end_date": "2024-08",
+      "employment_type": "Internship",
+      "summary": "Worked in cybersecurity, supporting threat awareness, security monitoring, and related operational tasks.",
+      "responsibilities": [
+        "Supported threat awareness and security monitoring",
+        "Assisted with security-related operational tasks",
+        "Gained hands-on exposure to telecom-sector security practices and compliance-oriented workflows"
+      ],
+      "achievements": [],
+      "technologies": [],
+      "featured_on_portfolio": true
     }
   ],
   "projects": {
     "featured_order": [
+      "proj_relay",
       "proj_foresyte",
-      "proj_resumind",
-      "proj_startup_law_rag",
-      "proj_virtualxi",
       "proj_fastcite",
-      "proj_attendance_app"
+      "proj_startup_law_rag",
+      "proj_resumind"
     ],
     "secondary_order": [
+      "proj_torcs_bot",
+      "proj_virtualxi",
+      "proj_attendance_app",
       "proj_eventsync",
       "proj_football_stats",
       "proj_crypto_bot",
-      "proj_torcs_bot",
       "proj_ipfs",
       "proj_gym_management",
       "proj_eventax",
@@ -155,6 +173,78 @@
       "proj_other_games"
     ],
     "items": [
+      {
+        "id": "proj_relay",
+        "name": "Relay",
+        "tagline": "Enterprise AI operations agent that plans, runs, and validates multi-step business tasks with human approval",
+        "is_final_year_project": false,
+        "featured": true,
+        "category": [
+          "AI/ML",
+          "LLM Agents",
+          "RAG",
+          "Full-Stack"
+        ],
+        "status": "Completed",
+        "problem": "Companies want an agent that can actually do work across their own tools (databases, documents, Gmail, Calendar, internal APIs) without letting it take unchecked, state-changing actions.",
+        "solution": "Multi-tenant agent platform where companies connect their own tools and a plan-and-execute LangGraph agent completes multi-step tasks, with a human approving every action that changes state.",
+        "architecture": {
+          "description": "Next.js frontend, FastAPI API, Celery and Redis workers running a LangGraph plan-and-execute agent, PostgreSQL with pgvector for data, retrieval and memory, plus a pluggable connector layer and isolated code-execution sandbox.",
+          "components": [
+            "LangGraph plan-and-execute agent with capped replanning",
+            "Connector registry with manifests, capability model, priority routing and circuit breakers",
+            "MCP server and OpenAPI 3 tool import with embedding-based tool search",
+            "Code-based approval policy engine with resumable paused runs",
+            "Hybrid RAG: pgvector + Postgres full-text search fused via RRF, LLM reranking",
+            "Network-isolated code-execution sandbox",
+            "Long-term memory from finished runs",
+            "Evaluation harness gating CI"
+          ],
+          "data_flow": "Task → plan → capability check → execute step → validate step → replan if needed → approval gate on writes → synthesize answer → groundedness check → user"
+        },
+        "tech_stack": {
+          "languages": [
+            "Python",
+            "TypeScript"
+          ],
+          "backend": [
+            "FastAPI",
+            "Celery",
+            "Redis"
+          ],
+          "frontend": [
+            "Next.js 14",
+            "React",
+            "Tailwind CSS"
+          ],
+          "database": [
+            "PostgreSQL",
+            "pgvector"
+          ],
+          "ml": [
+            "LangGraph",
+            "Google Gemini",
+            "RAG"
+          ],
+          "devops": [
+            "Docker"
+          ]
+        },
+        "highlights": [
+          "Plan-and-execute LangGraph agent with a groundedness check of every answer against step results before it reaches the user",
+          "Pluggable connector framework with per-installation circuit breakers so a failing connector fails over to the next one",
+          "Any remote MCP server or OpenAPI 3 operation becomes an agent tool with no code changes; embedding-based tool search caps the agent at 20 tools per call",
+          "Human-in-the-loop approvals: paused runs survive restarts and resume on any worker, with idempotency keys that prevent duplicate side effects",
+          "Hybrid RAG over PDF, DOCX and Markdown with Gemini OCR for scanned PDFs, fusing pgvector and Postgres full-text search via RRF",
+          "Security: envelope-encrypted credentials, SSRF guard, read-only SQL guard built on sqlglot, prompt-injection defenses on tool output, per-run budgets",
+          "Evaluation harness blocks CI on regressions across routing, text-to-SQL, RAG, planning, groundedness and approval compliance",
+          "Design decisions recorded in 15 ADRs"
+        ],
+        "links": {
+          "github": null,
+          "live_demo": null
+        }
+      },
       {
         "id": "proj_foresyte",
         "name": "ForeSyte",
@@ -214,10 +304,10 @@
         },
         "highlights": [
           "Final Year Project (FYP) — lead showcase piece",
-          "Trained YOLOv8 on custom cheating-detection dataset using CUDA on Kaggle",
+          "Collected and annotated a custom dataset of 3,100 images across 7 cheating-related labels",
+          "Trained YOLOv8 with CUDA on Kaggle: 91% precision, 96% recall",
           "MediaPipe invigilator tracking integrated with object detection pipeline",
-          "Real-time monitoring pipeline with model-triggered workflows",
-          "Reduced manual review through automated event detection"
+          "FastAPI inference APIs with a React monitoring dashboard"
         ],
         "metrics_to_add": {
           "detection_latency_ms": null,
@@ -239,7 +329,7 @@
       {
         "id": "proj_resumind",
         "name": "Resumind",
-        "tagline": "AI resume agent — profile builder, job-post chat, gap analysis, and ATS scoring",
+        "tagline": "AI resume platform — tailored resumes, skill-gap analysis, and ATS scoring",
         "is_final_year_project": false,
         "featured": true,
         "priority_rank": 2,
@@ -254,20 +344,19 @@
         },
         "status": "Active / Completed",
         "problem": "Job seekers manually rewrite resumes per role, miss skill gaps, and have no structured way to evaluate ATS or recruiter fit before applying.",
-        "solution": "AI resume platform where users build structured profiles and submit job posts via chat; LangChain/Groq agent generates tailored resumes, flags skill gaps, suggests interview questions, and scores ATS fit, recruiter fit, and interview likelihood.",
+        "solution": "AI resume platform where users build structured profiles and submit job descriptions; a Groq-powered pipeline generates tailored resumes, flags skill gaps, suggests interview questions, and scores ATS fit, recruiter fit, and interview likelihood.",
         "architecture": {
-          "layers": 4,
-          "description": "Next.js frontend → FastAPI API → Celery workers → LangChain/Groq agent with PostgreSQL persistence",
+          "layers": 3,
+          "description": "Next.js frontend → FastAPI API → Groq-powered generation pipeline, with MongoDB persistence and Cloudflare R2 storage",
           "components": [
             "Next.js frontend",
             "FastAPI backend",
-            "LangChain agent orchestration",
-            "Groq LLM inference",
-            "Celery async jobs",
-            "PostgreSQL",
-            "n8n workflow hooks"
+            "Groq LLM pipeline",
+            "MongoDB",
+            "Cloudflare R2",
+            "JWT auth"
           ],
-          "data_flow": "Profile + job post → enqueue → agent generates resume + gap analysis + scores → persist and return"
+          "data_flow": "Profile + job description → Groq pipeline generates resume, gap analysis and scores → persist and return"
         },
         "tech_stack": {
           "languages": [
@@ -275,35 +364,32 @@
             "TypeScript"
           ],
           "backend": [
-            "FastAPI",
-            "Celery"
+            "FastAPI"
           ],
           "frontend": [
             "Next.js",
             "Tailwind CSS"
           ],
-          "databases": [
-            "PostgreSQL"
+          "database": [
+            "MongoDB"
           ],
           "ml": [
-            "LangChain",
             "Groq",
             "LLMs",
-            "AI agents",
             "Prompt engineering"
           ],
-          "automation": [
-            "n8n"
+          "storage": [
+            "Cloudflare R2"
           ],
-          "other": [
-            "REST APIs"
+          "auth": [
+            "JWT"
           ]
         },
         "highlights": [
+          "Raised average ATS scores of resumes by ~42%",
           "Structured profile builder: skills, education, certifications, experience, projects",
-          "Job-post chat drives tailored resume generation and gap analysis",
-          "Automated scoring: ATS fit, recruiter fit, interview/selection likelihood",
-          "Async Celery-backed agent workflows with PostgreSQL storage"
+          "Job-description input drives tailored resume generation and gap analysis",
+          "Automated scoring: ATS fit, recruiter fit, interview/selection likelihood"
         ],
         "links": {
           "github": null,
@@ -369,12 +455,16 @@
           ],
           "other": [
             "REST APIs"
+          ],
+          "database": [
+            "PostgreSQL"
           ]
         },
         "highlights": [
+          "Reduced average legal search time by ~30 minutes per query session",
+          "Up to 96% answer accuracy",
           "Covers 2 legal domains: business formation and compliance",
-          "End-to-end async pipeline — not synchronous request blocking",
-          "Reliability work: early validation at ingest, idempotent processing steps, explicit failure states (see narrative_notes)"
+          "End-to-end async pipeline — no synchronous request blocking"
         ],
         "domains_served": [
           "Business formation",
@@ -446,13 +536,19 @@
             "RAG",
             "Semantic Search",
             "NLP"
+          ],
+          "database": [
+            "PostgreSQL"
+          ],
+          "devops": [
+            "Docker"
           ]
         },
         "highlights": [
+          "Up to 98% answer accuracy",
+          "Reduced model hallucination by ~91%",
           "2 user workflows: semantic search and citation generation",
-          "Retrieval-first design reduces manual referencing steps",
-          "Dockerized FastAPI and Celery services for reproducible deployment",
-          "Built in ~2 months as focused MVP"
+          "Dockerized FastAPI and Celery services for reproducible deployment"
         ],
         "links": {
           "github": null,
@@ -552,7 +648,7 @@
         "status": "Live / Deployed",
         "build_duration": "2 months",
         "problem": "FIFA career mode players need a persistent way to track and compare stats across seasons.",
-        "solution": "Full-stack MERN application storing player career stats with JWT auth, Cloudflare R2 for blob assets, and production deployment on Vercel (frontend) and Render (backend).",
+        "solution": "Full-stack MERN app tracking FIFA Career Mode player stats (goals, appearances, assists, average rating, trophies, accolades) across the top 5 leagues in a simulation spanning 15+ seasons, with JWT auth, Cloudflare R2 storage, and split deployment on Vercel and Render.",
         "tech_stack": {
           "languages": [
             "JavaScript",
@@ -582,10 +678,10 @@
           ]
         },
         "highlights": [
-          "Built in 2 months (Jan--Mar 2026)",
+          "Built in 2 months (Jan–Mar 2026)",
+          "Tracks stats across the top 5 leagues over 15+ simulated seasons",
           "Live production app at https://virtualxi.vercel.app/",
-          "JWT authentication and role-based access",
-          "Cloudflare R2 blob storage integration",
+          "JWT authentication and Cloudflare R2 storage",
           "Split deployment: Vercel frontend, Render backend"
         ],
         "links": {
@@ -914,6 +1010,7 @@
       "Next.js",
       "HTML",
       "CSS",
+      "Tailwind CSS",
       "JavaFX"
     ],
     "backend": [
@@ -923,7 +1020,10 @@
       "Express.js",
       "RESTful APIs",
       "SOAP",
-      "Microservices"
+      "Microservices",
+      "Web scraping",
+      "Model Context Protocol (MCP)",
+      "OpenAPI 3"
     ],
     "messaging": [
       "RabbitMQ",
@@ -933,12 +1033,15 @@
       "core": [
         "RAG (Retrieval-Augmented Generation)",
         "LLMs",
-        "Generative AI",
-        "NLP",
+        "AI agents",
         "Computer Vision",
-        "AI agents"
+        "NLP",
+        "Vector retrieval"
       ],
       "models_tools": [
+        "LangGraph",
+        "Google Gemini",
+        "Groq",
         "PyTorch",
         "YOLOv8",
         "OpenCV",
@@ -946,26 +1049,24 @@
         "NumPy",
         "scikit-learn",
         "CUDA",
-        "LangChain",
-        "Groq",
-        "Artificial Neural Networks (ANN)"
+        "n8n"
       ],
       "practices": [
         "Prompt engineering",
-        "Semantic search",
-        "Document retrieval",
-        "Model-backed inference APIs"
+        "Agent evaluation & LLM observability"
       ]
     },
     "data": {
       "databases": [
-        "SQL Server",
-        "SQL"
+        "PostgreSQL",
+        "pgvector",
+        "MongoDB",
+        "Redis",
+        "SQL Server"
       ],
       "concepts": [
         "Data modeling",
-        "Relational databases",
-        "RESTful API design"
+        "Relational databases"
       ]
     },
     "devops_cloud": {
@@ -992,15 +1093,14 @@
       ]
     },
     "auth": [
-      "JWT (JSON Web Tokens)",
-      "Authentication and authorization",
+      "JWT",
+      "OAuth 2.0",
+      "Multi-tenancy & RBAC",
+      "Authentication & authorization",
       "User roles"
     ],
     "async_pipelines": [
-      "Celery",
-      "Asynchronous processing",
-      "Task queues",
-      "n8n workflow automation"
+      "Celery"
     ],
     "prompt_engineering_tools": [
       "ChatGPT",
@@ -1018,7 +1118,7 @@
     "blockchain": [
       "Binance API",
       "Pine Script",
-      "TradingView webhook integration"
+      "Webhook integration"
     ]
   },
   "achievements_and_signals": {
@@ -1028,7 +1128,7 @@
     "cloud_deployments": 1,
     "fyp": "ForeSyte — real-time computer vision (YOLOv8, PyTorch, MediaPipe, FastAPI, React)",
     "internship_company": "Komatsu Pakistan Soft",
-    "llm_agent_projects": 1,
+    "llm_agent_projects": 2,
     "docker_containerized_projects": [
       "FastCite",
       "EventSync",
