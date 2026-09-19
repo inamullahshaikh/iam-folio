@@ -41,10 +41,10 @@
     }
   },
   "identity": {
-    "one_liner": "CS graduate who builds full-stack and AI systems — computer vision, RAG pipelines, LLM agents, and Dockerized microservices.",
-    "short_bio": "Computer Science graduate from FAST-NUCES (June 2026), based in Islamabad. I build production-style systems across Python/FastAPI backends, React/Next.js frontends, and AI pipelines — RAG, LLM agents (LangChain/Groq), real-time computer vision, and async Celery workers. I've Dockerized FastCite and EventSync microservices, deployed live apps (VirtualXI), and completed a five-month AI internship at Komatsu Pakistan Soft.",
+    "one_liner": "CS graduate who builds full-stack and AI systems, computer vision, RAG pipelines, LLM agents, and Dockerized microservices.",
+    "short_bio": "Computer Science graduate from FAST-NUCES (June 2026), based in Islamabad. I build production-style systems across Python/FastAPI backends, React/Next.js frontends, and AI pipelines, RAG, LLM agents (LangChain/Groq), real-time computer vision, and async Celery workers. I've Dockerized FastCite and EventSync microservices, deployed live apps (VirtualXI), and completed a five-month AI internship at Komatsu Pakistan Soft.",
     "long_bio_paragraphs": [
-      "I'm a software engineer with a bias toward backend systems and applied AI. Most of my recent work lives at the intersection of FastAPI, Celery, React, and LLM-backed retrieval — taking messy documents or live video inputs and turning them into reliable, usable products.",
+      "I'm a software engineer with a bias toward backend systems and applied AI. Most of my recent work lives at the intersection of FastAPI, Celery, React, and LLM-backed retrieval, taking messy documents or live video inputs and turning them into reliable, usable products.",
       "My Final Year Project (ForeSyte) pushed me into real-time computer vision: I trained YOLOv8 on a custom cheating-detection dataset with PyTorch and CUDA on Kaggle, integrated MediaPipe for invigilator tracking, and shipped FastAPI inference with a React dashboard. Side projects like Startup & Law RAG, FastCite, and Resumind taught me how to design async pipelines and LLM agents that don't fall over on bad inputs or heavy loads.",
       "I'm comfortable across the stack when needed, but I'm happiest owning the data flow: ingest → process → serve → monitor. I containerize services with Docker, work in Agile teams, and use AI-native tooling (Cursor) daily."
     ],
@@ -303,7 +303,7 @@
           ]
         },
         "highlights": [
-          "Final Year Project (FYP) — lead showcase piece",
+          "Final Year Project (FYP), lead showcase piece",
           "Collected and annotated a custom dataset of 3,100 images across 7 cheating-related labels",
           "Trained YOLOv8 with CUDA on Kaggle: 91% precision, 96% recall",
           "MediaPipe invigilator tracking integrated with object detection pipeline",
@@ -329,7 +329,7 @@
       {
         "id": "proj_resumind",
         "name": "Resumind",
-        "tagline": "AI resume platform — tailored resumes, skill-gap analysis, and ATS scoring",
+        "tagline": "AI resume platform, tailored resumes, skill-gap analysis, and ATS scoring",
         "is_final_year_project": false,
         "featured": true,
         "priority_rank": 2,
@@ -404,7 +404,7 @@
       {
         "id": "proj_startup_law_rag",
         "name": "Startup & Law RAG",
-        "tagline": "AI legal assistant for entrepreneurs — grounded answers from real documents",
+        "tagline": "AI legal assistant for entrepreneurs, grounded answers from real documents",
         "is_final_year_project": false,
         "featured": true,
         "priority_rank": 2,
@@ -464,14 +464,14 @@
           "Reduced average legal search time by ~30 minutes per query session",
           "Up to 96% answer accuracy",
           "Covers 2 legal domains: business formation and compliance",
-          "End-to-end async pipeline — no synchronous request blocking"
+          "End-to-end async pipeline, no synchronous request blocking"
         ],
         "domains_served": [
           "Business formation",
           "Compliance"
         ],
         "narrative_notes": {
-          "reliability_story": "V1 processed documents synchronously in FastAPI requests — timeouts on large PDFs, crashes on bad encodings. Rebuilt as Celery-backed pipeline with early file validation, idempotent chunking for safe retries, and logged failure modes instead of silent 500s.",
+          "reliability_story": "V1 processed documents synchronously in FastAPI requests, timeouts on large PDFs, crashes on bad encodings. Rebuilt as Celery-backed pipeline with early file validation, idempotent chunking for safe retries, and logged failure modes instead of silent 500s.",
           "verify_before_publishing": true
         },
         "metrics_to_add": {
@@ -634,7 +634,7 @@
       {
         "id": "proj_virtualxi",
         "name": "VirtualXI",
-        "tagline": "Track FIFA career mode stats — deployed MERN full-stack app",
+        "tagline": "Track FIFA career mode stats, deployed MERN full-stack app",
         "featured": true,
         "priority_rank": 2,
         "category": [
@@ -678,7 +678,7 @@
           ]
         },
         "highlights": [
-          "Built in 2 months (Jan–Mar 2026)",
+          "Built in 2 months (Jan to Mar 2026)",
           "Tracks stats across the top 5 leagues over 15+ simulated seasons",
           "Live production app at https://virtualxi.vercel.app/",
           "JWT authentication and Cloudflare R2 storage",
@@ -1126,7 +1126,7 @@
     "internship_months": 5,
     "rag_projects_count": 2,
     "cloud_deployments": 1,
-    "fyp": "ForeSyte — real-time computer vision (YOLOv8, PyTorch, MediaPipe, FastAPI, React)",
+    "fyp": "ForeSyte, real-time computer vision (YOLOv8, PyTorch, MediaPipe, FastAPI, React)",
     "internship_company": "Komatsu Pakistan Soft",
     "llm_agent_projects": 2,
     "docker_containerized_projects": [

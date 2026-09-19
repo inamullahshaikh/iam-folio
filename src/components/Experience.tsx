@@ -25,7 +25,7 @@ export default function Experience() {
             <article key={job.id} className="tile grid gap-6 p-7 md:grid-cols-[1fr_2fr] md:gap-12 md:p-12">
               <div>
                 <p className="tabular-nums text-xs text-text-muted">
-                  {formatMonth(job.start_date)} &ndash; {formatMonth(job.end_date)}
+                  {formatMonth(job.start_date)} to {formatMonth(job.end_date)}
                 </p>
                 <h3 className="mt-3 text-xl font-semibold tracking-tight text-text">{job.role}</h3>
                 <p className="mt-1 text-sm text-text-muted">

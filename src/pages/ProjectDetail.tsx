@@ -31,10 +31,10 @@ export default function ProjectDetail() {
 
   useEffect(() => {
     if (!project) return;
-    document.title = `${project.name} — ${personal.full_name}`;
+    document.title = `${project.name} | ${personal.full_name}`;
     window.scrollTo(0, 0);
     return () => {
-      document.title = `${personal.full_name} — AI Engineer`;
+      document.title = `${personal.full_name} | AI Engineer`;
     };
   }, [project]);
 

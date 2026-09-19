@@ -70,7 +70,7 @@ export const educationTimeline = education.map((item) => ({
   dateRange: `${new Date(
     Number(item.start_date.split("-")[0]),
     Number(item.start_date.split("-")[1]) - 1,
-  ).toLocaleString("en-US", { month: "short", year: "numeric" })} - ${new Date(
+  ).toLocaleString("en-US", { month: "short", year: "numeric" })} to ${new Date(
     Number(item.end_date.split("-")[0]),
     Number(item.end_date.split("-")[1]) - 1,
   ).toLocaleString("en-US", { month: "short", year: "numeric" })}`,
@@ -128,7 +128,7 @@ export const skillCategories = [
   },
 ] as const;
 
-// --- Projects ---
+// Projects
 
 export type ProjectFilter = "all" | "ai-ml" | "full-stack" | "devops";
 
@@ -181,7 +181,7 @@ function formatDateRange(dateRange: { start: string; end: string } | undefined):
     });
   };
 
-  return `${format(dateRange.start)} - ${format(dateRange.end)}`;
+  return `${format(dateRange.start)} to ${format(dateRange.end)}`;
 }
 
 function projectArchitecture(project: JsonProject) {
@@ -374,7 +374,7 @@ export function getAdjacentProjects(slug: string): {
   };
 }
 
-// --- Experience / Contact ---
+// Experience / Contact
 
 // First entry (Komatsu) uses the hand-written site copy; the rest use JSON text.
 export const experiences = portfolio.experience.map((item, i) => ({
