@@ -14,78 +14,72 @@ import { useReveal, revealSectionClass } from "../hooks/useReveal";
 import SectionHeading from "./SectionHeading";
 import Chevron from "./Chevron";
 
+const TAG_LIMIT = 6;
+
 function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: boolean }) {
   const { github, live_demo } = project.links;
   const href = `/projects/${projectSlug(project.id)}`;
 
   return (
     <motion.article
-      className={`tile flex flex-col overflow-hidden ${wide ? "md:col-span-2" : ""}`}
+      className={`tile flex min-h-[22rem] flex-col overflow-hidden transition-colors duration-200 ease-[ease] hover:bg-[#232325] ${wide ? "md:col-span-2" : ""}`}
       initial={{ opacity: 0, transform: "translateY(32px)" }}
       whileInView={{ opacity: 1, transform: "translateY(0px)" }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
     >
-      <div className="px-7 pt-12 text-center md:px-12 md:pt-14">
+      <Link to={href} className="group flex flex-1 flex-col p-8 md:p-10" aria-label={`${project.name} case study`}>
         <p className="text-sm font-semibold text-text-muted">
           {project.isFinalYearProject ? projectsCopy.finalYearBadge : project.categories.slice(0, 2).join(" · ")}
         </p>
-        <h3 className="mt-2 text-[2rem] font-semibold leading-[1.1] tracking-[-0.015em] text-text md:text-[2.5rem]">
+        <h3 className="mt-2 text-[1.75rem] font-semibold leading-[1.1] tracking-[-0.015em] text-text md:text-[2.25rem]">
           {project.name}
         </h3>
-        <p className="mx-auto mt-3 max-w-[38ch] text-lg leading-snug text-text-muted text-pretty md:text-[19px]">
+        <p
+          className={`mt-3 text-[17px] leading-snug text-text-muted text-pretty ${wide ? "max-w-[52ch]" : "max-w-[40ch]"}`}
+        >
           {project.tagline}
         </p>
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-x-7 gap-y-2 text-[17px]">
-          <Link to={href} className="group inline-flex items-center gap-1 text-accent hover:underline">
-            Learn more <Chevron />
-          </Link>
-          {live_demo && (
-            <a
-              href={live_demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1 text-accent hover:underline"
-            >
-              {projectsCopy.liveDemo} <Chevron />
-            </a>
-          )}
-          {github && (
-            <a
-              href={github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1 text-accent hover:underline"
-            >
-              {projectsCopy.github} <Chevron />
-            </a>
-          )}
-        </div>
-      </div>
 
-      <Link to={href} tabIndex={-1} aria-hidden className="group mt-10 block flex-1 px-7 md:px-12">
-        {project.image ? (
-          <motion.img
-            src={project.image}
-            alt=""
-            initial={{ clipPath: "inset(100% 0 0 0)" }}
-            whileInView={{ clipPath: "inset(0% 0 0 0)" }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.77, 0, 0.175, 1] }}
-            className="mx-auto aspect-[16/10] w-full max-w-[880px] rounded-t-2xl object-cover object-top transition-transform duration-500 ease-[var(--ease-out)] group-hover:-translate-y-1"
-            loading="lazy"
-            decoding="async"
-          />
-        ) : (
-          <ul className="mx-auto flex max-w-[720px] flex-wrap justify-center gap-2 pb-12">
-            {project.techTags.map((tag) => (
-              <li key={tag} className="rounded-full bg-white/[0.06] px-4 py-2 text-sm text-text">
-                {tag}
-              </li>
-            ))}
-          </ul>
-        )}
+        <ul className="mt-auto flex flex-wrap gap-2 pt-10">
+          {project.techTags.slice(0, TAG_LIMIT).map((tag) => (
+            <li key={tag} className="rounded-full bg-white/[0.06] px-3 py-1.5 text-[13px] text-text">
+              {tag}
+            </li>
+          ))}
+          {project.techTags.length > TAG_LIMIT && (
+            <li className="rounded-full px-3 py-1.5 text-[13px] text-text-muted">
+              +{project.techTags.length - TAG_LIMIT}
+            </li>
+          )}
+        </ul>
       </Link>
+
+      <div className="flex flex-wrap items-center gap-x-7 gap-y-2 border-t border-line px-8 py-5 text-[15px] md:px-10">
+        <Link to={href} className="group inline-flex items-center gap-1 text-accent hover:underline">
+          Learn more <Chevron />
+        </Link>
+        {live_demo && (
+          <a
+            href={live_demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1 text-accent hover:underline"
+          >
+            {projectsCopy.liveDemo} <Chevron />
+          </a>
+        )}
+        {github && (
+          <a
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1 text-accent hover:underline"
+          >
+            {projectsCopy.github} <Chevron />
+          </a>
+        )}
+      </div>
     </motion.article>
   );
 }

@@ -150,7 +150,6 @@ export type PortfolioProject = {
   id: string;
   name: string;
   tagline: string;
-  image: string | null;
   categories: string[];
   summary: string;
   problem: string | null;
@@ -240,17 +239,6 @@ function normalizeLinks(links: JsonLinks | undefined) {
   };
 }
 
-function projectImage(id: string): string | null {
-  const images: Record<string, string> = {
-    proj_foresyte: "/foresyte-img.png",
-    proj_virtualxi: "/virtualxi-img.png",
-    proj_startup_law_rag: "/startup-law-img.png",
-    proj_fastcite: "/fastcite-img.png",
-  };
-
-  return images[id] ?? null;
-}
-
 function matchesCategoryFilter(categories: string[], filter: ProjectFilter): boolean {
   if (filter === "all") return true;
 
@@ -315,7 +303,6 @@ function toPortfolioProject(project: JsonProject): PortfolioProject {
     id: project.id,
     name: project.name,
     tagline: project.tagline,
-    image: projectImage(project.id),
     categories,
     summary: projectSummary(project),
     problem: "problem" in project ? (project.problem ?? null) : null,

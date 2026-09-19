@@ -113,18 +113,6 @@ export default function ProjectDetail() {
               )}
             </header>
 
-            {project.image ? (
-              <div className="mt-10 overflow-hidden tile p-3 sm:p-4">
-                <img
-                  src={project.image}
-                  alt={`${project.name} preview`}
-                  className="aspect-video w-full rounded-xl object-contain"
-                  loading="eager"
-                  decoding="async"
-                />
-              </div>
-            ) : null}
-
             <div className="mt-12 space-y-10">
               {project.problem && (
                 <DetailSection title={projectsCopy.sections.problem}>
