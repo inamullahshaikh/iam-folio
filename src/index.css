@@ -218,15 +218,8 @@
     }
 
     /* Keep the fade, drop the movement */
-    .enter,
-    .hamburger-line {
-      position: absolute;
-      left: 0;
-      height: 1.5px;
-      width: 100%;
-      border-radius: 1px;
-      background: currentColor;
-      transition: transform 240ms var(--ease-in-out);
+    .enter {
+      animation-name: fade;
     }
 
     .menu-item {
