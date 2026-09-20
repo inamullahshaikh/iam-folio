@@ -17,7 +17,7 @@ import Chevron from "./Chevron";
 const TAG_LIMIT = 6;
 
 function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: boolean }) {
-  const { github, live_demo } = project.links;
+  const { repos, live_demo } = project.links;
   const href = `/projects/${projectSlug(project.id)}`;
 
   return (
@@ -69,16 +69,17 @@ function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: bool
             {projectsCopy.liveDemo} <Chevron />
           </a>
         )}
-        {github && (
+        {repos.map((repo) => (
           <a
-            href={github}
+            key={repo.href}
+            href={repo.href}
             target="_blank"
             rel="noopener noreferrer"
             className="press group inline-flex items-center gap-1 text-accent hover:underline"
           >
-            {projectsCopy.github} <Chevron />
+            {repos.length > 1 ? `${projectsCopy.github} · ${repo.label}` : projectsCopy.github} <Chevron />
           </a>
-        )}
+        ))}
       </div>
     </motion.article>
   );

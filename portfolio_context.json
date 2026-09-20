@@ -242,7 +242,13 @@
         ],
         "links": {
           "github": null,
-          "live_demo": null
+          "live_demo": null,
+          "github_repos": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/inamullahshaikh/Enterprise-AI-Operations-Agent"
+            }
+          ]
         }
       },
       {
@@ -317,7 +323,17 @@
         "links": {
           "github": null,
           "live_demo": null,
-          "video_demo": null
+          "video_demo": null,
+          "github_repos": [
+            {
+              "label": "Frontend",
+              "url": "https://github.com/inamullahshaikh/FORESYTE_Frontend"
+            },
+            {
+              "label": "Backend",
+              "url": "https://github.com/emaanfatima118/Foresyte-backend"
+            }
+          ]
         },
         "portfolio_display": {
           "hero_worthy": true,
@@ -552,7 +568,17 @@
         ],
         "links": {
           "github": null,
-          "live_demo": null
+          "live_demo": null,
+          "github_repos": [
+            {
+              "label": "Frontend",
+              "url": "https://github.com/inamullahshaikh/FastCite_frontend"
+            },
+            {
+              "label": "Backend",
+              "url": "https://github.com/inamullahshaikh/fastcite_backend"
+            }
+          ]
         },
         "portfolio_display": {
           "hero_worthy": false,

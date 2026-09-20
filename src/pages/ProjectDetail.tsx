@@ -44,8 +44,8 @@ export default function ProjectDetail() {
   }
 
   const { prev, next } = getAdjacentProjects(slug);
-  const { github, live_demo } = project.links;
-  const hasLinks = Boolean(github || live_demo);
+  const { repos, live_demo } = project.links;
+  const hasLinks = Boolean(repos.length || live_demo);
   const techGroups = Object.entries(project.techStackGrouped);
 
   return (
@@ -203,16 +203,17 @@ export default function ProjectDetail() {
                       {projectsCopy.liveDemo}
                     </a>
                   )}
-                  {github && (
+                  {repos.map((repo) => (
                     <a
-                      href={github}
+                      key={repo.href}
+                      href={repo.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center justify-center press min-h-11 rounded-full px-6 text-[17px] text-accent hover:underline"
                     >
-                      {projectsCopy.github}
+                      {repos.length > 1 ? `${projectsCopy.github} · ${repo.label}` : projectsCopy.github}
                     </a>
-                  )}
+                  ))}
                 </div>
               )}
             </div>

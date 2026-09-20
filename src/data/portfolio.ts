@@ -143,6 +143,7 @@ type JsonProject = (typeof portfolio.projects.items)[number];
 
 type JsonLinks = {
   github?: string | null;
+  github_repos?: readonly { readonly label: string; readonly url: string }[];
   live_demo?: string | null;
 };
 
@@ -166,7 +167,7 @@ export type PortfolioProject = {
   techTags: string[];
   techStackGrouped: Record<string, string[]>;
   primaryTechTag: string | null;
-  links: { github: string | null; live_demo: string | null };
+  links: { repos: { label: string; href: string }[]; live_demo: string | null };
   matchesFilter: (filter: ProjectFilter) => boolean;
 };
 
@@ -233,8 +234,11 @@ function projectSummary(project: JsonProject): string {
 }
 
 function normalizeLinks(links: JsonLinks | undefined) {
+  const repos = links?.github_repos?.map((repo) => ({ label: repo.label, href: repo.url })) ?? [];
+  if (!repos.length && links?.github) repos.push({ label: "GitHub", href: links.github });
+
   return {
-    github: links?.github ?? null,
+    repos,
     live_demo: links?.live_demo ?? null,
   };
 }

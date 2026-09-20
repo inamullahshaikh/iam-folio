@@ -6,12 +6,10 @@ import StatNumber from "./StatNumber";
 
 export default function Hero() {
   return (
-    <section id="home" className="px-4 pt-[calc(7rem+env(safe-area-inset-top))] pb-20 sm:px-6 md:pt-36">
-      <div className="mx-auto max-w-[980px] text-center">
-        <p className="enter inline-flex items-center gap-2 text-sm font-semibold text-text-muted">
-          <span className="status-dot h-2 w-2 rounded-full bg-[#30d158]" aria-hidden />
-          Open to AI engineering roles
-        </p>
+    <section id="home" className="relative isolate overflow-hidden px-4 pt-[calc(7rem+env(safe-area-inset-top))] pb-20 sm:px-6 md:pt-36">
+      <div className="hero-aurora" aria-hidden />
+
+      <div className="relative z-10 mx-auto max-w-[980px] text-center">
 
         <h1 className="enter [--d:1] mt-4 text-5xl font-semibold leading-[1.05] tracking-[-0.015em] text-text text-balance sm:text-7xl md:text-[5rem]">
           {personal.full_name}
@@ -40,7 +38,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <figure className="enter [--d:5] mx-auto mt-16 grid max-w-[1200px] gap-3 md:grid-cols-[1.4fr_1fr]">
+      <figure className="enter [--d:5] relative z-10 mx-auto mt-16 grid max-w-[1200px] gap-3 md:grid-cols-[1.4fr_1fr]">
         <div className="tile overflow-hidden">
           <img
             src="/inam-ullah-shaikh.jpeg"
@@ -65,7 +63,7 @@ export default function Hero() {
         </dl>
       </figure>
 
-      <div className="mt-10 flex justify-center">
+      <div className="relative z-10 mt-10 flex justify-center">
         <SocialIcons />
       </div>
     </section>

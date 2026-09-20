@@ -244,3 +244,37 @@
     }
   }
 }
+
+@layer components {
+  /* Hero backdrop: two drifting radial blooms. CSS only, no JS. */
+  .hero-aurora {
+    position: absolute;
+    inset: -25% -20% auto;
+    height: min(90vh, 900px);
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(90px);
+    opacity: 0.85;
+    background:
+      radial-gradient(42% 50% at 24% 34%, #2997ff, transparent 70%),
+      radial-gradient(38% 46% at 72% 52%, #7d5cff, transparent 70%),
+      radial-gradient(30% 36% at 52% 72%, #00c2a8, transparent 70%);
+    -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+    mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-aurora {
+      animation: aurora-drift 22s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes aurora-drift {
+    from {
+      transform: translate3d(-4%, 0, 0) scale(1);
+    }
+    to {
+      transform: translate3d(4%, 3%, 0) scale(1.12);
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { contactCopy, contactRows, personal } from "../data/portfolio";
 import Magnetic from "./Magnetic";
-import Chevron from "./Chevron";
+import BrandIcon from "./BrandIcon";
 import { useReveal, revealSectionClass } from "../hooks/useReveal";
 
 export default function Contact() {
@@ -41,10 +41,11 @@ export default function Contact() {
                 href={row.href}
                 target={row.id === "phone" ? undefined : "_blank"}
                 rel={row.id === "phone" ? undefined : "noopener noreferrer"}
-                className="press group inline-flex items-center gap-1 text-accent hover:underline"
+                aria-label={row.label}
+                title={row.label}
+                className="press group inline-flex min-h-11 items-center gap-1 text-accent hover:underline"
               >
-                {row.id === "phone" ? row.value : row.label}
-                <Chevron />
+                <BrandIcon id={row.id} className="h-6 w-6" />
               </a>
             </li>
           ))}
