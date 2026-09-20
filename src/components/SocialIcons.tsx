@@ -9,7 +9,7 @@ export default function SocialIcons() {
             href={link.href}
             target={link.id === "email" ? undefined : "_blank"}
             rel={link.id === "email" ? undefined : "noopener noreferrer"}
-            className="text-sm font-normal text-accent underline-offset-4 hover:underline"
+            className="press inline-flex text-sm font-normal text-accent underline-offset-4 hover:underline"
           >
             {link.label}
           </a>

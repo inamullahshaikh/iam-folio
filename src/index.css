@@ -222,6 +222,11 @@
       animation-name: fade;
     }
 
+    /* Keep the colour response, drop the scale */
+    .press:active {
+      transform: none;
+    }
+
     .menu-item {
       animation-name: fade;
       animation-duration: 300ms;

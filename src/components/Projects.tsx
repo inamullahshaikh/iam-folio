@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   featuredProjects,
   secondaryProjects,
@@ -28,7 +28,7 @@ function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: bool
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
     >
-      <Link to={href} className="group flex flex-1 flex-col p-8 md:p-10" aria-label={`${project.name} case study`}>
+      <Link to={href} className="press group flex flex-1 flex-col p-8 md:p-10" aria-label={`${project.name} case study`}>
         <p className="text-sm font-semibold text-text-muted">
           {project.isFinalYearProject ? projectsCopy.finalYearBadge : project.categories.slice(0, 2).join(" · ")}
         </p>
@@ -56,7 +56,7 @@ function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: bool
       </Link>
 
       <div className="flex flex-wrap items-center gap-x-7 gap-y-2 border-t border-line px-8 py-5 text-[15px] md:px-10">
-        <Link to={href} className="group inline-flex items-center gap-1 text-accent hover:underline">
+        <Link to={href} className="press group inline-flex items-center gap-1 text-accent hover:underline">
           Learn more <Chevron />
         </Link>
         {live_demo && (
@@ -64,7 +64,7 @@ function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: bool
             href={live_demo}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1 text-accent hover:underline"
+            className="press group inline-flex items-center gap-1 text-accent hover:underline"
           >
             {projectsCopy.liveDemo} <Chevron />
           </a>
@@ -74,7 +74,7 @@ function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: bool
             href={github}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1 text-accent hover:underline"
+            className="press group inline-flex items-center gap-1 text-accent hover:underline"
           >
             {projectsCopy.github} <Chevron />
           </a>
@@ -84,12 +84,17 @@ function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: bool
   );
 }
 
-function SecondaryRow({ project }: { project: PortfolioProject }) {
+function SecondaryRow({ project, index }: { project: PortfolioProject; index: number }) {
   return (
-    <li>
+    <motion.li
+      initial={{ opacity: 0, transform: "translateY(16px)" }}
+      whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.45, ease: [0.23, 1, 0.32, 1], delay: Math.min(index, 4) * 0.04 }}
+    >
       <Link
         to={`/projects/${projectSlug(project.id)}`}
-        className="group flex items-center justify-between gap-6 px-7 py-5 transition-colors hover:bg-white/[0.03] md:px-10"
+        className="press group flex items-center justify-between gap-6 px-7 py-5 hover:bg-white/[0.03] md:px-10"
       >
         <span className="min-w-0">
           <span className="block text-[17px] font-semibold text-text">{project.name}</span>
@@ -99,7 +104,7 @@ function SecondaryRow({ project }: { project: PortfolioProject }) {
           <Chevron />
         </span>
       </Link>
-    </li>
+    </motion.li>
   );
 }
 
@@ -144,10 +149,12 @@ export default function Projects() {
           ))}
         </div>
 
+        <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={filter}
-          initial={{ opacity: 0, filter: "blur(2px)" }}
-          animate={{ opacity: 1, filter: "blur(0px)" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, transition: { duration: 0.12 } }}
           transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
         >
           {filteredFeatured.length > 0 ? (
@@ -161,7 +168,12 @@ export default function Projects() {
               ))}
             </div>
           ) : (
-            <div className="tile px-8 py-16 text-center">
+            <motion.div
+              className="tile px-8 py-16 text-center"
+              initial={{ opacity: 0, transform: "scale(0.97)" }}
+              animate={{ opacity: 1, transform: "scale(1)" }}
+              transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+            >
               <p className="mx-auto max-w-[48ch] text-[17px] leading-snug text-text-muted">
                 {projectsCopy.emptyCategory}
               </p>
@@ -172,7 +184,7 @@ export default function Projects() {
               >
                 Show all
               </button>
-            </div>
+            </motion.div>
           )}
 
           {filteredSecondary.length > 0 && (
@@ -181,13 +193,14 @@ export default function Projects() {
                 {projectsCopy.moreTitle}
               </h3>
               <ul className="divide-y divide-line border-t border-line pb-2">
-                {filteredSecondary.map((project) => (
-                  <SecondaryRow key={project.id} project={project} />
+                {filteredSecondary.map((project, i) => (
+                  <SecondaryRow key={project.id} project={project} index={i} />
                 ))}
               </ul>
             </div>
           )}
         </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

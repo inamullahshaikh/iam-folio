@@ -64,7 +64,7 @@ export default function Navbar() {
             if (location.pathname !== "/") navigate("/");
             else window.scrollTo({ top: 0, behavior: "smooth" });
           }}
-          className="text-sm font-semibold text-text"
+          className="press text-sm font-semibold text-text"
         >
           {personal.full_name}
         </button>
@@ -75,7 +75,7 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => handleSectionNav(link.id)}
-                className="text-xs text-text/80 transition-colors hover:text-text"
+                className="press text-xs text-text/80 hover:text-text"
               >
                 {link.label}
               </button>
@@ -85,7 +85,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 items-center justify-center text-text md:hidden"
+          className="press inline-flex h-11 w-11 items-center justify-center text-text md:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -114,7 +114,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => handleSectionNav(link.id)}
-                    className="flex w-full items-baseline gap-4 py-2 text-left text-[28px] font-semibold tracking-tight text-text"
+                    className="press flex w-full items-baseline gap-4 py-2 text-left text-[28px] font-semibold tracking-tight text-text"
                   >
                     {link.label}
                   </button>

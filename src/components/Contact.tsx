@@ -41,7 +41,7 @@ export default function Contact() {
                 href={row.href}
                 target={row.id === "phone" ? undefined : "_blank"}
                 rel={row.id === "phone" ? undefined : "noopener noreferrer"}
-                className="group inline-flex items-center gap-1 text-accent hover:underline"
+                className="press group inline-flex items-center gap-1 text-accent hover:underline"
               >
                 {row.id === "phone" ? row.value : row.label}
                 <Chevron />

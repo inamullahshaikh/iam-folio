@@ -1,5 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import {
@@ -51,13 +52,18 @@ export default function ProjectDetail() {
     <div className="min-h-dvh">
       <Navbar />
 
-      <main className="pt-[calc(4.5rem+env(safe-area-inset-top))]">
+      <motion.main
+        className="pt-[calc(4.5rem+env(safe-area-inset-top))]"
+        initial={{ opacity: 0, transform: "translateY(12px)" }}
+        animate={{ opacity: 1, transform: "translateY(0px)" }}
+        transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+      >
         <article className="section-pad pb-8">
           <div className="mx-auto max-w-4xl">
             <button
               type="button"
               onClick={() => navigate({ pathname: "/", hash: "projects" })}
-              className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-accent"
+              className="press inline-flex items-center gap-2 text-sm text-text-muted hover:text-accent"
             >
               <svg
                 className="h-4 w-4"
@@ -215,7 +221,7 @@ export default function ProjectDetail() {
               {prev ? (
                 <Link
                   to={`/projects/${projectSlug(prev.id)}`}
-                  className="tile group p-6 transition-colors hover:bg-[#232325]"
+                  className="press tile group p-6 hover:bg-[#232325]"
                 >
                   <span className="text-sm text-text-muted">{projectsCopy.prevProject}</span>
                   <span className="mt-2 block font-medium text-text group-hover:text-accent">{prev.name}</span>
@@ -226,7 +232,7 @@ export default function ProjectDetail() {
               {next ? (
                 <Link
                   to={`/projects/${projectSlug(next.id)}`}
-                  className="tile group p-6 text-right transition-colors hover:bg-[#232325]"
+                  className="press tile group p-6 text-right hover:bg-[#232325]"
                 >
                   <span className="text-sm text-text-muted">{projectsCopy.nextProject}</span>
                   <span className="mt-2 block font-medium text-text group-hover:text-accent">{next.name}</span>
@@ -235,7 +241,7 @@ export default function ProjectDetail() {
             </nav>
           </div>
         </article>
-      </main>
+      </motion.main>
 
       <Footer />
     </div>
