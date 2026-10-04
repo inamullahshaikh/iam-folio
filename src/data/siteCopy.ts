@@ -1,11 +1,12 @@
 export const siteCopy = {
-  ctaLine: "I'm looking for full time AI engineering roles. Remote, or on site in Islamabad.",
+  ctaLine: "I'm an AI engineer at Taraz Technologies in Islamabad. Always open to talking about agents, retrieval, and systems that have to hold up.",
 
   oneLiner:
     "I'm an AI engineer. I build LLM agents, RAG pipelines, and computer vision systems, and I care most about the part that makes them trustworthy in production: evaluation, grounding, and guardrails.",
 
   longBioParagraphs: [
     "I'm an AI engineer. I build systems where a model has to do real work: agents that plan and run multi-step tasks, retrieval pipelines that answer from real documents, and vision models that watch a live feed. Getting a demo to work is the easy part. I focus on making it hold up in production.",
+    "Right now I'm an AI engineer at Taraz Technologies, working on TOS 2.0, the company's internal operating platform. It integrates Odoo ERP with internal services to automate supply chain operations end to end. Enterprise work is a different kind of hard from model work: the data is real, the processes are already running, and nothing is allowed to break while you change it.",
     "Relay is where that comes together. It's a multi-tenant agent platform on LangGraph where companies connect their own tools and the agent plans, runs, and validates business tasks. Every answer gets a groundedness check before it reaches the user, and every action that changes state waits for a human to approve it. An eval harness blocks CI when quality regresses.",
     "Before that, my Final Year Project, ForeSyte, taught me the model side. I collected and labeled 3,100 images, trained YOLOv8 with PyTorch and CUDA to 91% precision and 96% recall, and served it through FastAPI to a live dashboard.",
     "My RAG work runs the same way. On FastCite I got answer accuracy up to 98% and cut hallucination by about 91%. On Startup and Law RAG I hit 96% accuracy on legal questions. The lesson I keep relearning is that retrieval quality, not the model, decides most of the outcome.",
@@ -14,14 +15,14 @@ export const siteCopy = {
 
   aboutQuickFacts: {
     locationSuffix: ", open to remote",
-    currentFocus: "LLM agents, RAG and retrieval quality, LLM evaluation, and applied computer vision",
+    currentFocus: "ERP integration and supply chain automation, LLM agents, RAG and retrieval quality, LLM evaluation",
   },
 
   aboutSubtitle: "What I build, how I think about it, and why it holds up in production.",
 
   stats: [
     { label: "Recall on my YOLOv8 detection model" },
-    { label: "Months as an AI intern at Komatsu" },
+    { label: "Months of professional AI engineering" },
     { label: "LLM agent and RAG systems shipped" },
   ],
 
@@ -256,7 +257,7 @@ export const siteCopy = {
   },
 
   experience: {
-    subtitle: "An AI internship, and a cybersecurity one. The second is why my agents ask before they act.",
+    subtitle: "A current AI engineering role, an AI internship, and a cybersecurity one. The last is why my agents ask before they act.",
     summary:
       "Five months building AI driven software at Komatsu Pakistan Soft, across prototype and integration phases, in an Agile, Git based team. It's where I learned that the hard part of AI is integration: getting a model to behave inside a real system, under real staging conditions.",
     bullets: [

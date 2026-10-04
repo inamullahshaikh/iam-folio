@@ -14,9 +14,11 @@ export default function Skills() {
           {skillCategories.map((category) => (
             <div key={category.id} className="grid gap-3 py-6 md:grid-cols-[1fr_2fr] md:gap-12">
               <dt className="text-[17px] font-semibold text-text">{category.title}</dt>
-              <dd className="flex flex-wrap gap-x-5 gap-y-2 text-[17px] text-text-muted">
+              <dd className="flex flex-wrap gap-2">
                 {category.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
+                  <span key={tag} className="chip">
+                    {tag}
+                  </span>
                 ))}
               </dd>
             </div>

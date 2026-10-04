@@ -2,7 +2,8 @@ import { educationTimeline, experienceCopy, experiences } from "../data/portfoli
 import { useReveal, revealSectionClass } from "../hooks/useReveal";
 import SectionHeading from "./SectionHeading";
 
-function formatMonth(value: string) {
+function formatMonth(value: string | undefined) {
+  if (!value || !/^\d{4}-\d{2}$/.test(value)) return value ?? "Present";
   const [year, month] = value.split("-").map(Number);
   return new Date(year, month - 1).toLocaleString("en-US", { month: "short", year: "numeric" });
 }

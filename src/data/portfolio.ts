@@ -22,9 +22,21 @@ export const experienceCopy = siteCopy.experience;
 export const contactCopy = siteCopy.contact;
 export const footerCopy = siteCopy.footer;
 
+const monthsSince = (yearMonth: string) => {
+  const [year, month] = yearMonth.split("-").map(Number);
+  const now = new Date();
+  return Math.max(0, (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month));
+};
+
+const currentRole = portfolio.experience.find((item) => item.end_date === "Current");
+
+// Komatsu internship plus however long the current role has run.
+export const professionalMonths =
+  achievements.internship_months + (currentRole ? monthsSince(currentRole.start_date) : 0);
+
 export const stats = [
   { value: 96, suffix: "%", label: siteCopy.stats[0].label },
-  { value: achievements.internship_months, suffix: "", label: siteCopy.stats[1].label },
+  { value: professionalMonths, suffix: "", label: siteCopy.stats[1].label },
   {
     value: achievements.rag_projects_count + (achievements.llm_agent_projects ?? 0),
     suffix: "",
@@ -52,6 +64,7 @@ export const aboutQuickFacts = [
       personal.location.open_to_remote ? siteCopy.aboutQuickFacts.locationSuffix : ""
     }`,
   },
+  ...(currentRole ? [{ label: "Currently", value: `${currentRole.role} at ${currentRole.company}` }] : []),
   {
     label: "Education",
     value: `${bsDegree.institution}, ${bsDegree.degree.replace("Bachelor of Science in ", "BS ")}, graduated June 2026`,
@@ -380,12 +393,15 @@ export function getAdjacentProjects(slug: string): {
 
 // Experience / Contact
 
-// First entry (Komatsu) uses the hand-written site copy; the rest use JSON text.
-export const experiences = portfolio.experience.map((item, i) => ({
-  ...item,
-  summaryText: i === 0 ? siteCopy.experience.summary : item.summary,
-  bullets: i === 0 ? [...siteCopy.experience.bullets] : item.responsibilities,
-}));
+// The Komatsu entry uses the hand-written site copy; the rest use JSON text.
+export const experiences = portfolio.experience.map((item) => {
+  const useSiteCopy = item.id === "exp_komatsu_ai_intern";
+  return {
+    ...item,
+    summaryText: useSiteCopy ? siteCopy.experience.summary : item.summary,
+    bullets: useSiteCopy ? [...siteCopy.experience.bullets] : item.responsibilities,
+  };
+});
 
 export const contactRows = [
   { id: "email", label: "Email", value: personal.contact.email, href: `mailto:${personal.contact.email}` },

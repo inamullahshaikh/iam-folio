@@ -2,7 +2,7 @@
   "meta": {
     "version": "1.0",
     "source_of_truth": "main.tex",
-    "last_updated": "2026-06-12",
+    "last_updated": "2026-10-05",
     "purpose": "Context payload for AI prompts to generate a detailed developer portfolio website",
     "companion_file": "application_context.json",
     "companion_note": "For job applications (CV + cover letter), use application_context.json with general_prompt.txt. For portfolio website builds in Cursor, use portfolio_prompt.txt.",
@@ -41,14 +41,15 @@
     }
   },
   "identity": {
-    "one_liner": "CS graduate who builds full-stack and AI systems, computer vision, RAG pipelines, LLM agents, and Dockerized microservices.",
-    "short_bio": "Computer Science graduate from FAST-NUCES (June 2026), based in Islamabad. I build production-style systems across Python/FastAPI backends, React/Next.js frontends, and AI pipelines, RAG, LLM agents (LangChain/Groq), real-time computer vision, and async Celery workers. I've Dockerized FastCite and EventSync microservices, deployed live apps (VirtualXI), and completed a five-month AI internship at Komatsu Pakistan Soft.",
+    "one_liner": "AI engineer who builds LLM agents, RAG pipelines, and computer vision systems, and integrates them into enterprise platforms and ERP-driven workflows.",
+    "short_bio": "Computer Science graduate from FAST-NUCES (June 2026), based in Islamabad, currently a Trainee AI Engineer at Taraz Technologies working on TOS 2.0, an internal platform that integrates Odoo ERP to automate end-to-end supply chain operations. I build production-style systems across Python/FastAPI backends, React/Next.js frontends, and AI pipelines: RAG, LLM agents (LangChain/LangGraph), real-time computer vision, and async Celery workers. I've Dockerized FastCite and EventSync microservices, deployed live apps (VirtualXI), and completed a five-month AI internship at Komatsu Pakistan Soft.",
     "long_bio_paragraphs": [
-      "I'm a software engineer with a bias toward backend systems and applied AI. Most of my recent work lives at the intersection of FastAPI, Celery, React, and LLM-backed retrieval, taking messy documents or live video inputs and turning them into reliable, usable products.",
+      "I'm an AI engineer with a bias toward backend systems and applied AI. I currently work on TOS 2.0 at Taraz Technologies, an internal platform that integrates Odoo ERP to automate supply chain operations end to end. Most of my other work lives at the intersection of FastAPI, Celery, React, and LLM-backed retrieval, taking messy documents or live video inputs and turning them into reliable, usable products.",
       "My Final Year Project (ForeSyte) pushed me into real-time computer vision: I trained YOLOv8 on a custom cheating-detection dataset with PyTorch and CUDA on Kaggle, integrated MediaPipe for invigilator tracking, and shipped FastAPI inference with a React dashboard. Side projects like Startup & Law RAG, FastCite, and Resumind taught me how to design async pipelines and LLM agents that don't fall over on bad inputs or heavy loads.",
       "I'm comfortable across the stack when needed, but I'm happiest owning the data flow: ingest → process → serve → monitor. I containerize services with Docker, work in Agile teams, and use AI-native tooling (Cursor) daily."
     ],
     "differentiators": [
+      "Enterprise ERP integration and supply chain automation on TOS 2.0 (Odoo, Python, PostgreSQL)",
       "End-to-end computer vision FYP: PyTorch training → YOLOv8 inference → FastAPI → React",
       "Multiple RAG systems plus Resumind LLM agent (LangChain/Groq) with scoring workflows",
       "Docker containerization on FastCite (FastAPI/Celery) and EventSync microservices",
@@ -63,12 +64,9 @@
       "Reliability-focused automation (browser agents, workflow orchestration)"
     ],
     "not_yet_claimed_on_record": [
-      "LangChain",
-      "LangGraph",
       "n8n",
       "Selenium / Cypress / Playwright (formal QA automation)",
       "JIRA / Mantis",
-      "PostgreSQL / MySQL (only SQL Server listed in master)",
       "Claude API / OpenAI API in production code (verify stack before claiming on CV)",
       "Browser automation (Puppeteer, Playwright)",
       "Tableau / Power BI / Superset"
@@ -105,6 +103,36 @@
   ],
   "experience": [
     {
+      "id": "exp_taraztechnologies_trainee_ai_engineer",
+      "role": "Trainee AI Engineer",
+      "company": "Taraz Technologies",
+      "location": "Islamabad, Pakistan",
+      "start_date": "2026-09",
+      "end_date": "Current",
+      "employment_type": "Trainee",
+      "summary": "Contributing to Taraz Operating System (TOS 2.0), an internal platform integrating Odoo ERP with internal services to automate end-to-end supply chain operations.",
+      "responsibilities": [
+        "Contribute to TOS 2.0, the company's internal operating platform.",
+        "Integrate Odoo ERP modules with internal services.",
+        "Build and support REST API integrations between platform components.",
+        "Contribute to automation of end-to-end supply chain workflows.",
+        "Work in an Agile/Scrum team using Git-based version control."
+      ],
+      "achievements": [],
+      "technologies": [
+        "Python",
+        "Odoo",
+        "ERP Integration",
+        "REST APIs",
+        "PostgreSQL",
+        "Git",
+        "GitHub",
+        "Agile",
+        "Scrum"
+      ],
+      "featured_on_portfolio": true
+    },
+    {
       "id": "exp_komatsu_ai_intern",
       "role": "AI Intern",
       "company": "Komatsu Pakistan Soft",
@@ -112,19 +140,26 @@
       "start_date": "2025-08",
       "end_date": "2025-12",
       "employment_type": "Internship",
-      "summary": "Contributed to AI-driven software development in an Agile, Git-based team across prototype and integration phases.",
+      "summary": "Worked on AI and backend-focused software projects during an engineering internship, contributing to RAG applications, APIs, and supporting software systems.",
       "responsibilities": [
-        "Collaborated with development team using Git version control and Agile methodologies",
-        "Worked with AI-driven systems in a production-oriented engineering environment",
-        "Supported integration and debugging of intelligent software components",
-        "Contributed to technical documentation and cross-functional handoffs"
+        "Built and contributed to AI-focused applications using Python and FastAPI.",
+        "Worked on RAG-based document search and question-answering workflows.",
+        "Developed and integrated backend services using PostgreSQL, Celery, and Docker.",
+        "Contributed to software projects including AI Resume Analyser and internal management systems.",
+        "Collaborated with the development team using Git, GitHub, and Agile practices."
       ],
       "achievements": [
-        "Contributed across 2 delivery phases (prototype and integration)",
-        "Improved release readiness before broader internal rollout"
+        "Contributed to FastCite, a RAG-based study assistant with document search and citation generation.",
+        "Worked across multiple software projects covering AI, backend development, and system design."
       ],
       "technologies": [
         "Python",
+        "FastAPI",
+        "RAG",
+        "PostgreSQL",
+        "Celery",
+        "Docker",
+        "React",
         "Git",
         "GitHub",
         "Agile",
@@ -140,14 +175,19 @@
       "start_date": "2024-07",
       "end_date": "2024-08",
       "employment_type": "Internship",
-      "summary": "Worked in cybersecurity, supporting threat awareness, security monitoring, and related operational tasks.",
+      "summary": "Completed a hands-on networking-focused internship involving daily laboratory exercises designed to strengthen practical Computer Networks concepts.",
       "responsibilities": [
-        "Supported threat awareness and security monitoring",
-        "Assisted with security-related operational tasks",
-        "Gained hands-on exposure to telecom-sector security practices and compliance-oriented workflows"
+        "Completed daily laboratory tasks covering core Computer Networks concepts.",
+        "Worked with networking fundamentals including Internet architecture, protocols, network edge and core.",
+        "Studied and practiced concepts related to delay, packet loss, throughput, and network performance.",
+        "Built practical understanding of networking through structured lab exercises."
       ],
       "achievements": [],
-      "technologies": [],
+      "technologies": [
+        "Computer Networks",
+        "TCP/IP",
+        "Networking Protocols"
+      ],
       "featured_on_portfolio": true
     }
   ],

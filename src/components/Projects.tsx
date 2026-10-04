@@ -43,7 +43,7 @@ function FeaturedTile({ project, wide }: { project: PortfolioProject; wide: bool
 
         <ul className="mt-auto flex flex-wrap gap-2 pt-10">
           {project.techTags.slice(0, TAG_LIMIT).map((tag) => (
-            <li key={tag} className="rounded-full bg-white/[0.06] px-3 py-1.5 text-[13px] text-text">
+            <li key={tag} className="chip">
               {tag}
             </li>
           ))}

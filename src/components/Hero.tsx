@@ -52,12 +52,11 @@ export default function Hero() {
         </div>
         <dl className="grid gap-3">
           {stats.map((stat) => (
-            <div key={stat.label} className="tile flex flex-col justify-end p-7 md:p-8">
-              <dt className="sr-only">{stat.label}</dt>
+            <div key={stat.label} className="tile flex flex-col-reverse p-7 md:p-8">
+              <dt className="mt-2 text-base font-medium text-text-muted">{stat.label}</dt>
               <dd className="text-5xl font-semibold tracking-[-0.015em] tabular-nums text-text md:text-6xl">
                 <StatNumber value={stat.value} suffix={stat.suffix} />
               </dd>
-              <dd className="mt-2 text-base font-medium text-text-muted">{stat.label}</dd>
             </div>
           ))}
         </dl>

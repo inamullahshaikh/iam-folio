@@ -11,7 +11,8 @@
   --color-button: #0071e3;
   --color-button-hover: #0077ed;
   --font-sans:
-    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+    "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", system-ui,
+    sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
@@ -50,6 +51,11 @@
   [role="tab"] {
     user-select: none;
     -webkit-user-select: none;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: default;
   }
 
   ::selection {
@@ -90,6 +96,21 @@
   .tile {
     border-radius: 28px;
     background: var(--color-bg-elevated);
+    border: 1px solid var(--color-line);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 1px 2px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Tag/skill chip, shared by Projects and Skills */
+  .chip {
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.375rem 0.75rem;
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+    color: var(--color-text);
   }
 
   /* Translucent chrome: content scrolls underneath */
