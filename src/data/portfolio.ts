@@ -22,21 +22,40 @@ export const experienceCopy = siteCopy.experience;
 export const contactCopy = siteCopy.contact;
 export const footerCopy = siteCopy.footer;
 
-const monthsSince = (yearMonth: string) => {
+const monthIndex = (yearMonth: string) => {
   const [year, month] = yearMonth.split("-").map(Number);
-  const now = new Date();
-  return Math.max(0, (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month));
+  return year * 12 + month - 1;
 };
+
+const now = new Date();
+const thisMonth = now.getFullYear() * 12 + now.getMonth();
 
 const currentRole = portfolio.experience.find((item) => item.end_date === "Current");
 
-// Komatsu internship plus however long the current role has run.
-export const professionalMonths =
-  achievements.internship_months + (currentRole ? monthsSince(currentRole.start_date) : 0);
+// Every role in the experience tab: ended roles count their end month, the current role runs up to now.
+// ponytail: overlapping roles would double count; merge ranges if that ever happens.
+export const professionalMonths = portfolio.experience.reduce((total, item) => {
+  const end = item.end_date === "Current" ? thisMonth : monthIndex(item.end_date) + 1;
+  return total + Math.max(0, end - monthIndex(item.start_date));
+}, 0);
+
+const professionalYears = Math.floor(professionalMonths / 12);
+
+const experienceStat = professionalYears
+  ? {
+      value: professionalYears,
+      suffix: professionalMonths % 12 ? "+" : "",
+      unit: professionalYears === 1 ? "Year" : "Years",
+    }
+  : { value: professionalMonths, suffix: "", unit: professionalMonths === 1 ? "Month" : "Months" };
 
 export const stats = [
   { value: 96, suffix: "%", label: siteCopy.stats[0].label },
-  { value: professionalMonths, suffix: "", label: siteCopy.stats[1].label },
+  {
+    value: experienceStat.value,
+    suffix: experienceStat.suffix,
+    label: `${experienceStat.unit} ${siteCopy.stats[1].label}`,
+  },
   {
     value: achievements.rag_projects_count + (achievements.llm_agent_projects ?? 0),
     suffix: "",

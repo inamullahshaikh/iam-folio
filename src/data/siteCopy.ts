@@ -22,7 +22,7 @@ export const siteCopy = {
 
   stats: [
     { label: "Recall on my YOLOv8 detection model" },
-    { label: "Months of professional AI engineering" },
+    { label: "of professional experience" },
     { label: "LLM agent and RAG systems shipped" },
   ],
 
